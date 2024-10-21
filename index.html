@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel='stylesheet' href='style.css' />
+</head>
+
+<body>
+  <div id='header'>
+    <img id="logo" src='images/my_logo.png'/>
+
+    <div class='headerDiv'>
+      <input id='cityNameInput' type='text' placeholder='Add new city' />
+      <button id='addCity'><img id='glass' src='images/glass.png' /></button>
+    </div>
+    <div id='user'>
+      <div id='username' class='hidden'></div>
+      <img id='userIcon' src='images/user.png'>
+    </div>
+  </div>
+
+  <div id='cityList'></div>
+
+  <div id='overlay'>
+      <div id='popover'>
+        <div id='initial-buttons'>
+          <h2>Welcome !</h2>
+          <button id='button-signup'>Sign Up</button>
+          <button id='button-signin'>Sign In</button>
+        </div>
+        <div id='signup' class='hidden'>
+          <h2>Registration</h2>
+            <form id='signup-form'>
+              <div class='container-form'> 
+                <div class='input-group'>
+                  <label class='place-holder'>Username* :</label>
+                  <input class='button-form' type='text' name='userName' required><br>
+                </div>
+                <div class='input-group'>
+                  <label class='place-holder'>Email address* :</label>
+                  <input class='button-form' type='email' name='email' required><br>
+                </div>
+                <div class='input-group'>
+                  <label class='place-holder'>Password* :</label>
+                  <input class='button-form' type='password' name='password' required>
+                </div>
+              </div>
+                <div class='container-button-form'>
+                  <button id='return-signup' type='button'>Return</button>
+                  <button id='submit-signup' type='submit'>Submit</button>
+                </div>
+            </form>
+        </div>
+        <div id='signin' class='hidden'>
+          <h2>Login</h2>
+            <form id='signin-form'>
+              <div class='container-form'>
+                <div class='input-group'>
+                  <label class='place-holder'>Username or email address* :</label>
+                  <input class='button-form' type='text' name='infos' required><br>
+                </div>
+                <div class='input-group'>
+                  <label class='place-holder'>Password* :</label>
+                  <input class='button-form' type=password name='password' required><br>
+                </div>
+                <button id='button-forgot-password'>Forgot your password ?</button>
+              </div>
+              <div class='container-button-form'>
+                <button id='return-signin' type='button'>Return</button>
+                <button id='submit-signin' type='submit'>Submit</button>
+              </div>
+            </form>
+        </div>
+        <div id='forgot-password-form' class='hidden'>
+          <h2>New password</h2>
+          <form>
+            <div class='container-form'>
+              <div class='input-group'>
+                <label class='place-holder'>Username or email address* :</label>
+                <input class='button-form' type='text' required><br>
+              </div>
+              <div class='input-group'>
+                <label class='place-holder'>New password* :</label>
+                <input class='button-form' type='password' required><br>
+              </div>
+            </div>
+            <div class='container-button-form'>
+              <button id='return-forgot-password' type='button'>Return</button>
+              <button id='submit-forgot-password' type='submit'>Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id='success-signup' class='hidden'>
+        <h2>Registration Successful, Thank You!</h2>
+        <p>Before you can login, please verify your email address by clicking the link that has just been sent to you. This link will expire in 15 minutes.</p>
+        <p>In case you don't see the email, please check your spam folder</p>
+      </div>
+      <div id='failed-signup' class='hidden'>
+        <h2>Sorry, Registration Failed ...</h2>
+        <p>The username or email address already exists, or the email address has not yet been verified.</p>
+        <p>Please try again.</p>
+      </div>
+      <div id='success-signin' class='hidden'>
+        <h2>Hi</h2>
+      </div>
+      <div id='failed1-signin' class='hidden'>
+        <h2>Your email address has not been verified yet.</h2>
+        <p>Please check your inbox and click on the verification link to activate your account.</p>
+        <p>If you don't see the email, please check your spam folder.</p>
+      </div>
+      <div id='failed2-signin' class='hidden'>
+        <h2>User not found or incorrect password ...</h2>
+        <p>Please verify your information and try again.</p>
+      </div>
+  </div>
+  <script src='script.js'></script>
+</body>
+
+</html>
