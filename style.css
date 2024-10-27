@@ -72,8 +72,40 @@ input:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 120px;
+    width: 250px;
     font-size: 22px;
+}
+
+#username {
+    display: none;
+    align-items: center;
+    background-color: rgba(240, 240, 240, 0.26);
+    border: 1px solid #DFDFDF;
+    border-radius: 16px;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    font-family: Inter, sans-serif;
+    font-size: 18px;
+    justify-content: center;
+    line-height: 5px;
+    padding: 14px 22px;
+    text-decoration: none;
+    transition: all .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 180px;
+}
+  
+#username:active,
+#username:hover {
+  outline: 0;
+}
+
+#username:hover {
+  background-color: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.19);
 }
 
 #userIcon {
@@ -165,13 +197,13 @@ input:focus {
     opacity: 0.8;
 }
 
-#button-forgot-password {
+#forgot-password-button {
     background-color: transparent;
     color: blue;
     border: none;
 } 
 
-#button-forgot-password:hover {
+#forgot-password-button:hover {
     opacity: 0.4;
     color: black;
 }
@@ -275,7 +307,7 @@ input::placeholder {
     font-style: italic;
 }
 
-#return-signup, #return-signin, #return-forgot-password {
+#return-signup, #return-signin, #return-forgot-password, #return-forgot-password {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -292,7 +324,7 @@ input::placeholder {
     font-weight: bold;
 }
 
-#return-signup, #return-signin:hover {
+#return-signup:hover, #return-signin:hover, #return-forgot-password:hover, #return-forgot-password:hover {
     opacity: 0.8;
 }
 
@@ -313,7 +345,7 @@ input::placeholder {
     font-weight: bold;
 }
 
-#submit:hover {
+#submit-signup:hover, #submit-signin:hover, #submit-forgot-password:hover, #submit-forgot-password {
     opacity: 0.8;
 }
  
@@ -324,7 +356,7 @@ input::placeholder {
     padding-left: 30px;
 }
 
-#success-signup, #failed-signup, #success-signin, #failed1-signin, #failed2-signin {
+#success-signup, #failed-signup, #success-signin, #failed0-signin, #failed1-signin, #failed2-signin, #failed3-signin, #failed4-signin, #success-update-password, #failed1-update-password, #failed2-update-password {
     background-color: white;
     margin: 2%;
     padding: 20px;
