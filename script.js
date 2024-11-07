@@ -267,6 +267,10 @@ overlayCount.addEventListener('click', (event) => {
 	if (event.target === overlayCount) {
 		initialContainer.classList.remove('show-count');
 		overlayCount.style.display = 'none';
+		signup.classList.add('hidden');
+		signin.classList.add('hidden');
+		forgotPassword.classList.add('hidden')
+		initialContainer.style.display = 'flex'
 		document.getElementById('success-signup').classList.add('hidden');
 		document.getElementById('failed-signup').classList.add('hidden');
 		document.getElementById('failed1-signin').classList.add('hidden');
@@ -277,6 +281,9 @@ overlayCount.addEventListener('click', (event) => {
 		document.getElementById('signup-form').password.value = '';
 		document.getElementById('signin-form').infos.value = '';
 		document.getElementById('signin-form').password.value = '';
+		document.getElementById('forgot-password-form').userName.value = '';
+		document.getElementById('forgot-password-form').email.value = ''
+		document.getElementById('forgot-password-form').password.value = '';
 	};
 
 	signupButton.addEventListener('click', () => {
@@ -357,7 +364,7 @@ document.getElementById('signup-form').addEventListener('submit', (event) => {
 				document.getElementById('signup-form').email.value = '';
 				document.getElementById('signup-form').password.value = '';
 				window.location.reload();
-			}, 6000);
+			}, 10000);
 		} else {
 			document.getElementById('failed-signup').classList.remove('hidden');
 			setTimeout(function() {
@@ -503,9 +510,9 @@ document.getElementById('forgot-password-form').addEventListener('submit', (even
 			setTimeout(function() {
 				document.getElementById('success-update-password').classList.add('hidden');
 				overlayCount.style.display = 'none';
-				document.getElementById('forgot-password-forme').userName.value = '';
-				document.getElementById('forgot-password-forme').email.value = ''
-				document.getElementById('forgot-password-forme').password.value = '';
+				document.getElementById('forgot-password-form').userName.value = '';
+				document.getElementById('forgot-password-form').email.value = ''
+				document.getElementById('forgot-password-form').password.value = '';
 				window.location.reload();
 			}, 6000);
 		} if (updatePasswordData.error === 'New password not yet confirmed') {
@@ -516,9 +523,9 @@ document.getElementById('forgot-password-form').addEventListener('submit', (even
 			etTimeout(function() {
 				document.getElementById('failed1-update-password').classList.add('hidden');
 				overlayCount.style.display = 'none';
-				document.getElementById('forgot-password-forme').userName.value = '';
-				document.getElementById('forgot-password-forme').email.value = ''
-				document.getElementById('forgot-password-forme').password.value = '';
+				document.getElementById('forgot-password-form').userName.value = '';
+				document.getElementById('forgot-password-form').email.value = ''
+				document.getElementById('forgot-password-form').password.value = '';
 				window.location.reload();
 			}, 6000);
 		} if (updatePasswordData.error === 'User not found') {
@@ -529,9 +536,9 @@ document.getElementById('forgot-password-form').addEventListener('submit', (even
 			setTimeout(function() {
 				document.getElementById('failed2-update-password').classList.add('hidden');
 				overlayCount.style.display = 'none';
-				document.getElementById('forgot-password-forme').userName.value = '';
-				document.getElementById('forgot-password-forme').email.value = ''
-				document.getElementById('forgot-password-forme').password.value = '';
+				document.getElementById('forgot-password-form').userName.value = '';
+				document.getElementById('forgot-password-form').email.value = ''
+				document.getElementById('forgot-password-form').password.value = '';
 				window.location.reload();
 			}, 6000);
 		}
