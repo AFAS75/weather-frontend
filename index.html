@@ -9,72 +9,59 @@
   <div id='header'>
     <img id="logo" src='images/my_logo.png'/>
 
-    <div class='headerDiv'>
+    <div class='search'>
       <input id='cityNameInput' type='text' placeholder='Add new city' />
       <button id='addCity'><img id='glass' src='images/glass.png' /></button>
     </div>
-    <div id='user'>
-      <button id='username'></button>
-      <p></p>
-      <img id='userIcon' src='images/user.png'>
+
+    <img id='userIcon' src='images/user.png'>
+  </div>
+
+  <div id='cityList'>
+    <div id='message' class='hidden'>
+      Personalize the weather forecast for your favorite cities by adding a new city now!</div>
+  </div>
+
+  <div id='overlay-home-page'>
+    <div id='popover-home-page'>
+      <div id='error' class='hidden'>
+        <h2>City already exists or not found ...</h2>
+        <p>Please verify and try again.</p>
+      </div>
+      <div id='session-timeout' class='hidden'> 
+        <h2>Session Expired</h2> 
+        <p>Your session has been inactive for too long.</p> 
+        <p>Please log in again to continue.</p> 
+      </div>
     </div>
   </div>
 
-  <div id='cityList'></div>
+  <div id='overlay-logged'>
+    <div id='popover-logged'>
+      <div id='user'>
+        <p id='username'></p>
+        <p id='email'></p>
+      </div>
+      <hr class='hr'>
+      <button id='button-logout'>Log out</button>
+    </div>
+  </div>
 
-  <div id='overlay'>
-      <div id='popover'>
+  <div id='overlay-count'>
+    <div id='popover-count'>
+      <div id='initial-container'>
+        <p>Create an account or sign in to save and to keep <br> your the weather in your favorite cities</p>
+        <div id="vertical-line"></div>
         <div id='initial-buttons'>
-          <h2>Welcome</h2>
           <button id='button-signup'>Sign Up</button>
+          <p id='p'>or</p>
           <button id='button-signin'>Sign In</button>
         </div>
-        <div id='signup' class='hidden'>
-          <h2>Registration</h2>
-            <form id='signup-form'>
-              <div class='container-form'> 
-                <div class='input-group'>
-                  <label class='place-holder'>Username* :</label>
-                  <input class='button-form' type='text' name='userName' required>
-                </div>
-                <div class='input-group'>
-                  <label class='place-holder'>Email address* :</label>
-                  <input class='button-form' type='email' name='email' required>
-                </div>
-                <div class='input-group'>
-                  <label class='place-holder'>Password* :</label>
-                  <input class='button-form' type='password' name='password' required>
-                </div>
-              </div>
-                <div class='container-button-form'>
-                  <button id='return-signup' type='button'>Return</button>
-                  <button id='submit-signup' type='submit'>Submit</button>
-                </div>
-            </form>
-        </div>
-        <div id='signin' class='hidden'>
-          <h2>Login</h2>
-            <form id='signin-form'>
-              <div class='container-form'>
-                <div class='input-group'>
-                  <label class='place-holder'>Username or email address* :</label>
-                  <input class='button-form' type='text' name='infos'>
-                </div>
-                <div class='input-group'>
-                  <label class='place-holder'>Password* :</label>
-                  <input class='button-form' type='password' name='password' required>
-                </div>
-                <button id='forgot-password-button'>Forgot your password ?</button>
-              </div>
-              <div class='container-button-form'>
-                <button id='return-signin' type='button'>Return</button>
-                <button id='submit-signin' type='submit'>Submit</button>
-              </div>
-            </form>
-        </div>
-        <div id='forgot-password' class='hidden'>
-          <h2>New password</h2>
-          <form id='forgot-password-form'>
+      </div>
+      <div id='signup' class='hidden'>
+        <h2>Registration</h2>
+        <hr class='hr'>
+          <form id='signup-form'>
             <div class='container-form'> 
               <div class='input-group'>
                 <label class='place-holder'>Username* :</label>
@@ -90,69 +77,114 @@
               </div>
             </div>
               <div class='container-button-form'>
-                <button id='return-forgot-password' type='button'>Return</button>
-                <button id='submit-forgot-password' type='submit'>Submit</button>
+                <button id='return-signup' type='button'>Return</button>
+                <button id='submit-signup' type='submit'>Submit</button>
               </div>
           </form>
-        </div>
       </div>
-      <div id='success-signup' class='hidden'>
-        <h2>Registration successful, thank you!</h2>
-        <p>Before you can log in, please verify your email address by clicking the link that has just been sent to you. This link will expire in 15 minutes.</p>
-        <p>In case you don't see the email, please check your spam folder</p>
+      <div id='signin' class='hidden'>
+        <h2>Log in</h2>
+        <hr class='hr'>
+          <form id='signin-form'>
+            <div class='container-form'>
+              <div class='input-group'>
+                <label class='place-holder'>Username or email address* :</label>
+                <input class='button-form' type='text' name='infos'>
+              </div>
+              <div class='input-group'>
+                <label class='place-holder'>Password* :</label>
+                <input class='button-form' type='password' name='password' required>
+              </div>
+              <button id='forgot-password-button'>Forgot your password ?</button>
+            </div>
+            <div class='container-button-form'>
+              <button id='return-signin' type='button'>Return</button>
+              <button id='submit-signin' type='submit'>Submit</button>
+            </div>
+          </form>
       </div>
-      <div id='failed-signup' class='hidden'>
-        <h2>Sorry, registration failed ...</h2>
-        <p>The username or email address already exists, or the email address has not yet been verified.</p>
-        <p>Please try again.</p>
-        <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a><p></p>
+      <div id='forgot-password' class='hidden'>
+        <h2>New password</h2>
+        <hr class='hr'>
+        <form id='forgot-password-form'>
+          <div class='container-form'> 
+            <div class='input-group'>
+              <label class='place-holder'>Username* :</label>
+              <input class='button-form' type='text' name='userName' required>
+            </div>
+            <div class='input-group'>
+              <label class='place-holder'>Email address* :</label>
+              <input class='button-form' type='email' name='email' required>
+            </div>
+            <div class='input-group'>
+              <label class='place-holder'>Password* :</label>
+              <input class='button-form' type='password' name='password' required>
+            </div>
+          </div>
+            <div class='container-button-form'>
+              <button id='return-forgot-password' type='button'>Return</button>
+              <button id='submit-forgot-password' type='submit'>Submit</button>
+            </div>
+        </form>
       </div>
-      <div id='success-signin' class='hidden'>
-        <h2>Hi</h2>
-      </div>
-      <div id='failed0-signin' class='hidden'>
-        <h2>Sorry, log in failed ...</h2>
-        <p>At least one of the fields is empty. All fields are required to log in.</p>
-        <p>Please fill in all the fields and try again.</p>
-      </div>
-      <div id='failed1-signin' class='hidden'>
-        <h2>Your email address has not been verified yet!</h2>
-        <p>Please check your inbox and click on the verification link to activate your account.</p>
-        <p>If you don't see the email, please check your spam folder.</p>
-        <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a><p></p>
-      </div>
-      <div id='failed2-signin' class='hidden'>
-        <h2>User not found or incorrect password ...</h2>
-        <p>Please verify your information and try again.</p>
-        <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a><p></p>
-      </div>
-      <div id='failed3-signin' class='hidden'>
-        <h2>Already logged in 😃</h2>
-      </div>
-      <div id='failed4-signin' class='hidden'>
-        <h2>Your recenet password change request has not been validated yet!</h2>
-        <p>The new password has not yet been confirmed.</p> 
-        <p>Please check your inbox and click on the link to confirm your recent password change request.</p>
-        <p>If you don't see the email, please check your spam folder.</p>
-        <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a></p>
-      </div>
-      <div id='success-update-password' class='hidden'>
-        <h2>Confirm your request password change!</h2>
-        <p>We have received your request to reset your password. To confirm this change, please click the link in the email that has just been sent to you.</p>
-        <p>After confirming, please log in with de the new password to access your account.</p>
-      </div>
-      <div id='failed1-update-password' class='hidden'>
-        <h2> Password change request failed ...</h2>
-        <p>Your password change request could not be processed because the new password has not yet been confirmed.</p> 
-        <p>Please check your inbox and click on the confirmation link to confirm your recent password change request.</p>
-        <p>If you don't see the email, please check your spam folder.</p>
-        <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a></p>
-      </div>
-      <div id='failed2-update-password' class='hidden'>
-        <h2>User not found ...</h2>
-        <p>Please verify your information and try again.</p>
-        <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a></p>
-      </div>
+    </div>
+    <div id='success-signup' class='hidden'>
+      <h2>Registration successful, thank you !</h2>
+      <p>Before you can log in, please verify your email address by clicking the link that has just been sent to you. This link will expire in 15 minutes.</p>
+      <p>In case you don't see the email, please check your spam folder</p>
+    </div>
+    <div id='failed-signup' class='hidden'>
+      <h2>Sorry, registration failed ...</h2>
+      <p>The username or email address already exists, or the email address has not yet been verified.</p>
+      <p>Please try again.</p>
+      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a><p></p>
+    </div>
+    <div id='success-signin' class='hidden'>
+      <h2></h2>
+    </div>
+    <div id='failed0-signin' class='hidden'>
+      <h2>Sorry, log in failed ...</h2>
+      <p>At least one of the fields is empty. All fields are required to log in.</p>
+      <p>Please fill in all the fields and try again.</p>
+    </div>
+    <div id='failed1-signin' class='hidden'>
+      <h2>Your email address has not been verified yet!</h2>
+      <p>Please check your inbox and click on the verification link to activate your account.</p>
+      <p>If you don't see the email, please check your spam folder.</p>
+      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a><p></p>
+    </div>
+    <div id='failed2-signin' class='hidden'>
+      <h2>User not found or incorrect password ...</h2>
+      <p>Please verify your information and try again.</p>
+      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a><p></p>
+    </div>
+    <div id='failed3-signin' class='hidden'>
+      <h2>Already logged in 😃</h2>
+    </div>
+    <div id='failed4-signin' class='hidden'>
+      <h2>Your recenet password change request has not been validated yet!</h2>
+      <p>The new password has not yet been confirmed.</p> 
+      <p>Please check your inbox and click on the link to confirm your recent password change request.</p>
+      <p>If you don't see the email, please check your spam folder.</p>
+      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a></p>
+    </div>
+    <div id='success-update-password' class='hidden'>
+      <h2>Confirm your request password change !</h2>
+      <p>We have received your request to reset your password. To confirm this change, please click the link in the email that has just been sent to you.</p>
+      <p>After confirming, please log in with de the new password to access your account.</p>
+    </div>
+    <div id='failed1-update-password' class='hidden'>
+      <h2> Password change request failed ...</h2>
+      <p>Your password change request could not be processed because the new password has not yet been confirmed.</p> 
+      <p>Please check your inbox and click on the confirmation link to confirm your recent password change request.</p>
+      <p>If you don't see the email, please check your spam folder.</p>
+      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a></p>
+    </div>
+    <div id='failed2-update-password' class='hidden'>
+      <h2>User not found ...</h2>
+      <p>Please verify your information and try again.</p>
+      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a></p>
+    </div>
   </div>
   <script src='script.js'></script>
 </body>

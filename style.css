@@ -27,6 +27,13 @@ h2 {
     opacity: 0.8;
 }
 
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 40px;
+}
+
 #cityNameInput {
     width: 450px;
     height: 40px;
@@ -43,8 +50,9 @@ input:focus {
     outline: 1px solid white;
 }
 
-::placeholder {
-    color: white;
+input::placeholder {
+    color: #888;
+    font-style: italic;
 }
 
 #addCity {
@@ -62,24 +70,19 @@ input:focus {
     opacity: 0.7;
 }
 
-.headerDiv {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
 #user {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 250px;
-    font-size: 22px;
+    text-align: start; 
+    font-size: 16px;   
 }
 
-#username {
+.hr {
+    margin-bottom: 25px;
+}
+
+#button-logout {
     display: none;
     align-items: center;
-    background-color: rgba(240, 240, 240, 0.26);
+    background-color: white;
     border: 1px solid #DFDFDF;
     border-radius: 16px;
     box-sizing: border-box;
@@ -93,36 +96,30 @@ input:focus {
     text-decoration: none;
     transition: all .2s;
     user-select: none;
-    -webkit-user-select: none;
     touch-action: manipulation;
     width: 180px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
   
-#username:active,
-#username:hover {
+#button-logout:active,
+#button-logout:hover {
   outline: 0;
 }
 
-#username:hover {
-  background-color: #FFFFFF;
+#button-logout:hover {
+  background-color: rgba(201, 179, 179, 0.26);
   border-color: rgba(0, 0, 0, 0.19);
 }
 
 #userIcon {
-    width: 30px;
-    margin-right: 15px;
+    margin-left: 25px;
+    width: 40px;
     cursor: pointer;
 }
 
 #userIcon:hover {
     opacity: 0.4;
 }
-
-/*.divider {
-    width: 1px;
-    height: 25px;
-    background-color: rgb(255, 0, 0);
-}*/
 
 #cityList {
     display: flex;
@@ -150,13 +147,16 @@ input:focus {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     width: 100%;
-    height: 70px;
-    margin: 0;
+    margin: 8% 0 0 0;
     border-radius: 20px 20px 0px 00px;
     font-size: 24px;
 }
 
+.country {
+    margin: 0;
+}
 .description {
     font-size: 18px;
     margin: 1;
@@ -199,16 +199,16 @@ input:focus {
 
 #forgot-password-button {
     background-color: transparent;
-    color: blue;
+    color: black;
     border: none;
+    opacity: 0.4;
 } 
 
 #forgot-password-button:hover {
-    opacity: 0.4;
-    color: black;
+    color: blue;
 }
 
-#overlay {
+#overlay-home-page {
     display: none;
     flex-direction: column;
     position: fixed;
@@ -222,7 +222,7 @@ input:focus {
     align-items: center;
 }
 
-#popover {
+#popover-home-page {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
@@ -230,18 +230,149 @@ input:focus {
     text-align: center;
 }
 
+#overlay-count {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    backdrop-filter: blur(10px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+#popover-count {
+    display: flex;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#overlay-logged {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+/* EFFET SIMPLE D'APPARITION */
+#popover-logged {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transition: opacity 0.9s ease, transform 0.9s ease; 
+    opacity: 0; 
+    transform: scale(0.9);
+}
+
+#overlay-logged.show-logged #popover-logged {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* EFFET OUVERTURE DE DROITE A GAUCHE */
+/* #popover-logged {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transition: opacity 0.4s ease, transform 0.4s ease; 
+    opacity: 0; 
+    transform-origin: top right;
+    transform: scale(0) translateX(100%) translateY(-100%);
+}
+
+#overlay-logged.show #popover-logged {
+    opacity: 1;
+    transform: scale(1) translateX(0) translateY(0);
+} */ 
+
+/* EFFET DEPLACEMENT DU BAS VERS SON POINT FINAL */
+/* #popover-logged {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transition: opacity 0.4s ease, transform 0.4s ease; 
+    opacity: 0; 
+    transform: translateY(100%);
+    z-index: 10;
+}
+
+#overlay-logged.show #popover-logged {
+    opacity: 1;
+    transform: translateY(0);
+} */
+
 .hidden {
     display: none;
+}
+
+#initial-container {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    top:auto;
+    left: auto;
+    transition: opacity 0.4s ease, transform 0.4s ease; 
+    opacity: 0; 
+    transform-origin: top right;
+    transform: scale(0) translateX(100%) translateY(-100%);
+}
+
+#initial-container.show-count {
+    opacity: 1;
+    transform: scale(1) translateX(0) translateY(0);
+} 
+
+#vertical-line { 
+    width: 2px;
+    height: 130px;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: 0 20px 0 20px;
+}
+
+#initial-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#p {
+    margin: 0 0 2px 0;
 }
 
 #button-signup {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20px;
+    height: 40px;
+    width: 150px;
     background-color: #4CAF50;
-    margin: 15px;
-    padding: 15px;
     border-radius: 40px;
     font-size: 20px;
     color: white;
@@ -259,10 +390,9 @@ input:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20px;
+    height: 40px;
+    width: 150px;
     background-color: #008CBA;
-    margin: 15px;
-    padding: 15px;
     border-radius: 40px;
     font-size: 20px;
     color: white;
@@ -296,15 +426,11 @@ input:focus {
 
 .container-button-form {
     display: flex;
+    padding-top: 20px;
 }
 
 .button-form {
     margin: 2%;
-}
-
-input::placeholder {
-    color: #888;
-    font-style: italic;
 }
 
 #return-signup, #return-signin, #return-forgot-password, #return-forgot-password {
@@ -356,11 +482,34 @@ input::placeholder {
     padding-left: 30px;
 }
 
-#success-signup, #failed-signup, #success-signin, #failed0-signin, #failed1-signin, #failed2-signin, #failed3-signin, #failed4-signin, #success-update-password, #failed1-update-password, #failed2-update-password {
+#success-signup, #failed-signup, #success-signin, #failed0-signin, #failed1-signin, #failed2-signin, #failed3-signin, #failed4-signin, #success-update-password, #failed1-update-password, #failed2-update-password, #error, #session-timeout {
     background-color: white;
     margin: 2%;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    top: 65%;
+    left: 42,5%;
+    transition: opacity 0.4s ease, transform 0.4s ease; 
+    opacity: 0; 
+    transform: translateY(100%);
+    z-index: 10;
+}
+
+#success-signup.show, #failed-signup.show, #success-signin.show, #failed0-signin.show, #failed1-signin.show, #failed2-signin.show, #failed3-signin.show, #failed4-signin.show, #success-update-password.show, #failed1-update-password.show, #failed2-update-password.show, #error.show, #session-timeout.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#message {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 250px;
+    padding: 10px;
+    margin-top: 18%;
+    background-color: white;
+    background-size: cover;
+    border-radius: 20px;
 }
