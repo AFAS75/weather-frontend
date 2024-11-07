@@ -23,7 +23,13 @@ body {
 }
 
 h2 {
-    font-weight: 100;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: 500;
     opacity: 0.8;
 }
 
@@ -98,7 +104,7 @@ input::placeholder {
     user-select: none;
     touch-action: manipulation;
     width: 180px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgb(0, 0, 0, 0.26);
 }
   
 #button-logout:active,
@@ -111,13 +117,28 @@ input::placeholder {
   border-color: rgba(0, 0, 0, 0.19);
 }
 
-#userIcon {
+#circl-userIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 60px;
+    height: 60px;
     margin-left: 25px;
+    border-radius: 100%;
+    margin-left: 25px;
+    box-shadow: 0 4px 10px rgb(0, 0, 0, 0.26);
+}
+
+#userIcon {
     width: 40px;
+    height: 40px;
+    max-width: 100%;
+    max-height: 100%;
     cursor: pointer;
 }
 
-#userIcon:hover {
+#userIcon:hover, #circl-userIcon:hover {
     opacity: 0.4;
 }
 
@@ -437,6 +458,7 @@ input::placeholder {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 75px;
     height: 20px;
     background-color: #b64949;
     margin: 15px;
@@ -458,6 +480,7 @@ input::placeholder {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 75px;
     height: 20px;
     background-color: #4CAF50;
     margin: 15px;

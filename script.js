@@ -520,7 +520,7 @@ document.getElementById('forgot-password-form').addEventListener('submit', (even
 			setTimeout(function() {
 				document.getElementById('failed1-update-password').classList.add('show');
 			}, 10);
-			etTimeout(function() {
+			setTimeout(function() {
 				document.getElementById('failed1-update-password').classList.add('hidden');
 				overlayCount.style.display = 'none';
 				document.getElementById('forgot-password-form').userName.value = '';
