@@ -20,7 +20,7 @@
   </div>
 
   <div id='cityList'>
-    <div id='message' class='hidden'>
+    <div id='message-home-page-user' class='hidden'>
       Personalize the weather forecast for your favorite cities by adding a new city now !</div>
   </div>
 
@@ -35,6 +35,11 @@
         <p>Your session has been inactive for too long.</p> 
         <p>Please log in again to continue.</p> 
       </div>
+      <div id='deleted-account' class='hidden'> 
+        <h2>User Account Deleted</h2> 
+        <p>We're sorry to see you go. All your personal data has been permanently erased.</p> 
+        <p>We hope to see you again in the future.</p>
+      </div>
     </div>
   </div>
 
@@ -47,6 +52,12 @@
       </div>
       <hr class='hr'>
       <button id='button-logout'>Log out</button>
+      <button id='button-delete-account'>Delete your account</button>
+      <p id='question-delete-account'>Are you sure ?</p>
+      <div id='delete-user-container-button' class='hidden'>
+        <button id='back-delete-user'>Back</button>
+        <button id='yes-delete-user'>Yes</button>
+      </div>
     </div>
   </div>
 
@@ -140,7 +151,7 @@
       <h2>Sorry, registration failed ...</h2>
       <p>The username or email address already exists, or the email address has not yet been verified.</p>
       <p>Please try again.</p>
-      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a><p></p>
+      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
     <div id='success-signin' class='hidden'>
       <h2></h2>
@@ -154,12 +165,12 @@
       <h2>Your email address has not been verified yet!</h2>
       <p>Please check your inbox and click on the verification link to activate your account.</p>
       <p>If you don't see the email, please check your spam folder.</p>
-      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a><p></p>
+      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
     <div id='failed2-signin' class='hidden'>
       <h2>User not found or incorrect password ...</h2>
       <p>Please verify your information and try again.</p>
-      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a><p></p>
+      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
     <div id='failed3-signin' class='hidden'>
       <h2>Already logged in 😃</h2>
@@ -169,7 +180,7 @@
       <p>The new password has not yet been confirmed.</p> 
       <p>Please check your inbox and click on the link to confirm your recent password change request.</p>
       <p>If you don't see the email, please check your spam folder.</p>
-      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a></p>
+      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
     <div id='success-update-password' class='hidden'>
       <h2>Confirm your request password change !</h2>
@@ -181,12 +192,12 @@
       <p>Your password change request could not be processed because the recent request for a new password has not yet been confirmed.</p> 
       <p>Please check your inbox and click on the confirmation link to confirm your recent password change request.</p>
       <p>If you don't see the email, please check your spam folder.</p>
-      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a></p>
+      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
     <div id='failed2-update-password' class='hidden'>
       <h2>User not found ...</h2>
       <p>Please verify your information and try again.</p>
-      <p>For futher technical questions and support, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a></p>
+      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
   </div>
   <script src='script.js'></script>

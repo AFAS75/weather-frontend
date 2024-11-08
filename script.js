@@ -1,6 +1,60 @@
+// Token access
 const accessToken = localStorage.getItem('accessToken');
 const refreshToken = localStorage.getItem('refreshToken');
+// Local storage
+const storedUsername = localStorage.getItem('userName');
+const storedEmail = localStorage.getItem('email');
+// DOM
+const openPopoverButton = document.getElementById('userIcon');
+const cityNameInput = document.getElementById('cityNameInput');
+const overlayHomePage = document.getElementById('overlay-home-page');
+const overlayCount = document.getElementById('overlay-count');
+const popoverCount = document.getElementById('popover-count');
+const overlayLogged = document.getElementById('overlay-logged');
+const popoverLogged = document.getElementById('popover-logged');
+const initialContainer = document.getElementById('initial-container');
+const signupButton = document.getElementById('button-signup');
+const signinButton = document.getElementById('button-signin');
+const signup = document.getElementById('signup');
+const signin = document.getElementById('signin');
+const returnSignupButton = document.getElementById('return-signup');
+const returnSigninButton = document.getElementById('return-signin');
+const forgotPasswordButton = document.getElementById('forgot-password-button');
+const forgotPassword = document.getElementById('forgot-password');
+const returnFortgotPasswordButton = document.getElementById('return-forgot-password');
+const msgUserHomePage = document.getElementById('message-user-home-page');
+const logoutButton = document.getElementById('button-logout');
+const deleteCountButton = document.getElementById('button-delete-account');
+const deleteUserContainer = document.getElementById('delete-user-container-button');
+const questionDeleteAccount = document.getElementById('question-delete-account');
+const returnDeleteUser = document.getElementById('back-delete-user');
+const confirmDeleteUser = document.getElementById('yes-delete-user');
+const msgError = document.getElementById('error');
+const msgSuccesSignup = document.getElementById('success-signup');
+const msgFailed1Signup = document.getElementById('failed-signup');
+const msgSuccessSignin = document.getElementById('success-signin');
+const msgFailed0Signin = document.getElementById('failed0-signin');
+const msgFailed1Signin = document.getElementById('failed1-signin');
+const msgFailed2Signin = document.getElementById('failed1-signin');
+const msgFailed3Signin = document.getElementById('failed3-signin');
+const msgFailed4Signin = document.getElementById('failed4-signin');
+const signupForm = document.getElementById('signup-form');
+const signinForm = document.getElementById('signin-form');
+const forgotPasswordForm = document.getElementById('forgot-password-form');
+const msgSuccessUpdatePassword = document.getElementById('success-update-password');
+const msgFailed1UpdatePassword = document.getElementById('failed1-update-password');
+const msgFailed2UpdatePassword = document.getElementById('failed2-update-password');
+const msgDeletedAccount = document.getElementById('deleted-account');
 
+
+if (accessToken) {
+	document.getElementById('username').textContent = `Welcome ${storedUsername} !`;
+	document.getElementById('email').textContent = `${storedEmail}`;
+	logoutButton.style.display = 'flex';
+	deleteCountButton.style.display = 'flex';
+}
+
+// Refresh token
 const newAccessToken = () => {
 	if (accessToken) {
 		fetch('http://localhost:3000/users/refresh_token', {
@@ -17,14 +71,13 @@ const newAccessToken = () => {
 				fetch('http://localhost:3000/users/logout', {
 					method: 'POST',
 				}).then(() => {
-					document.getElementById('overlay-home-page').style.display = 'flex';
+					overlayHomePage.style.display = 'flex';
 					document.getElementById('session-timeout').classList.remove('hidden');
 					setTimeout(function() {
 						localStorage.removeItem('userName');
 						localStorage.removeItem('email');
 						localStorage.removeItem('accessToken');
 						localStorage.removeItem('refreshToken');
-						document.getElementById('username').style.display = 'none';
 						window.location.reload();
 					}, 5000)
 				})
@@ -35,96 +88,9 @@ const newAccessToken = () => {
 
 setInterval(newAccessToken, 900000);
 
-if (accessToken) {
-	fetch('http://localhost:3000/weather/my_cities_added', {
-		headers: { 'Authorization': `Bearer ${accessToken}` },
-	})
-	.then(res => res.json())
-	.then(apiData => {
-		if (apiData.myCities) {
-			for (i = 0; i < apiData.myCities.length; i++) {
-				document.querySelector('#cityList').innerHTML += `
-				<div class="cityContainer">
-				<p class="name">${apiData.myCitiesName[i]}</p>
-				<p class="country">(${apiData.myCities[i].sys.country})</p>
-				<p class="description">${apiData.myCities[i].weather[0].main}</p>
-				<img class="weatherIcon" src="images/${apiData.myCities[i].weather[0].main}.png"/>
-				<div class="temperature">
-				<p class="tempMin">${apiData.myCities[i].main.temp_min}°C</p>
-				<span>-</span>
-				<p class="tempMax">${apiData.myCities[i].main.temp_max}°C</p>
-				</div>
-				<button class="deleteCity" id="${apiData.myCitiesName[i]}">Delete</button>
-				</div>
-				`;
-			}
-			if (apiData.cityNotFound) {
-				document.getElementById('')
-				document.getElementById('error').classList.remove('hidden');
-				document.getElementById('overlay-home-page').style.display = 'flex';
-				document.getElementById('cityNameInput').value = '';
-				setTimeout(function() {
-					document.getElementById('error').classList.add('show');
-				}, 10);
-				setTimeout(function() {
-					document.getElementById('error').classList.add('hidden');
-					document.getElementById('overlay-home-page').style.display = 'none';
-				}, 5000);
-			}
-			updateDeleteCityEventListener();
-			updateMessageVisibility();
-		}
-	});
-} else {
-	fetch('http://localhost:3000/weather/home_page')
-	.then(res => res.json())
-	.then(apiData => {
-		for (i = 0; i < apiData.homepagedata.length; i++) {
-			document.querySelector('#cityList').innerHTML += `
-			<div class="cityContainer">
-				<p class="name">${apiData.cityName[i]}</p>
-				<p class="country">(${apiData.homepagedata[i].sys.country})</p>				
-				<p class="description">${apiData.homepagedata[i].weather[0].main}</p>
-				<img class="weatherIcon" src="images/${apiData.homepagedata[i].weather[0].main}.png"/>
-				<div class="temperature">
-					<p class="tempMin">${apiData.homepagedata[i].main.temp_min}°C</p>
-					<span>-</span>
-					<p class="tempMax">${apiData.homepagedata[i].main.temp_max}°C</p>
-				</div>
-			</div>
-			`;
-		}
-	})
-}
-
-function updateMessageVisibility() {
-	if (document.querySelectorAll('.cityContainer').length === 0) {
-		document.getElementById('message').classList.remove('hidden')
-	} else {
-		document.getElementById('message').classList.add('hidden');
-	}
-}
-
-function updateDeleteCityEventListener() {
-	for (let i = 0; i < document.querySelectorAll('.deleteCity').length; i++) {
-		document.querySelectorAll('.deleteCity')[i].addEventListener('click', function() {
-			fetch(`http://localhost:3000/weather/${this.id}`, { 
-				method: 'DELETE', 
-				headers: { 'Authorization': `Bearer ${accessToken}` },
-			})
-			.then(res => res.json())
-			.then(data => {
-				if (data.result) {
-					this.parentNode.remove();
-					updateMessageVisibility();
-				}
-			});
-		});
-	}
-};
-
+// Add new city
 document.getElementById('addCity').addEventListener('click', () => {
-	const cityName = document.getElementById('cityNameInput').value;
+	const cityName = cityNameInput.value;
 	if (cityName) {
 		if (accessToken) {
 			fetch('http://localhost:3000/weather/add_new_city', {
@@ -140,16 +106,16 @@ document.getElementById('addCity').addEventListener('click', () => {
 				if (data.result) {
 					window.location.reload();
 				} else {
-					document.getElementById('overlay-home-page').style.display = 'flex';
-					document.getElementById('error').classList.remove('hidden');
-					document.getElementById('cityNameInput').value = '';
+					overlayHomePage.style.display = 'flex';
+					msgError.classList.remove('hidden');
+					cityNameInput.value = '';
 					setTimeout(function() {
-						document.getElementById('error').classList.add('show');
+						msgError.classList.add('show');
 					}, 10);
 					setTimeout(function() {
-						document.getElementById('overlay-home-page').style.display = 'none';
-						document.getElementById('error').classList.add('hidden');
-						document.getElementById('error').classList.remove('show');
+						overlayHomePage.style.display = 'none';
+						msgError.classList.add('hidden');
+						msgError.classList.remove('show');
 					}, 3000);
 				}
 			})
@@ -183,67 +149,127 @@ document.getElementById('addCity').addEventListener('click', () => {
 						</div>
 						`;
 					} else {
-						document.getElementById('overlay-home-page').style.display = 'flex';
-						document.getElementById('error').classList.remove('hidden');
-						document.getElementById('cityNameInput').value = '';
+						overlayHomePage.style.display = 'flex';
+						msgError.classList.remove('hidden');
+						cityNameInput.value = '';
 						setTimeout(function() {
-							document.getElementById('error').classList.add('show');
+							msgError.classList.add('show');
 						}, 10);
 						setTimeout(function() {
-							document.getElementById('overlay-home-page').style.display = 'none';
-							document.getElementById('error').classList.add('hidden');
-							document.getElementById('error').classList.remove('show');
+							overlayHomePage.style.display = 'none';
+							msgError.classList.add('hidden');
+							msgError.classList.remove('show');
 						}, 3000);
 					}
 				})
 			} else {
-				document.getElementById('overlay-home-page').style.display = 'flex';
-				document.getElementById('error').classList.remove('hidden');
-				document.getElementById('cityNameInput').value = '';
+				overlayHomePage.style.display = 'flex';
+				msgError.classList.remove('hidden');
+				cityNameInput.value = '';
 				setTimeout(function() {
-					document.getElementById('error').classList.add('show');
+					msgError.classList.add('show');
 				}, 10);
 				setTimeout(function() {
-					document.getElementById('overlay-home-page').style.display = 'none';
-					document.getElementById('error').classList.add('hidden');
-					document.getElementById('error').classList.remove('show');
+					overlayHomePage.style.display = 'none';
+					msgError.classList.add('hidden');
+					msgError.classList.remove('show');
 				}, 3000);
 			}
 		}
 	}
 });
 
-const openPopoverButton = document.getElementById('userIcon');
-const overlayHomePage = document.getElementById('overlay-home-page');
-const overlayCount = document.getElementById('overlay-count');
-const popoverCount = document.getElementById('popover-count');
-const overlayLogged = document.getElementById('overlay-logged');
-const popoverLogged = document.getElementById('popover-logged');
-const initialContainer = document.getElementById('initial-container');
-const signupButton = document.getElementById('button-signup');
-const signinButton = document.getElementById('button-signin');
-const signup = document.getElementById('signup');
-const signin = document.getElementById('signin');
-const returnSignupButton = document.getElementById('return-signup');
-const returnSigninButton = document.getElementById('return-signin');
-const forgotPasswordButton = document.getElementById('forgot-password-button');
-const forgotPassword = document.getElementById('forgot-password');
-const returnFortgotPasswordButton = document.getElementById('return-forgot-password');
+// Show weather forecast 
+if (accessToken) {
+	fetch('http://localhost:3000/weather/my_cities_added', {
+		headers: { 'Authorization': `Bearer ${accessToken}` },
+	})
+	.then(res => res.json())
+	.then(apiData => {
+		if (apiData.myCities) {
+			for (i = 0; i < apiData.myCities.length; i++) {
+				document.querySelector('#cityList').innerHTML += `
+				<div class="cityContainer">
+				<p class="name">${apiData.myCitiesName[i]}</p>
+				<p class="country">(${apiData.myCities[i].sys.country})</p>
+				<p class="description">${apiData.myCities[i].weather[0].main}</p>
+				<img class="weatherIcon" src="images/${apiData.myCities[i].weather[0].main}.png"/>
+				<div class="temperature">
+				<p class="tempMin">${apiData.myCities[i].main.temp_min}°C</p>
+				<span>-</span>
+				<p class="tempMax">${apiData.myCities[i].main.temp_max}°C</p>
+				</div>
+				<button class="deleteCity" id="${apiData.myCitiesName[i]}">Delete</button>
+				</div>
+				`;
+			}
+			if (apiData.cityNotFound) {
+				msgError.classList.remove('hidden');
+				overlayHomePage.style.display = 'flex';
+				cityNameInput.value = '';
+				setTimeout(function() {
+					msgError.classList.add('show');
+				}, 10);
+				setTimeout(function() {
+					msgError.classList.add('hidden');
+					overlayHomePage.style.display = 'none';
+				}, 5000);
+			}
+			updateDeleteCityEventListener();
+			updateMessageVisibility();
+		}
+	});
+} else {
+	fetch('http://localhost:3000/weather/home_page')
+	.then(res => res.json())
+	.then(apiData => {
+		for (i = 0; i < apiData.homepagedata.length; i++) {
+			document.querySelector('#cityList').innerHTML += `
+			<div class="cityContainer">
+				<p class="name">${apiData.cityName[i]}</p>
+				<p class="country">(${apiData.homepagedata[i].sys.country})</p>				
+				<p class="description">${apiData.homepagedata[i].weather[0].main}</p>
+				<img class="weatherIcon" src="images/${apiData.homepagedata[i].weather[0].main}.png"/>
+				<div class="temperature">
+					<p class="tempMin">${apiData.homepagedata[i].main.temp_min}°C</p>
+					<span>-</span>
+					<p class="tempMax">${apiData.homepagedata[i].main.temp_max}°C</p>
+				</div>
+			</div>
+			`;
+		};
+	});
+};
 
-overlayHomePage.addEventListener('click', (event) => {
-	if (event.target === overlayHomePage) {
-		overlayHomePage.style.display = 'none';
-		document.getElementById('error').classList.add('hidden');
+// Show welcome message on logged in user's home page
+function updateMessageVisibility() {
+	if (document.querySelectorAll('.cityContainer').length === 0) {
+		msgUserHomePage.classList.remove('hidden')
+	} else {
+		msgUserHomePage.classList.add('hidden');
 	}
-})
+};
 
-overlayLogged.addEventListener('click', (event) => {
-	if (event.target === overlayLogged) {
-		overlayLogged.style.display = 'none';
-		overlayLogged.classList.remove('show-logged');
+// Delete city
+function updateDeleteCityEventListener() {
+	for (let i = 0; i < document.querySelectorAll('.deleteCity').length; i++) {
+		document.querySelectorAll('.deleteCity')[i].addEventListener('click', function() {
+			fetch(`http://localhost:3000/weather/${this.id}`, { 
+				method: 'DELETE', 
+				headers: { 'Authorization': `Bearer ${accessToken}` },
+			})
+			.then(res => res.json())
+			.then(data => {
+				if (data.result) {
+					this.parentNode.remove();
+					updateMessageVisibility();
+				}
+			});
+		});
 	}
-})
+};
 
+// Handle popover
 openPopoverButton.addEventListener('click', (event) => {
 	if (accessToken) {
 		const rect = event.target.getBoundingClientRect();
@@ -263,6 +289,7 @@ openPopoverButton.addEventListener('click', (event) => {
 	}
 });
 
+// Handle popover home page background
 overlayCount.addEventListener('click', (event) => {
 	if (event.target === overlayCount) {
 		initialContainer.classList.remove('show-count');
@@ -271,19 +298,19 @@ overlayCount.addEventListener('click', (event) => {
 		signin.classList.add('hidden');
 		forgotPassword.classList.add('hidden')
 		initialContainer.style.display = 'flex'
-		document.getElementById('success-signup').classList.add('hidden');
-		document.getElementById('failed-signup').classList.add('hidden');
-		document.getElementById('failed1-signin').classList.add('hidden');
-		document.getElementById('failed2-signin').classList.add('hidden');
-		document.getElementById('failed3-signin').classList.add('hidden');
-		document.getElementById('signup-form').userName.value = '';
-		document.getElementById('signup-form').email.value = '';
-		document.getElementById('signup-form').password.value = '';
-		document.getElementById('signin-form').infos.value = '';
-		document.getElementById('signin-form').password.value = '';
-		document.getElementById('forgot-password-form').userName.value = '';
-		document.getElementById('forgot-password-form').email.value = ''
-		document.getElementById('forgot-password-form').password.value = '';
+		msgSuccesSignup.classList.add('hidden');
+		msgFailed1Signup.classList.add('hidden');
+		msgFailed1Signin.classList.add('hidden');
+		msgFailed2Signin.classList.add('hidden');
+		msgFailed3Signin.classList.add('hidden');
+		signupForm.userName.value = '';
+		signupForm.email.value = '';
+		signupForm.password.value = '';
+		signinForm.infos.value = '';
+		signinForm.password.value = '';
+		forgotPasswordForm.userName.value = '';
+		forgotPasswordForm.email.value = ''
+		forgotPasswordForm.password.value = '';
 	};
 
 	signupButton.addEventListener('click', () => {
@@ -306,11 +333,11 @@ overlayCount.addEventListener('click', (event) => {
 		initialContainer.classList.remove('hidden');
 		initialContainer.classList.add('show-count');
 		popoverCount.style.width = '380px';
-		document.getElementById('success-signup').classList.add('hidden');
-		document.getElementById('failed-signup').classList.add('hidden');
-		document.getElementById('signup-form').userName.value = '';
-		document.getElementById('signup-form').email.value = '';
-		document.getElementById('signup-form').password.value = '';
+		msgSuccesSignup.classList.add('hidden');
+		msgFailed1Signup.classList.add('hidden');
+		signupForm.userName.value = '';
+		signupForm.email.value = '';
+		signupForm.password.value = '';
 	});
 
 	returnSigninButton.addEventListener('click', () => {
@@ -319,12 +346,12 @@ overlayCount.addEventListener('click', (event) => {
 		initialContainer.classList.remove('hidden');
 		initialContainer.classList.add('show-count');
 		popoverCount.style.width = '380px';
-		document.getElementById('success-signin').classList.add('hidden');
-		document.getElementById('failed1-signin').classList.add('hidden');
-		document.getElementById('failed2-signin').classList.add('hidden');
-		document.getElementById('failed3-signin').classList.add('hidden');
-		document.getElementById('signin-form').infos.value = '';
-		document.getElementById('signin-form').password.value = '';
+		msgSuccessSignin.classList.add('hidden');
+		msgFailed1Signin.classList.add('hidden');
+		msgFailed2Signin.classList.add('hidden');
+		msgFailed3Signin.classList.add('hidden');
+		signinForm.infos.value = '';
+		signinForm.password.value = '';
 	});
 
 	forgotPasswordButton.addEventListener('click', () => {
@@ -335,16 +362,58 @@ overlayCount.addEventListener('click', (event) => {
 	returnFortgotPasswordButton.addEventListener('click', () => {
 		signin.classList.remove('hidden');
 		forgotPassword.classList.add('hidden');
-		document.getElementById('success-update-password').classList.add('hidden');
-		document.getElementById('failed1-update-password').classList.add('hidden');
-		document.getElementById('failed2-update-password').classList.add('hidden');
-		document.getElementById('forgot-password-form').userName.value = '';
-		document.getElementById('forgot-password-form').email.value = '';
-		document.getElementById('forgot-password-form').password.value = '';
+		msgSuccessUpdatePassword.classList.add('hidden');
+		msgFailed1UpdatePassword.classList.add('hidden');
+		msgFailed2UpdatePassword.classList.add('hidden');
+		forgotPasswordForm.userName.value = '';
+		forgotPasswordForm.email.value = '';
+		forgotPasswordForm.password.value = '';
 	})
 });
 
-document.getElementById('signup-form').addEventListener('submit', (event) => {
+// Handle popover user home page background
+overlayHomePage.addEventListener('click', (event) => {
+	if (event.target === overlayHomePage) {
+		overlayHomePage.style.display = 'none';
+		msgError.classList.add('hidden');
+	}
+})
+
+
+// Handle popover user account logged background
+overlayLogged.addEventListener('click', (event) => {
+	if (event.target === overlayLogged) {
+		overlayLogged.style.display = 'none';
+		overlayLogged.classList.remove('show-logged');
+		deleteUserContainer.classList.add('hidden');
+		questionDeleteAccount.style.display = 'none';
+		returnDeleteUser.style.display = 'none';
+		confirmDeleteUser.style.display = 'none';
+		logoutButton.style.display = 'flex';
+		deleteCountButton.style.display = 'flex';
+	}
+	
+	deleteCountButton.addEventListener('click', () => {
+		logoutButton.style.display = 'none';
+		deleteCountButton.style.display = 'none';
+		deleteUserContainer.classList.remove('hidden');
+		questionDeleteAccount.style.display = 'flex';
+		returnDeleteUser.style.display = 'flex';
+		confirmDeleteUser.style.display = 'flex';
+	});
+
+	returnDeleteUser.addEventListener('click', () => {
+		logoutButton.style.display = 'flex';
+		deleteCountButton.style.display = 'flex';
+		deleteUserContainer.classList.add('hidden');
+		questionDeleteAccount.style.display = 'none';
+		returnDeleteUser.style.display = 'none';
+		confirmDeleteUser.style.display = 'none';
+	});
+})
+
+// User signup
+signupForm.addEventListener('submit', (event) => {
 	event.preventDefault();
 
 	const form = event.target;
@@ -361,35 +430,37 @@ document.getElementById('signup-form').addEventListener('submit', (event) => {
 	.then(res => res.json())
 	.then(userData => {
 		if (userData.result) {
-			document.getElementById('success-signup').classList.remove('hidden');
+			msgFailed1Signup.classList.add('hidden');
+			msgSuccesSignup.classList.remove('hidden');
 			setTimeout(function() {
-				document.getElementById('success-signup').classList.add('show');
+				msgSuccesSignup.classList.add('show');
 			}, 10);
 			setTimeout(function() {
-				document.getElementById('success-signup').classList.add('hidden');
+				msgSuccesSignup.classList.add('hidden');
 				overlayCount.style.display = 'none';
-				document.getElementById('signup-form').userName.value = '';
-				document.getElementById('signup-form').email.value = '';
-				document.getElementById('signup-form').password.value = '';
+				signupForm.userName.value = '';
+				signupForm.email.value = '';
+				signupForm.password.value = '';
 				window.location.reload();
 			}, 10000);
 		} else {
-			if (document.getElementById('failed-signup').classList.contains('hidden')) {
-				document.getElementById('failed-signup').classList.remove('hidden');
+			if (msgFailed1Signup.classList.contains('hidden')) {
+				msgFailed1Signup.classList.remove('hidden');
 				setTimeout(function() {
-					document.getElementById('failed-signup').classList.add('show');
+					msgFailed1Signup.classList.add('show');
 				}, 10);
 			} else {
-				document.getElementById('failed-signup').classList.remove('show');
+				msgFailed1Signup.classList.remove('show');
 				setTimeout(function() {
-					document.getElementById('failed-signup').classList.add('show');
+					msgFailed1Signup.classList.add('show');
 				}, 500);
 			}
 		}
 	})
 });
 
-document.getElementById('signin-form').addEventListener('submit', (event) => {
+// User signin
+signinForm.addEventListener('submit', (event) => {
 	event.preventDefault();
 
 	const form = event.target;
@@ -412,90 +483,92 @@ document.getElementById('signin-form').addEventListener('submit', (event) => {
 			localStorage.setItem('email', userData.user.email);
 			localStorage.setItem('accessToken', userData.accessToken);
 			localStorage.setItem('refreshToken', userData.refreshToken);
-			document.getElementById('success-signin').classList.remove('hidden');
-			document.getElementById('success-signin').textContent = 'You have successfully logged in !';
+			msgSuccessSignin.classList.remove('hidden');
+			msgSuccessSignin.textContent = 'You have successfully logged in !';
+			msgFailed2Signin.classList.add('hidden');
 			setTimeout(function() {
-				document.getElementById('success-signin').classList.add('show');
+				msgSuccessSignin.classList.add('show');
 			}, 10);
 			newAccessToken();
 			setTimeout(function() { 
-				document.getElementById('success-signin').classList.add('hidden');
+				msgSuccessSignin.classList.add('hidden');
 				overlayCount.style.display = 'none';
-				document.getElementById('signin-form').infos.value = '';
-				document.getElementById('signin-form').password.value = '';
-				document.getElementById('success-signin').textContent = '';
+				signinForm.infos.value = '';
+				signinForm.password.value = '';
+				msgSuccessSignin.textContent = '';
 				window.location.reload();
-			}, 3000);
+			}, 2500);
 		} 
 		if (userData.error === 'Missing or empty fields') {
-			document.getElementById('failed0-signin').classList.remove('hidden');
+			msgFailed0Signin.classList.remove('hidden');
 			setTimeout(function() {
-				document.getElementById('failed0-signin').classList.add('show');
+				msgFailed0Signin.classList.add('show');
 			}, 10);
 			setTimeout(function() {
-				document.getElementById('failed0-signin').classList.add('hidden');
+				msgFailed0Signin.classList.add('hidden');
 				overlayCount.style.display = 'none';
-				document.getElementById('signin-form').infos.value = '';
-				document.getElementById('signin-form').password.value = '';
+				signinForm.infos.value = '';
+				signinForm.password.value = '';
 				window.location.reload();
 			}, 6000);
 		}
 		if (userData.error === 'Email address not yet verified') {
-			document.getElementById('failed1-signin').classList.remove('hidden');
+			msgFailed1Signin.classList.remove('hidden');
 			setTimeout(function() {
-				document.getElementById('failed1-signin').classList.add('show');
+				msgFailed1Signin.classList.add('show');
 			}, 10);
 			setTimeout(function() {
-				document.getElementById('failed1-signin').classList.add('hidden');
+				msgFailed1Signin.classList.add('hidden');
 				overlayCount.style.display = 'none';
-				document.getElementById('signin-form').infos.value = '';
-				document.getElementById('signin-form').password.value = '';
+				signinForm.infos.value = '';
+				signinForm.password.value = '';
 				window.location.reload();
 			}, 6000);
 		} 
 		if (userData.error === 'User not found' || userData.error === 'Wrong password') {
-			if (document.getElementById('failed2-signin').classList.contains('hidden')) {
-				document.getElementById('failed2-signin').classList.remove('hidden');
+			if (msgFailed2Signin.classList.contains('hidden')) {
+				msgFailed2Signin.classList.remove('hidden');
 				setTimeout(function() {
-					document.getElementById('failed2-signin').classList.add('show');
+					msgFailed2Signin.classList.add('show');
 				}, 10);
 			} else {
-				document.getElementById('failed2-signin').classList.remove('show');
+				msgFailed2Signin.classList.remove('show');
 				setTimeout(function() {
-					document.getElementById('failed2-signin').classList.add('show');
+					msgFailed2Signin.classList.add('show');
 				}, 500);
 			}
 		} 
 		if (userData.error === 'User already logged in' ) {
-			document.getElementById('failed3-signin').classList.remove('hidden');
+			msgFailed3Signin.classList.remove('hidden');
 			setTimeout(function() {
-				document.getElementById('failed3-signin').classList.add('show');
+				msgFailed3Signin.classList.add('show');
 			}, 10);
 			setTimeout(function() {
-				document.getElementById('failed3-signin').classList.add('hidden');
+				msgFailed3Signin.classList.add('hidden');
 				overlayCount.style.display = 'none';
-				document.getElementById('signin-form').infos.value = '';
-				document.getElementById('signin-form').password.value = '';
+				signinForm.infos.value = '';
+				signinForm.password.value = '';
 				window.location.reload();
 			}, 4000);
 		} 
 		if (userData.error === 'Password change request not yet confirmed') {
-			document.getElementById('failed4-signin').classList.remove('hidden');
+			msgFailed4Signin.classList.remove('hidden');
 			setTimeout(function() {
-				document.getElementById('failed4-signin').classList.add('show');
+				msgFailed4Signin.classList.add('show');
 			}, 10);
 			setTimeout(function() {
-				document.getElementById('failed4-signin').classList.add('hidden');
+				msgFailed4Signin.classList.add('hidden');
 				overlayCount.style.display = 'none';
-				document.getElementById('signin-form').infos.value = '';
-				document.getElementById('signin-form').password.value = '';
+				signinForm.infos.value = '';
+				signinForm.password.value = '';
 				window.location.reload();
 			}, 6000);
 		} 
-	}) 
+	});
 });
 
-document.getElementById('forgot-password-form').addEventListener('submit', (event) => {
+// User forgot password
+forgotPasswordForm.addEventListener('submit', (event) => {
 	event.preventDefault();
 
 	const form = event.target;
@@ -512,66 +585,91 @@ document.getElementById('forgot-password-form').addEventListener('submit', (even
 	.then(res => res.json())
 	.then(updatePasswordData => {
 		if (updatePasswordData.result) {
-			document.getElementById('success-update-password').classList.remove('hidden');
+			msgFailed2UpdatePassword.classList.add('hidden');
+			msgSuccessUpdatePassword.classList.remove('hidden');
 			setTimeout(function() {
-				document.getElementById('success-update-password').classList.add('show');
+				msgSuccessUpdatePassword.classList.add('show');
 			}, 10);
 			setTimeout(function() {
-				document.getElementById('success-update-password').classList.add('hidden');
+				msgSuccessUpdatePassword.classList.add('hidden');
 				overlayCount.style.display = 'none';
-				document.getElementById('forgot-password-form').userName.value = '';
-				document.getElementById('forgot-password-form').email.value = ''
-				document.getElementById('forgot-password-form').password.value = '';
+				forgotPasswordForm.userName.value = '';
+				forgotPasswordForm.email.value = ''
+				forgotPasswordForm.password.value = '';
 				window.location.reload();
 			}, 6000);
 		} if (updatePasswordData.error === 'New password not yet confirmed') {
-			document.getElementById('failed1-update-password').classList.remove('hidden');
+			msgFailed1UpdatePassword.classList.remove('hidden');
 			setTimeout(function() {
-				document.getElementById('failed1-update-password').classList.add('show');
+				msgFailed1UpdatePassword.classList.add('show');
 			}, 10);
 			setTimeout(function() {
-				document.getElementById('failed1-update-password').classList.add('hidden');
+				msgFailed1UpdatePassword.classList.add('hidden');
 				overlayCount.style.display = 'none';
-				document.getElementById('forgot-password-form').userName.value = '';
-				document.getElementById('forgot-password-form').email.value = ''
-				document.getElementById('forgot-password-form').password.value = '';
+				forgotPasswordForm.userName.value = '';
+				forgotPasswordForm.email.value = ''
+				forgotPasswordForm.password.value = '';
 				window.location.reload();
 			}, 6000);
 		} if (updatePasswordData.error === 'User not found') {
-			if (document.getElementById('failed2-update-password').classList.contains('hidden')) {
-				document.getElementById('failed2-update-password').classList.remove('hidden');
+			if (msgFailed2UpdatePassword.classList.contains('hidden')) {
+				msgFailed2UpdatePassword.classList.remove('hidden');
 				setTimeout(function() {
-					document.getElementById('failed2-update-password').classList.add('show');
+					msgFailed2UpdatePassword.classList.add('show');
 				}, 10);
 			} else {
-				document.getElementById('failed2-update-password').classList.remove('show');
+				msgFailed2UpdatePassword.classList.remove('show');
 				setTimeout(function() {
-					document.getElementById('failed2-update-password').classList.add('show');
+					msgFailed2UpdatePassword.classList.add('show');
 				}, 500);
 			}
 		}
-	}) 
-	
-})
+	}); 
+});
 
-const storedUsername = localStorage.getItem('userName');
-const storedEmail = localStorage.getItem('email');
-if (storedUsername) {
-	document.getElementById('username').textContent = `Welcome ${storedUsername} !`;
-	document.getElementById('email').textContent = `${storedEmail}`;
-	document.getElementById('button-logout').style.display = 'flex';
-}
-
-document.getElementById('button-logout').addEventListener('click', () => {
+// User log out
+logoutButton.addEventListener('click', () => {
 	localStorage.removeItem('userName');
 	localStorage.removeItem('email');
 	localStorage.removeItem('accessToken');
 	localStorage.removeItem('refreshToken');
-	document.getElementById('button-logout').style.display = 'none';
+	logoutButton.style.display = 'none';
+	deleteCountButton.style.display = 'none';
 	fetch('http://localhost:3000/users/logout', {
 		method: 'POST',
 	})
 	.then(() => {
 		window.location.reload()
+	})
+});
+
+// User delete account
+confirmDeleteUser.addEventListener('click', () => {
+	fetch('http://localhost:3000/users/delete_user_account', {
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${accessToken}`},
+		body: JSON.stringify({ storedEmail }),
+	})
+	.then(res => res.json())
+	.then(deletedUserData => {
+		if (deletedUserData) {
+			overlayHomePage.style.display = 'flex';
+			overlayLogged.style.display ='none';
+			msgDeletedAccount.classList.remove('hidden');
+			setTimeout(function() {
+				msgDeletedAccount.classList.add('show');
+			}, 10);
+			setTimeout(function() {
+				msgDeletedAccount.classList.add('show');
+				overlayHomePage.style.display = 'none';
+				localStorage.removeItem('userName');
+				localStorage.removeItem('email');
+				localStorage.removeItem('accessToken');
+				localStorage.removeItem('refreshToken');
+				window.location.reload();
+			}, 6000)
+		}
 	})
 })

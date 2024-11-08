@@ -81,42 +81,6 @@ input::placeholder {
     font-size: 16px;   
 }
 
-.hr {
-    margin-bottom: 25px;
-}
-
-#button-logout {
-    display: none;
-    align-items: center;
-    background-color: white;
-    border: 1px solid #DFDFDF;
-    border-radius: 16px;
-    box-sizing: border-box;
-    color: #000000;
-    cursor: pointer;
-    font-family: Inter, sans-serif;
-    font-size: 18px;
-    justify-content: center;
-    line-height: 5px;
-    padding: 14px 22px;
-    text-decoration: none;
-    transition: all .2s;
-    user-select: none;
-    touch-action: manipulation;
-    width: 180px;
-    box-shadow: 0 4px 10px rgb(0, 0, 0, 0.26);
-}
-  
-#button-logout:active,
-#button-logout:hover {
-  outline: 0;
-}
-
-#button-logout:hover {
-  background-color: rgba(201, 179, 179, 0.26);
-  border-color: rgba(0, 0, 0, 0.19);
-}
-
 #circl-userIcon {
     display: flex;
     justify-content: center;
@@ -141,6 +105,125 @@ input::placeholder {
 #userIcon:hover, #circl-userIcon:hover {
     opacity: 0.4;
 }
+
+.hr {
+    margin-bottom: 25px;
+}
+
+#button-logout {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    background-color: white;
+    border: 1px solid #DFDFDF;
+    border-radius: 16px;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 5px;
+    padding: 14px 22px;
+    text-decoration: none;
+    transition: all .2s;
+    user-select: none;
+    touch-action: manipulation;
+    box-shadow: 0 4px 10px rgb(0, 0, 0, 0.26);
+}
+  
+#button-logout:active,
+#button-logout:hover {
+  outline: 0;
+}
+
+#button-logout:hover {
+  background-color: rgba(201, 179, 179, 0.26);
+  border-color: rgba(0, 0, 0, 0.19);
+}
+
+#button-delete-account {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    margin-top: 15px;
+    border: 0px solid #DFDFDF;
+    border-radius: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .2s;
+    user-select: none;
+    touch-action: manipulation;
+}
+
+#button-delete-account:active,
+#button-delete-account:hover {
+  outline: 0;
+}
+
+#button-delete-account:hover {
+    background-color: rgba(201, 179, 179, 0.46);
+    border-color: rgba(0, 0, 0, 0.19);
+  }
+
+#question-delete-account {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-weight: 500;
+    margin: 0;
+}
+
+#delete-user-container-button {
+    display: flex;
+    justify-content:space-between;
+}
+
+#back-delete-user {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 75px;
+    height: 20px;
+    background-color: #b64949;
+    margin-top: 15px;
+    padding: 15px 0;
+    border-radius: 40px;
+    font-size: 20px;
+    color: white;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#back-delete-user:hover {
+    opacity: 0.8;
+}
+
+#yes-delete-user {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 75px;
+    height: 20px;
+    background-color: #4CAF50;
+    margin-top: 15px;
+    padding: 15px 0;
+    border-radius: 40px;
+    font-size: 20px;
+    color: white;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#yes-delete-user:hover {
+    opacity: 0.8;
+}
+
 
 #cityList {
     display: flex;
@@ -216,18 +299,6 @@ input::placeholder {
 
 .deleteCity:hover {
     opacity: 0.8;
-}
-
-#forgot-password-button {
-    background-color: transparent;
-    color: black;
-    border: none;
-    opacity: 0.4;
-} 
-
-#forgot-password-button:hover {
-    color: rgb(0, 0, 0);
-    opacity: 0.7;
 }
 
 #overlay-home-page {
@@ -428,6 +499,18 @@ input::placeholder {
     opacity: 0.8;
 }
 
+#forgot-password-button {
+    background-color: transparent;
+    color: black;
+    border: none;
+    opacity: 0.4;
+} 
+
+#forgot-password-button:hover {
+    color: rgb(0, 0, 0);
+    opacity: 0.7;
+}
+
 .container-form {
     display: flex;
     flex-direction: column;
@@ -506,7 +589,7 @@ input::placeholder {
     padding-left: 30px;
 }
 
-#success-signup, #failed-signup, #success-signin, #failed0-signin, #failed1-signin, #failed2-signin, #failed3-signin, #failed4-signin, #success-update-password, #failed1-update-password, #failed2-update-password, #error, #session-timeout {
+#success-signup, #failed-signup, #success-signin, #failed0-signin, #failed1-signin, #failed2-signin, #failed3-signin, #failed4-signin, #success-update-password, #failed1-update-password, #failed2-update-password, #error, #session-timeout, #deleted-account {
     background-color: white;
     margin: 2%;
     padding: 20px;
@@ -521,12 +604,12 @@ input::placeholder {
     z-index: 10;
 }
 
-#success-signup.show, #failed-signup.show, #success-signin.show, #failed0-signin.show, #failed1-signin.show, #failed2-signin.show, #failed3-signin.show, #failed4-signin.show, #success-update-password.show, #failed1-update-password.show, #failed2-update-password.show, #error.show, #session-timeout.show {
+#success-signup.show, #failed-signup.show, #success-signin.show, #failed0-signin.show, #failed1-signin.show, #failed2-signin.show, #failed3-signin.show, #failed4-signin.show, #success-update-password.show, #failed1-update-password.show, #failed2-update-password.show, #error.show, #session-timeout.show, #deleted-account.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-#message {
+#message-user-home-page {
     justify-content: center;
     align-items: center;
     text-align: center;
