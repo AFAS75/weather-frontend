@@ -319,6 +319,7 @@ overlayCount.addEventListener('click', (event) => {
 		initialContainer.classList.remove('hidden');
 		initialContainer.classList.add('show-count');
 		popoverCount.style.width = '380px';
+		document.getElementById('success-signin').classList.add('hidden');
 		document.getElementById('failed1-signin').classList.add('hidden');
 		document.getElementById('failed2-signin').classList.add('hidden');
 		document.getElementById('failed3-signin').classList.add('hidden');
@@ -334,6 +335,12 @@ overlayCount.addEventListener('click', (event) => {
 	returnFortgotPasswordButton.addEventListener('click', () => {
 		signin.classList.remove('hidden');
 		forgotPassword.classList.add('hidden');
+		document.getElementById('success-update-password').classList.add('hidden');
+		document.getElementById('failed1-update-password').classList.add('hidden');
+		document.getElementById('failed2-update-password').classList.add('hidden');
+		document.getElementById('forgot-password-form').userName.value = '';
+		document.getElementById('forgot-password-form').email.value = '';
+		document.getElementById('forgot-password-form').password.value = '';
 	})
 });
 
@@ -350,7 +357,8 @@ document.getElementById('signup-form').addEventListener('submit', (event) => {
 			email: form.email.value,
 			password: form.password.value
 		})
-	}).then(res => res.json())
+	})
+	.then(res => res.json())
 	.then(userData => {
 		if (userData.result) {
 			document.getElementById('success-signup').classList.remove('hidden');
@@ -366,18 +374,17 @@ document.getElementById('signup-form').addEventListener('submit', (event) => {
 				window.location.reload();
 			}, 10000);
 		} else {
-			document.getElementById('failed-signup').classList.remove('hidden');
-			setTimeout(function() {
-				document.getElementById('failed-signup').classList.add('show');
-			}, 10);
-			setTimeout(function() {
-				document.getElementById('failed-signup').classList.add('hidden');
-				overlayCount.style.display = 'none';
-				document.getElementById('signup-form').userName.value = '';
-				document.getElementById('signup-form').email.value = '';
-				document.getElementById('signup-form').password.value = '';
-				window.location.reload();
-			}, 6000);
+			if (document.getElementById('failed-signup').classList.contains('hidden')) {
+				document.getElementById('failed-signup').classList.remove('hidden');
+				setTimeout(function() {
+					document.getElementById('failed-signup').classList.add('show');
+				}, 10);
+			} else {
+				document.getElementById('failed-signup').classList.remove('show');
+				setTimeout(function() {
+					document.getElementById('failed-signup').classList.add('show');
+				}, 500);
+			}
 		}
 	})
 });
@@ -397,7 +404,8 @@ document.getElementById('signin-form').addEventListener('submit', (event) => {
 			email: form.infos.value,
 			password: form.password.value,
 		})
-	}).then(res => res.json())
+	})
+	.then(res => res.json())
 	.then(userData => {
 		if (userData.result) {
 			localStorage.setItem('userName', userData.user.userName);
@@ -446,17 +454,17 @@ document.getElementById('signin-form').addEventListener('submit', (event) => {
 			}, 6000);
 		} 
 		if (userData.error === 'User not found' || userData.error === 'Wrong password') {
-			document.getElementById('failed2-signin').classList.remove('hidden');
-			setTimeout(function() {
-				document.getElementById('failed2-signin').classList.add('show');
-			}, 10);
-			setTimeout(function() {
-				document.getElementById('failed2-signin').classList.add('hidden');
-				overlayCount.style.display = 'none';
-				document.getElementById('signin-form').infos.value = '';
-				document.getElementById('signin-form').password.value = '';
-				window.location.reload();
-			}, 6000);
+			if (document.getElementById('failed2-signin').classList.contains('hidden')) {
+				document.getElementById('failed2-signin').classList.remove('hidden');
+				setTimeout(function() {
+					document.getElementById('failed2-signin').classList.add('show');
+				}, 10);
+			} else {
+				document.getElementById('failed2-signin').classList.remove('show');
+				setTimeout(function() {
+					document.getElementById('failed2-signin').classList.add('show');
+				}, 500);
+			}
 		} 
 		if (userData.error === 'User already logged in' ) {
 			document.getElementById('failed3-signin').classList.remove('hidden');
@@ -500,7 +508,8 @@ document.getElementById('forgot-password-form').addEventListener('submit', (even
 			email: form.email.value,
 			password: form.password.value,
 		})
-	}).then(res => res.json())
+	})
+	.then(res => res.json())
 	.then(updatePasswordData => {
 		if (updatePasswordData.result) {
 			document.getElementById('success-update-password').classList.remove('hidden');
@@ -529,18 +538,17 @@ document.getElementById('forgot-password-form').addEventListener('submit', (even
 				window.location.reload();
 			}, 6000);
 		} if (updatePasswordData.error === 'User not found') {
-			document.getElementById('failed2-update-password').classList.remove('hidden');
-			setTimeout(function() {
-				document.getElementById('failed2-update-password').classList.add('show');
-			}, 10);
-			setTimeout(function() {
-				document.getElementById('failed2-update-password').classList.add('hidden');
-				overlayCount.style.display = 'none';
-				document.getElementById('forgot-password-form').userName.value = '';
-				document.getElementById('forgot-password-form').email.value = ''
-				document.getElementById('forgot-password-form').password.value = '';
-				window.location.reload();
-			}, 6000);
+			if (document.getElementById('failed2-update-password').classList.contains('hidden')) {
+				document.getElementById('failed2-update-password').classList.remove('hidden');
+				setTimeout(function() {
+					document.getElementById('failed2-update-password').classList.add('show');
+				}, 10);
+			} else {
+				document.getElementById('failed2-update-password').classList.remove('show');
+				setTimeout(function() {
+					document.getElementById('failed2-update-password').classList.add('show');
+				}, 500);
+			}
 		}
 	}) 
 	
@@ -562,7 +570,8 @@ document.getElementById('button-logout').addEventListener('click', () => {
 	document.getElementById('button-logout').style.display = 'none';
 	fetch('http://localhost:3000/users/logout', {
 		method: 'POST',
-	}).then(() => {
+	})
+	.then(() => {
 		window.location.reload()
 	})
 })

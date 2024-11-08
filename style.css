@@ -226,7 +226,8 @@ input::placeholder {
 } 
 
 #forgot-password-button:hover {
-    color: blue;
+    color: rgb(0, 0, 0);
+    opacity: 0.7;
 }
 
 #overlay-home-page {
