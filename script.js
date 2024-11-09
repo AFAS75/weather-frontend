@@ -8,8 +8,8 @@ const storedEmail = localStorage.getItem('email');
 const openPopoverButton = document.getElementById('userIcon');
 const cityNameInput = document.getElementById('cityNameInput');
 const overlayHomePage = document.getElementById('overlay-home-page');
-const overlayCount = document.getElementById('overlay-count');
-const popoverCount = document.getElementById('popover-count');
+const overlayAccount = document.getElementById('overlay-account');
+const popoverAccount = document.getElementById('popover-account');
 const overlayLogged = document.getElementById('overlay-logged');
 const popoverLogged = document.getElementById('popover-logged');
 const initialContainer = document.getElementById('initial-container');
@@ -23,19 +23,23 @@ const forgotPasswordButton = document.getElementById('forgot-password-button');
 const forgotPassword = document.getElementById('forgot-password');
 const returnFortgotPasswordButton = document.getElementById('return-forgot-password');
 const msgUserHomePage = document.getElementById('message-user-home-page');
+const changePassword = document.getElementById('change-password');
+const changePasswordButton = document.getElementById('button-change-password')
+const changePasswordForm = document.getElementById('change-password-form')
+const returnChangePassword = document.getElementById('return-change-password')
 const logoutButton = document.getElementById('button-logout');
-const deleteCountButton = document.getElementById('button-delete-account');
+const deleteAccountButton = document.getElementById('button-delete-account');
 const deleteUserContainer = document.getElementById('delete-user-container-button');
 const questionDeleteAccount = document.getElementById('question-delete-account');
 const returnDeleteUser = document.getElementById('back-delete-user');
 const confirmDeleteUser = document.getElementById('yes-delete-user');
 const msgError = document.getElementById('error');
-const msgSuccesSignup = document.getElementById('success-signup');
+const msgSuccessSignup = document.getElementById('success-signup');
 const msgFailed1Signup = document.getElementById('failed-signup');
 const msgSuccessSignin = document.getElementById('success-signin');
 const msgFailed0Signin = document.getElementById('failed0-signin');
 const msgFailed1Signin = document.getElementById('failed1-signin');
-const msgFailed2Signin = document.getElementById('failed1-signin');
+const msgFailed2Signin = document.getElementById('failed2-signin');
 const msgFailed3Signin = document.getElementById('failed3-signin');
 const msgFailed4Signin = document.getElementById('failed4-signin');
 const signupForm = document.getElementById('signup-form');
@@ -45,14 +49,20 @@ const msgSuccessUpdatePassword = document.getElementById('success-update-passwor
 const msgFailed1UpdatePassword = document.getElementById('failed1-update-password');
 const msgFailed2UpdatePassword = document.getElementById('failed2-update-password');
 const msgDeletedAccount = document.getElementById('deleted-account');
-
-
+const msgSessionTimeout = document.getElementById('session-timeout');
+const msgSuccessChangePassword = document.getElementById('success-change-password');
+const msgFailedChangePassword = document.getElementById('failed-change-password');
+ 
+// Show user account popover
 if (accessToken) {
 	document.getElementById('username').textContent = `Welcome ${storedUsername} !`;
 	document.getElementById('email').textContent = `${storedEmail}`;
+	changePasswordButton.style.display = 'flex';
 	logoutButton.style.display = 'flex';
-	deleteCountButton.style.display = 'flex';
+	deleteAccountButton.style.display = 'flex';
 }
+// overlayHomePage.style.display = 'flex';
+// msgSessionTimeout.classList.remove('hidden');
 
 // Refresh token
 const newAccessToken = () => {
@@ -72,8 +82,12 @@ const newAccessToken = () => {
 					method: 'POST',
 				}).then(() => {
 					overlayHomePage.style.display = 'flex';
-					document.getElementById('session-timeout').classList.remove('hidden');
+					msgSessionTimeout.classList.remove('hidden');
 					setTimeout(function() {
+						msgSessionTimeout.classList.add('show');
+					}, 10);
+					setTimeout(function() {
+						msgSessionTimeout.classList.add('hidden');
 						localStorage.removeItem('userName');
 						localStorage.removeItem('email');
 						localStorage.removeItem('accessToken');
@@ -269,7 +283,7 @@ function updateDeleteCityEventListener() {
 	}
 };
 
-// Handle popover
+// Handle button user icon popover
 openPopoverButton.addEventListener('click', (event) => {
 	if (accessToken) {
 		const rect = event.target.getBoundingClientRect();
@@ -281,24 +295,25 @@ openPopoverButton.addEventListener('click', (event) => {
 			overlayLogged.classList.add('show-logged');
 		}, 10);
 	} else {
-		overlayCount.style.display = 'flex';
+		overlayAccount.style.display = 'flex';
 		setTimeout(function() {
-			initialContainer.classList.add('show-count');
-			popoverCount.style.width = '380px';
+			initialContainer.classList.add('show-account');
+			popoverAccount.style.width = '380px';
 		}, 10);
 	}
 });
 
 // Handle popover home page background
-overlayCount.addEventListener('click', (event) => {
-	if (event.target === overlayCount) {
-		initialContainer.classList.remove('show-count');
-		overlayCount.style.display = 'none';
+overlayAccount.addEventListener('click', (event) => {
+	if (event.target === overlayAccount) {
+		initialContainer.classList.remove('show-account');
+		overlayAccount.style.display = 'none';
 		signup.classList.add('hidden');
 		signin.classList.add('hidden');
+		changePassword.classList.add('hidden');
 		forgotPassword.classList.add('hidden')
 		initialContainer.style.display = 'flex'
-		msgSuccesSignup.classList.add('hidden');
+		msgSuccessSignup.classList.add('hidden');
 		msgFailed1Signup.classList.add('hidden');
 		msgFailed1Signin.classList.add('hidden');
 		msgFailed2Signin.classList.add('hidden');
@@ -317,23 +332,23 @@ overlayCount.addEventListener('click', (event) => {
 		initialContainer.classList.add('hidden');
 		initialContainer.style.display = 'none'
 		signup.classList.remove('hidden');
-		popoverCount.style.width = '';
+		popoverAccount.style.width = '';
 	});
 
 	signinButton.addEventListener('click', () => {
 		initialContainer.classList.add('hidden');
 		initialContainer.style.display = 'none'
 		signin.classList.remove('hidden');
-		popoverCount.style.width = '';
+		popoverAccount.style.width = '';
 	});
 
 	returnSignupButton.addEventListener('click', () => {
 		signup.classList.add('hidden');
 		initialContainer.style.display = 'flex'
 		initialContainer.classList.remove('hidden');
-		initialContainer.classList.add('show-count');
-		popoverCount.style.width = '380px';
-		msgSuccesSignup.classList.add('hidden');
+		initialContainer.classList.add('show-account');
+		popoverAccount.style.width = '380px';
+		msgSuccessSignup.classList.add('hidden');
 		msgFailed1Signup.classList.add('hidden');
 		signupForm.userName.value = '';
 		signupForm.email.value = '';
@@ -344,8 +359,8 @@ overlayCount.addEventListener('click', (event) => {
 		signin.classList.add('hidden');
 		initialContainer.style.display = 'flex'
 		initialContainer.classList.remove('hidden');
-		initialContainer.classList.add('show-count');
-		popoverCount.style.width = '380px';
+		initialContainer.classList.add('show-account');
+		popoverAccount.style.width = '380px';
 		msgSuccessSignin.classList.add('hidden');
 		msgFailed1Signin.classList.add('hidden');
 		msgFailed2Signin.classList.add('hidden');
@@ -376,7 +391,13 @@ overlayHomePage.addEventListener('click', (event) => {
 	if (event.target === overlayHomePage) {
 		overlayHomePage.style.display = 'none';
 		msgError.classList.add('hidden');
+		changePassword.classList.add('hidden');
 	}
+
+	returnChangePassword.addEventListener('click', () => {
+		overlayHomePage.style.display = 'none';
+		changePassword.classList.add('hidden');
+	})
 })
 
 
@@ -390,12 +411,14 @@ overlayLogged.addEventListener('click', (event) => {
 		returnDeleteUser.style.display = 'none';
 		confirmDeleteUser.style.display = 'none';
 		logoutButton.style.display = 'flex';
-		deleteCountButton.style.display = 'flex';
+		deleteAccountButton.style.display = 'flex';
+		changePasswordButton.style.display = 'flex';
 	}
 	
-	deleteCountButton.addEventListener('click', () => {
+	deleteAccountButton.addEventListener('click', () => {
 		logoutButton.style.display = 'none';
-		deleteCountButton.style.display = 'none';
+		changePasswordButton.style.display = 'none';
+		deleteAccountButton.style.display = 'none';
 		deleteUserContainer.classList.remove('hidden');
 		questionDeleteAccount.style.display = 'flex';
 		returnDeleteUser.style.display = 'flex';
@@ -404,7 +427,8 @@ overlayLogged.addEventListener('click', (event) => {
 
 	returnDeleteUser.addEventListener('click', () => {
 		logoutButton.style.display = 'flex';
-		deleteCountButton.style.display = 'flex';
+		changePasswordButton.style.display = 'flex';
+		deleteAccountButton.style.display = 'flex';
 		deleteUserContainer.classList.add('hidden');
 		questionDeleteAccount.style.display = 'none';
 		returnDeleteUser.style.display = 'none';
@@ -431,13 +455,13 @@ signupForm.addEventListener('submit', (event) => {
 	.then(userData => {
 		if (userData.result) {
 			msgFailed1Signup.classList.add('hidden');
-			msgSuccesSignup.classList.remove('hidden');
+			msgSuccessSignup.classList.remove('hidden');
 			setTimeout(function() {
-				msgSuccesSignup.classList.add('show');
+				msgSuccessSignup.classList.add('show');
 			}, 10);
 			setTimeout(function() {
-				msgSuccesSignup.classList.add('hidden');
-				overlayCount.style.display = 'none';
+				msgSuccessSignup.classList.add('hidden');
+				overlayAccount.style.display = 'none';
 				signupForm.userName.value = '';
 				signupForm.email.value = '';
 				signupForm.password.value = '';
@@ -492,7 +516,7 @@ signinForm.addEventListener('submit', (event) => {
 			newAccessToken();
 			setTimeout(function() { 
 				msgSuccessSignin.classList.add('hidden');
-				overlayCount.style.display = 'none';
+				overlayAccount.style.display = 'none';
 				signinForm.infos.value = '';
 				signinForm.password.value = '';
 				msgSuccessSignin.textContent = '';
@@ -506,7 +530,7 @@ signinForm.addEventListener('submit', (event) => {
 			}, 10);
 			setTimeout(function() {
 				msgFailed0Signin.classList.add('hidden');
-				overlayCount.style.display = 'none';
+				overlayAccount.style.display = 'none';
 				signinForm.infos.value = '';
 				signinForm.password.value = '';
 				window.location.reload();
@@ -519,7 +543,7 @@ signinForm.addEventListener('submit', (event) => {
 			}, 10);
 			setTimeout(function() {
 				msgFailed1Signin.classList.add('hidden');
-				overlayCount.style.display = 'none';
+				overlayAccount.style.display = 'none';
 				signinForm.infos.value = '';
 				signinForm.password.value = '';
 				window.location.reload();
@@ -545,7 +569,7 @@ signinForm.addEventListener('submit', (event) => {
 			}, 10);
 			setTimeout(function() {
 				msgFailed3Signin.classList.add('hidden');
-				overlayCount.style.display = 'none';
+				overlayAccount.style.display = 'none';
 				signinForm.infos.value = '';
 				signinForm.password.value = '';
 				window.location.reload();
@@ -558,12 +582,93 @@ signinForm.addEventListener('submit', (event) => {
 			}, 10);
 			setTimeout(function() {
 				msgFailed4Signin.classList.add('hidden');
-				overlayCount.style.display = 'none';
+				overlayAccount.style.display = 'none';
 				signinForm.infos.value = '';
 				signinForm.password.value = '';
 				window.location.reload();
 			}, 6000);
 		} 
+	});
+});
+
+// User change password
+changePasswordButton.addEventListener('click', () => {
+	changePassword.classList.remove('hidden');
+	overlayLogged.style.display = 'none';
+	overlayHomePage.style.display = 'flex';
+
+	changePasswordForm.addEventListener('submit', (event) => {
+		event.preventDefault();
+	
+		const form = event.target;
+		fetch('http://localhost:3000/users/change_password', {
+			method: 'PUT',
+			headers:  { 
+				'Content-Type': 'application/json', 
+				'Authorization': `Bearer ${accessToken}`},
+			body: JSON.stringify({ 
+				userName: form.userName.value,
+				email: form.email.value,
+				currentPassword: form.currentPassword.value,
+				newPassword: form.newPassword.value,
+			})
+		})
+		.then(res => res.json())
+		.then(changePasswordData => {
+			console.log(changePasswordData);
+			changePassword.classList.add('hidden');
+			if (changePasswordData.result) {
+				msgFailedChangePassword.classList.add('hidden');
+				msgSuccessChangePassword.classList.remove('hidden');
+				setTimeout(function() {
+					msgSuccessChangePassword.classList.add('show');
+				}, 10);
+				setTimeout(function() {
+					msgSuccessChangePassword.classList.add('hidden');
+					overlayHomePage.style.display = 'none';
+					changePasswordForm.userName.value = '';
+					changePasswordForm.email.value = ''
+					changePasswordForm.currentPassword.value = '';
+					changePasswordForm.newPassword.value = '';
+					localStorage.removeItem('userName');
+					localStorage.removeItem('email');
+					localStorage.removeItem('accessToken');
+					localStorage.removeItem('refreshToken');
+					window.location.reload();
+				}, 6000);
+				// fetch('http://localhost:3000/users/logout', {
+				// 	method: 'POST',
+				// }).then(() => {
+				// 	overlayHomePage.style.display = 'flex';
+				// 	msgSessionTimeout.classList.remove('hidden');
+				// 	setTimeout(function() {
+				// 		msgSessionTimeout.classList.add('show');
+				// 	}, 10);
+				// 	setTimeout(function() {
+				// 		msgSessionTimeout.classList.add('hidden');
+				// 		localStorage.removeItem('userName');
+				// 		localStorage.removeItem('email');
+				// 		localStorage.removeItem('accessToken');
+				// 		localStorage.removeItem('refreshToken');
+				// 		window.location.reload();
+				// 	}, 5000)
+				// })
+
+			} if (changePasswordData.error === 'Wrong password' || changePasswordData.error === 'User not found') {
+				console.log('TU PASS OU ?');
+				if (msgFailedChangePassword.classList.contains('hidden')) {
+					msgFailedChangePassword.classList.remove('hidden');
+					setTimeout(function() {
+						msgFailedChangePassword.classList.add('show');
+					}, 10);
+				} else {
+					msgFailedChangePassword.classList.remove('show');
+					setTimeout(function() {
+						msgFailedChangePassword.classList.add('show');
+					}, 500);
+				}
+			}
+		}); 
 	});
 });
 
@@ -592,7 +697,7 @@ forgotPasswordForm.addEventListener('submit', (event) => {
 			}, 10);
 			setTimeout(function() {
 				msgSuccessUpdatePassword.classList.add('hidden');
-				overlayCount.style.display = 'none';
+				overlayAccount.style.display = 'none';
 				forgotPasswordForm.userName.value = '';
 				forgotPasswordForm.email.value = ''
 				forgotPasswordForm.password.value = '';
@@ -605,7 +710,7 @@ forgotPasswordForm.addEventListener('submit', (event) => {
 			}, 10);
 			setTimeout(function() {
 				msgFailed1UpdatePassword.classList.add('hidden');
-				overlayCount.style.display = 'none';
+				overlayAccount.style.display = 'none';
 				forgotPasswordForm.userName.value = '';
 				forgotPasswordForm.email.value = ''
 				forgotPasswordForm.password.value = '';
@@ -634,7 +739,7 @@ logoutButton.addEventListener('click', () => {
 	localStorage.removeItem('accessToken');
 	localStorage.removeItem('refreshToken');
 	logoutButton.style.display = 'none';
-	deleteCountButton.style.display = 'none';
+	deleteAccountButton.style.display = 'none';
 	fetch('http://localhost:3000/users/logout', {
 		method: 'POST',
 	})

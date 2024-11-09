@@ -107,7 +107,39 @@ input::placeholder {
 }
 
 .hr {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+}
+
+#button-change-password {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    background-color: white;
+    border: 1px solid #DFDFDF;
+    border-radius: 16px;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 5px;
+    padding: 14px 22px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    transition: all .2s;
+    user-select: none;
+    touch-action: manipulation;
+    box-shadow: 0 4px 10px rgb(0, 0, 0, 0.26);
+}
+
+#button-change-password:active,
+#button-change-password:hover {
+  outline: 0;
+}
+
+#button-change-password:hover {
+  background-color: rgba(201, 179, 179, 0.26);
+  border-color: rgba(0, 0, 0, 0.19);
 }
 
 #button-logout {
@@ -121,7 +153,7 @@ input::placeholder {
     box-sizing: border-box;
     color: #000000;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 5px;
     padding: 14px 22px;
     text-decoration: none;
@@ -323,7 +355,7 @@ input::placeholder {
     text-align: center;
 }
 
-#overlay-count {
+#overlay-account {
     display: none;
     flex-direction: column;
     position: fixed;
@@ -337,7 +369,7 @@ input::placeholder {
     align-items: center;
 }
 
-#popover-count {
+#popover-account {
     display: flex;
     background-color: white;
     padding: 20px;
@@ -436,7 +468,7 @@ input::placeholder {
     transform: scale(0) translateX(100%) translateY(-100%);
 }
 
-#initial-container.show-count {
+#initial-container.show-account {
     opacity: 1;
     transform: scale(1) translateX(0) translateY(0);
 } 
@@ -538,7 +570,7 @@ input::placeholder {
     margin: 2%;
 }
 
-#return-signup, #return-signin, #return-forgot-password, #return-forgot-password {
+#return-signup, #return-signin, #return-forgot-password, #return-change-password {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -556,11 +588,11 @@ input::placeholder {
     font-weight: bold;
 }
 
-#return-signup:hover, #return-signin:hover, #return-forgot-password:hover, #return-forgot-password:hover {
+#return-signup:hover, #return-signin:hover, #return-forgot-password:hover, #return-change-password:hover {
     opacity: 0.8;
 }
 
-#submit-signup, #submit-signin, #submit-forgot-password {
+#submit-signup, #submit-signin, #submit-forgot-password, #submit-change-password {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -578,7 +610,7 @@ input::placeholder {
     font-weight: bold;
 }
 
-#submit-signup:hover, #submit-signin:hover, #submit-forgot-password:hover, #submit-forgot-password {
+#submit-signup:hover, #submit-signin:hover, #submit-forgot-password:hover, #submit-change-password:hover {
     opacity: 0.8;
 }
  
@@ -589,7 +621,7 @@ input::placeholder {
     padding-left: 30px;
 }
 
-#success-signup, #failed-signup, #success-signin, #failed0-signin, #failed1-signin, #failed2-signin, #failed3-signin, #failed4-signin, #success-update-password, #failed1-update-password, #failed2-update-password, #error, #session-timeout, #deleted-account {
+#success-signup, #failed-signup, #success-signin, #failed0-signin, #failed1-signin, #failed2-signin, #failed3-signin, #failed4-signin, #success-update-password, #failed1-update-password, #failed2-update-password, #error, #session-timeout, #deleted-account, #success-change-password, #failed-change-password {
     background-color: white;
     margin: 2%;
     padding: 20px;
@@ -604,7 +636,7 @@ input::placeholder {
     z-index: 10;
 }
 
-#success-signup.show, #failed-signup.show, #success-signin.show, #failed0-signin.show, #failed1-signin.show, #failed2-signin.show, #failed3-signin.show, #failed4-signin.show, #success-update-password.show, #failed1-update-password.show, #failed2-update-password.show, #error.show, #session-timeout.show, #deleted-account.show {
+#success-signup.show, #failed-signup.show, #success-signin.show, #failed0-signin.show, #failed1-signin.show, #failed2-signin.show, #failed3-signin.show, #failed4-signin.show, #success-update-password.show, #failed1-update-password.show, #failed2-update-password.show, #error.show, #session-timeout.show, #deleted-account.show, #success-change-password.show, #failed-change-password.show {
     opacity: 1;
     transform: translateY(0);
 }
