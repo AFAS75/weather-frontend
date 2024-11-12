@@ -40,16 +40,11 @@
         <p>We're sorry to see you go. All your personal data has been permanently erased.</p> 
         <p>We hope to see you again in the future.</p>
       </div>
-      <div id='success-change-password' class='hidden'>
-        <h2>Password Change Successful !</h2>
-        <p>Your password has been successfully updated.</p>
-        <p>You can now log in with your new password to access your account.</p>
-      </div>
-      <div id='failed-change-password' class='hidden'>
-        <h2>User not found or incorrect password ...</h2>
-        <p>Please verify your information and try again.</p>
-        <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
-      </div>
+    </div>
+  </div>
+
+  <div id='overlay-home-page-logged'>
+    <div id='popover-home-page'>
       <div id='change-password' class='hidden'>
         <h3>Change password</h3>
         <hr class='hr'>
@@ -71,6 +66,10 @@
               <label class='place-holder'>New password* :</label>
               <input class='button-form' type='password' name='newPassword' required>
             </div>
+            <div class='input-group'>
+              <label class='place-holder'>Confirm password* :</label>
+              <input class='button-form' type='password' name='confirmPassword' required>
+            </div>
           </div>
             <div class='container-button-form'>
               <button id='return-change-password' type='button'>Back</button>
@@ -78,6 +77,21 @@
             </div>
         </form>
       </div>
+    </div>
+    <div id='success-change-password' class='hidden'>
+      <h2>Password Change Successful !</h2>
+      <p>Your password has been successfully updated.</p>
+      <p>You can now log in with your new password to access your account.</p>
+    </div>
+    <div id='failed1-change-password' class='hidden'>
+      <h2>User not found or incorrect password ...</h2>
+      <p>Please verify your information and try again.</p>
+      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+    </div>
+    <div id='failed2-change-password' class='hidden'>
+      <h2>Password mismatch ...</h2>
+      <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
+      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
   </div>
 
@@ -173,11 +187,15 @@
               <label class='place-holder'>New password* :</label>
               <input class='button-form' type='password' name='password' required>
             </div>
-          </div>
+            <div class='input-group'>
+              <label class='place-holder'>Confirm password* :</label>
+              <input class='button-form' type='password' name='againPassword' required>
+            </div>
             <div class='container-button-form'>
               <button id='return-forgot-password' type='button'>Back</button>
               <button id='submit-forgot-password' type='submit'>Submit</button>
             </div>
+          </div>
         </form>
       </div>
     </div>
@@ -215,7 +233,7 @@
       <h2>Already logged in 😃</h2>
     </div>
     <div id='failed4-signin' class='hidden'>
-      <h2>Your recenet password change request has not been validated yet!</h2>
+      <h2>Your recent password change request has not been validated yet!</h2>
       <p>The new password has not yet been confirmed.</p> 
       <p>Please check your inbox and click on the link to confirm your recent password change request.</p>
       <p>If you don't see the email, please check your spam folder.</p>
@@ -223,7 +241,7 @@
     </div>
     <div id='success-update-password' class='hidden'>
       <h2>Confirm your request password change !</h2>
-      <p>We have received your request to reset your password. To confirm this change, please click the link in the email that has just been sent to you.  This link will expire in 15 minutes.</p>
+      <p>To confirm this change, please click the link in the email that has just been sent to you.  This link will expire in 15 minutes.</p>
       <p>After confirming, please log in with de the new password to access your account.</p>
     </div>
     <div id='failed1-update-password' class='hidden'>
@@ -236,6 +254,11 @@
     <div id='failed2-update-password' class='hidden'>
       <h2>User not found ...</h2>
       <p>Please verify your information and try again.</p>
+      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+    </div>
+    <div id='failed3-update-password' class='hidden'>
+      <h2>Password mismatch ...</h2>
+      <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
       <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
   </div>
