@@ -621,7 +621,7 @@ input::placeholder {
     padding-left: 30px;
 }
 
-#success-signup, #failed-signup, #success-signin, #failed0-signin, #failed1-signin, #failed2-signin, #failed3-signin, #failed4-signin, #success-update-password, #failed1-update-password, #failed2-update-password, #failed3-update-password, #error, #session-timeout, #deleted-account, #success-change-password, #failed1-change-password, #failed2-change-password {
+#success-signup, #failed1-signup, #failed2-signup, #success-signin, #failed0-signin, #failed1-signin, #failed2-signin, #failed3-signin, #failed4-signin, #success-update-password, #failed1-update-password, #failed2-update-password, #failed3-update-password, #error, #session-timeout, #deleted-account, #success-change-password, #failed1-change-password, #failed2-change-password {
     background-color: white;
     margin: 2%;
     padding: 20px;
@@ -636,7 +636,7 @@ input::placeholder {
     z-index: 10;
 }
 
-#success-signup.show, #failed-signup.show, #success-signin.show, #failed0-signin.show, #failed1-signin.show, #failed2-signin.show, #failed3-signin.show, #failed4-signin.show, #success-update-password.show, #failed1-update-password.show, #failed2-update-password.show, #failed3-update-password.show, #error.show, #session-timeout.show, #deleted-account.show, #success-change-password.show, #failed1-change-password.show, #failed2-change-password.show {
+#success-signup.show, #failed1-signup.show, #failed2-signup.show, #success-signin.show, #failed0-signin.show, #failed1-signin.show, #failed2-signin.show, #failed3-signin.show, #failed4-signin.show, #success-update-password.show, #failed1-update-password.show, #failed2-update-password.show, #failed3-update-password.show, #error.show, #session-timeout.show, #deleted-account.show, #success-change-password.show, #failed1-change-password.show, #failed2-change-password.show {
     opacity: 1;
     transform: translateY(0);
 }

@@ -142,6 +142,10 @@
                 <label class='place-holder'>Password* :</label>
                 <input class='button-form' type='password' name='password' required>
               </div>
+              <div class='input-group'>
+                <label class='place-holder'>Confirm password* :</label>
+                <input class='button-form' type='password' name='confirmPassword' required>
+              </div>
             </div>
               <div class='container-button-form'>
                 <button id='return-signup' type='button'>Back</button>
@@ -204,10 +208,15 @@
       <p>Before you can log in, please verify your email address by clicking the link that has just been sent to you. This link will expire in 15 minutes.</p>
       <p>In case you don't see the email, please check your spam folder</p>
     </div>
-    <div id='failed-signup' class='hidden'>
+    <div id='failed1-signup' class='hidden'>
       <h2>Sorry, registration failed ...</h2>
       <p>The username or email address already exists, or the email address has not yet been verified.</p>
       <p>Please try again.</p>
+      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+    </div>
+    <div id='failed2-signup' class='hidden'>
+      <h2>Password mismatch ...</h2>
+      <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
       <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
     <div id='success-signin' class='hidden'>

@@ -36,7 +36,8 @@ const returnDeleteUser = document.getElementById('back-delete-user');
 const confirmDeleteUser = document.getElementById('yes-delete-user');
 const msgError = document.getElementById('error');
 const msgSuccessSignup = document.getElementById('success-signup');
-const msgFailed1Signup = document.getElementById('failed-signup');
+const msgFailed1Signup = document.getElementById('failed1-signup');
+const msgFailed2Signup = document.getElementById('failed2-signup');
 const msgSuccessSignin = document.getElementById('success-signin');
 const msgFailed0Signin = document.getElementById('failed0-signin');
 const msgFailed1Signin = document.getElementById('failed1-signin');
@@ -329,6 +330,7 @@ overlayAccount.addEventListener('click', (event) => {
 		signupForm.userName.value = '';
 		signupForm.email.value = '';
 		signupForm.password.value = '';
+		signupForm.confirmPassword.value = '';
 		signinForm.infos.value = '';
 		signinForm.password.value = '';
 		forgotPasswordForm.userName.value = '';
@@ -362,6 +364,7 @@ overlayAccount.addEventListener('click', (event) => {
 		signupForm.userName.value = '';
 		signupForm.email.value = '';
 		signupForm.password.value = '';
+		signupForm.confirmPassword.value = '';
 	});
 
 	returnSigninButton.addEventListener('click', () => {
@@ -482,13 +485,15 @@ signupForm.addEventListener('submit', (event) => {
 		body: JSON.stringify({
 			userName: form.userName.value,
 			email: form.email.value,
-			password: form.password.value
+			password: form.password.value,
+			confirmPassword: form.confirmPassword.value,
 		})
 	})
 	.then(res => res.json())
 	.then(userData => {
 		if (userData.result) {
 			msgFailed1Signup.classList.add('hidden');
+			msgFailed2Signup.classList.add('hidden');
 			msgSuccessSignup.classList.remove('hidden');
 			setTimeout(function() {
 				msgSuccessSignup.classList.add('show');
@@ -500,8 +505,10 @@ signupForm.addEventListener('submit', (event) => {
 				signupForm.email.value = '';
 				signupForm.password.value = '';
 				window.location.reload();
-			}, 10000);
-		} else {
+			}, 8000);
+		} else if (userData.error === 'Username or email address already exists') {
+			msgFailed2Signup.classList.add('hidden');
+			msgFailed1Signup.classList.remove('show');
 			if (msgFailed1Signup.classList.contains('hidden')) {
 				msgFailed1Signup.classList.remove('hidden');
 				setTimeout(function() {
@@ -513,7 +520,22 @@ signupForm.addEventListener('submit', (event) => {
 					msgFailed1Signup.classList.add('show');
 				}, 500);
 			}
+		} else if (userData.error === 'Password mismatch') {
+			msgFailed1Signup.classList.add('hidden');
+			msgFailed2Signup.classList.remove('show');
+			if (msgFailed2Signup.classList.contains('hidden')) {
+				msgFailed2Signup.classList.remove('hidden');
+				setTimeout(function() {
+					msgFailed2Signup.classList.add('show');
+				}, 10);
+			} else {
+				msgFailed2Signup.classList.remove('show');
+				setTimeout(function() {
+					msgFailed2Signup.classList.add('show');
+				}, 500);
+			}
 		}
+		
 	})
 });
 
@@ -556,8 +578,7 @@ signinForm.addEventListener('submit', (event) => {
 				msgSuccessSignin.textContent = '';
 				window.location.reload();
 			}, 2500);
-		} 
-		else if (form.infos.value === "" || userData.error === 'Missing or empty fields') {
+		} else if (form.infos.value === "" || userData.error === 'Missing or empty fields') {
 			msgFailed2Signin.classList.add('hidden');
 			msgFailed0Signin.classList.remove('show');
 			if (msgFailed0Signin.classList.contains('hidden')) {
@@ -571,8 +592,7 @@ signinForm.addEventListener('submit', (event) => {
 					msgFailed0Signin.classList.add('show');
 				}, 500);
 			}
-		}
-		else if (userData.error === 'Email address not yet verified') {
+		} else if (userData.error === 'Email address not yet verified') {
 			msgFailed1Signin.classList.remove('hidden');
 			setTimeout(function() {
 				msgFailed1Signin.classList.add('show');
@@ -584,8 +604,7 @@ signinForm.addEventListener('submit', (event) => {
 				signinForm.password.value = '';
 				window.location.reload();
 			}, 6000);
-		} 
-		else if (userData.error === 'User not found' || userData.error === 'Wrong password') {
+		} else if (userData.error === 'User not found' || userData.error === 'Wrong password') {
 			msgFailed0Signin.classList.add('hidden');
 			msgFailed2Signin.classList.remove('show');
 			if (msgFailed2Signin.classList.contains('hidden')) {
@@ -599,8 +618,7 @@ signinForm.addEventListener('submit', (event) => {
 					msgFailed2Signin.classList.add('show');
 				}, 500);
 			}
-		} 
-		else if (userData.error === 'User already logged in' ) {
+		} else if (userData.error === 'User already logged in' ) {
 			msgFailed3Signin.classList.remove('hidden');
 			setTimeout(function() {
 				msgFailed3Signin.classList.add('show');
@@ -612,8 +630,7 @@ signinForm.addEventListener('submit', (event) => {
 				signinForm.password.value = '';
 				window.location.reload();
 			}, 4000);
-		} 
-		else if (userData.error === 'Password change request not yet confirmed') {
+		} else if (userData.error === 'Password change request not yet confirmed') {
 			msgFailed0Signin.classList.add('hidden');
 			msgFailed2Signin.classList.add('hidden')
 			msgFailed4Signin.classList.remove('hidden');
@@ -677,8 +694,7 @@ changePasswordButton.addEventListener('click', () => {
 					localStorage.removeItem('refreshToken');
 					window.location.reload();
 				}, 6000);
-			} 
-			if (changePasswordData.error === 'Wrong password' || changePasswordData.error === 'User not found') {
+			} else if (changePasswordData.error === 'Wrong password' || changePasswordData.error === 'User not found') {
 				msgFailed2ChangePassword.classList.add('hidden');
 				msgFailed1ChangePassword.classList.remove('show');
 				if (msgFailed1ChangePassword.classList.contains('hidden')) {
@@ -692,8 +708,7 @@ changePasswordButton.addEventListener('click', () => {
 						msgFailed1ChangePassword.classList.add('show');
 					}, 500);
 				} 
-			}
-			if (changePasswordData.error === 'Password mismatch') {
+			} else if (changePasswordData.error === 'Password mismatch') {
 				msgFailed1ChangePassword.classList.add('hidden');
 				msgFailed2ChangePassword.classList.remove('show');
 				if (msgFailed2ChangePassword.classList.contains('hidden')) {
@@ -745,8 +760,7 @@ forgotPasswordForm.addEventListener('submit', (event) => {
 				forgotPasswordForm.password.value = '';
 				window.location.reload();
 			}, 6000);
-		} 
-		if (updatePasswordData.error === 'New password not yet confirmed') {
+		} else if (updatePasswordData.error === 'New password not yet confirmed') {
 			msgFailed2UpdatePassword.classList.add('hidden');
 			msgFailed3UpdatePassword.classList.add('hidden');
 			msgFailed1UpdatePassword.classList.remove('hidden');
@@ -761,8 +775,7 @@ forgotPasswordForm.addEventListener('submit', (event) => {
 				forgotPasswordForm.password.value = '';
 				window.location.reload();
 			}, 6000);
-		} 
-		if (updatePasswordData.error === 'User not found') {
+		} else if (updatePasswordData.error === 'User not found') {
 			msgFailed3UpdatePassword.classList.add('hidden');
 			msgFailed2UpdatePassword.classList.remove('show');
 			if (msgFailed2UpdatePassword.classList.contains('hidden')) {
@@ -776,8 +789,7 @@ forgotPasswordForm.addEventListener('submit', (event) => {
 					msgFailed2UpdatePassword.classList.add('show');
 				}, 500);
 			}
-		} 
-		if (updatePasswordData.error === 'Password mismatch') {
+		} else if (updatePasswordData.error === 'Password mismatch') {
 			msgFailed2UpdatePassword.classList.add('hidden');
 			msgFailed3UpdatePassword.classList.remove('show');
 			if (msgFailed3UpdatePassword.classList.contains('hidden')) {
