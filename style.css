@@ -102,6 +102,17 @@ input::placeholder {
     cursor: pointer;
 }
 
+#user-icon-logged {
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+#icon-logged {
+    width: 17px;
+    margin-right: 8px;
+}
+
 #userIcon:hover, #circl-userIcon:hover {
     opacity: 0.4;
 }
@@ -256,6 +267,27 @@ input::placeholder {
     opacity: 0.8;
 }
 
+#title-personalize {
+    transition: opacity 0.4s ease, transform 0.4s ease; 
+    opacity: 0; 
+    transform: translateY(100%);
+    z-index: 10;
+    background-color: #DFDFDF;
+    background: linear-gradient(to right,  #DFDFDF, transparent);
+}
+
+#title-home-page-bar, #title-personalize-bar {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to right, white, transparent);
+    padding-left: 10px;
+    font-size: 18px;
+    height: 40px;
+}
+
+#text-title-personalize-bar {
+    margin-left: 10px;
+}
 
 #cityList {
     display: flex;
@@ -264,6 +296,20 @@ input::placeholder {
     align-items: center;
     flex-wrap: wrap;
     width: 100vw;
+}
+
+#cityList-personalize {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100vw;
+}
+
+#title-personalize.show-personalize{
+    opacity: 1;
+    transform: translateY(0);
 }
 
 
@@ -277,6 +323,14 @@ input::placeholder {
     background-color: white;
     background-size: cover;
     border-radius: 20px;
+    transition: opacity 0.9s ease, transform 0.9s ease; 
+    opacity: 0; 
+    transform: scale(0.9);
+}
+
+.cityContainer.show-city { 
+    opacity: 1; 
+    transform: scale(1); 
 }
 
 .name {
@@ -293,6 +347,14 @@ input::placeholder {
 .country {
     margin: 0;
 }
+
+.currentTime {
+    font-size: 16px; 
+    color: black;
+    margin: 5px 0;
+    padding: 0;
+}
+
 .description {
     font-size: 18px;
     margin: 1;

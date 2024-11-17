@@ -1,10 +1,15 @@
 // Token access
 const accessToken = localStorage.getItem('accessToken');
 const refreshToken = localStorage.getItem('refreshToken');
+const cleanUsernNameLocalStorage = localStorage.removeItem('userName');
+const cleanEmailLocalStorage = localStorage.removeItem('email');
+const cleanAccessTokennLocalStorage = localStorage.removeItem('accessToken');
+const cleanRefreshTokennLocalStorage = localStorage.removeItem('refreshToken');
 // Local storage
 const storedUsername = localStorage.getItem('userName');
 const storedEmail = localStorage.getItem('email');
 // DOM
+const cityContainer = document.querySelectorAll('.cityContainer');
 const openPopoverButton = document.getElementById('userIcon');
 const cityNameInput = document.getElementById('cityNameInput');
 const overlayHomePage = document.getElementById('overlay-home-page');
@@ -57,7 +62,6 @@ const msgSuccessChangePassword = document.getElementById('success-change-passwor
 const msgFailed1ChangePassword = document.getElementById('failed1-change-password');
 const msgFailed2ChangePassword = document.getElementById('failed2-change-password');
 
- 
 // Show user account popover
 if (accessToken) {
 	document.getElementById('username').textContent = `Welcome ${storedUsername} !`;
@@ -91,10 +95,10 @@ const newAccessToken = () => {
 					}, 10);
 					setTimeout(function() {
 						msgSessionTimeout.classList.add('hidden');
-						localStorage.removeItem('userName');
-						localStorage.removeItem('email');
-						localStorage.removeItem('accessToken');
-						localStorage.removeItem('refreshToken');
+						cleanUsernNameLocalStorage;
+						cleanEmailLocalStorage;
+						cleanAccessTokennLocalStorage;
+						cleanRefreshTokennLocalStorage;
 						window.location.reload();
 					}, 5000)
 				})
@@ -103,9 +107,10 @@ const newAccessToken = () => {
 	}
 };
 
-setInterval(newAccessToken, 900000);
+// Every 15m a new access token is regenerated
+setInterval(newAccessToken, 15 * 60 * 1000); // 15m * 60s * 1000 thousandth of a second = 15m
 
-// Add new city
+// Add new city by clicking the button glass icon 
 document.getElementById('addCity').addEventListener('click', () => {
 	const cityName = cityNameInput.value;
 	if (cityName) {
@@ -144,28 +149,46 @@ document.getElementById('addCity').addEventListener('click', () => {
 				}
 			})
 			if (!cityAlreadyExists) {
-				fetch('http://localhost:3000/weather/add_city_home_page', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ cityName }),
-				})
-				.then(res => res.json())
-				.then(apiData => {
+				async function fetchAndDisplayCity() {
+					const res = await fetch('http://localhost:3000/weather/add_city_home_page', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ cityName }),
+					});
+					const apiData = await res.json();
 					if (apiData.result) {
-						document.querySelector('#cityList').innerHTML += `
-						<div class="cityContainer">
-							<p class="name">${apiData.cityName}</p>
-							<p class="country">(${apiData.city.sys.country})</p>
-							<p class="description">${apiData.city.weather[0].main}</p>
-							<img class="weatherIcon" src="images/${apiData.city.weather[0].main}.png"/>
-							<div class="temperature">
-								<p class="tempMin">${apiData.city.main.temp_min}°C</p>
-								<span>-</span>
-								<p class="tempMax">${apiData.city.main.temp_max}°C</p>
-							</div>
-						</div>
-						`;
-						cityNameInput.value = '';
+						const lat = apiData.city.coord.lat;
+						const lon = apiData.city.coord.lon;
+						async function fetchAndDisplayCityTime() {
+							const res = await fetch(`http://localhost:3000/weather/local_time/${lat}/${lon}`);
+							const apiTimeData = await res.json();
+							if (apiTimeData) {
+								let currentTime = new Date(apiTimeData.localTime.formatted);
+								document.querySelector('#cityList-personalize').innerHTML += `
+								<div class="cityContainer" id="city-${apiData.cityName}">
+									<p class="name">${apiData.cityName}</p>
+									<p class="country">(${apiData.city.sys.country})</p>				
+									<p class="currentTime" id="time-${apiData.cityName}">${currentTime.toLocaleTimeString()}</p>
+									<p class="description">${apiData.city.weather[0].main}</p>
+									<img class="weatherIcon" src="images/${apiData.city.weather[0].main}.png"/>
+									<div class="temperature">
+										<p class="tempMin">${apiData.city.main.temp_min}°C</p>
+										<span>-</span>
+										<p class="tempMax">${apiData.city.main.temp_max}°C</p>
+									</div>
+								</div>
+								`;
+								setInterval(() => {
+									currentTime.setSeconds(currentTime.getSeconds() + 1);
+									document.querySelector(`#time-${apiData.cityName}`).textContent = `${currentTime.toLocaleTimeString()}`;
+								}, 1000);
+								await new Promise(resolve => setTimeout(resolve, 10));
+								document.querySelector(`#title-personalize`).classList.add('show-personalize');
+								document.querySelector(`#city-${apiData.cityName}`).classList.add('show-city');
+								cityNameInput.value = '';
+							}
+						} 
+						fetchAndDisplayCityTime();
 					} else {
 						overlayHomePage.style.display = 'flex';
 						msgError.classList.remove('hidden');
@@ -179,7 +202,8 @@ document.getElementById('addCity').addEventListener('click', () => {
 							msgError.classList.remove('show');
 						}, 3000);
 					}
-				})
+				}
+				fetchAndDisplayCity();
 			} else {
 				overlayHomePage.style.display = 'flex';
 				msgError.classList.remove('hidden');
@@ -197,94 +221,273 @@ document.getElementById('addCity').addEventListener('click', () => {
 	}
 });
 
+// Add new city when pressing the 'Enter' key on the keyboard
+document.getElementById('cityNameInput').addEventListener('keydown', (event) => {
+	const cityName = cityNameInput.value;
+	if (cityName) {
+		if (event.key === 'Enter') {
+			if (accessToken) {
+				fetch('http://localhost:3000/weather/add_new_city', {
+					method: 'POST', 
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${accessToken}`,
+					},
+					body: JSON.stringify({ cityName }),
+				})
+				.then(res => res.json())
+				.then((data) => {
+					if (data.result) {
+						window.location.reload();
+					} else {
+						overlayHomePage.style.display = 'flex';
+						msgError.classList.remove('hidden');
+						cityNameInput.value = '';
+						setTimeout(function() {
+							msgError.classList.add('show');
+						}, 10);
+						setTimeout(function() {
+							overlayHomePage.style.display = 'none';
+							msgError.classList.add('hidden');
+							msgError.classList.remove('show');
+						}, 3000);
+					}
+				})
+			} else {
+				let cityAlreadyExists = false;
+				document.querySelectorAll('.name').forEach(e => {
+					if (e.textContent.includes(cityName.slice(0,1).toUpperCase()+cityName.slice(1))) {
+						cityAlreadyExists = true
+					}
+				})
+				if (!cityAlreadyExists) {
+					async function fetchAndDisplayCity() {
+						const res = await fetch('http://localhost:3000/weather/add_city_home_page', {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify({ cityName }),
+						});
+						const apiData = await res.json();
+						if (apiData.result) {
+							const lat = apiData.city.coord.lat;
+							const lon = apiData.city.coord.lon;
+							async function fetchAndDisplayCityTime() {
+								const res = await fetch(`http://localhost:3000/weather/local_time/${lat}/${lon}`);
+								const apiTimeData = await res.json();
+								if (apiTimeData) {
+									let currentTime = new Date(apiTimeData.localTime.formatted);
+									document.querySelector('#cityList-personalize').innerHTML += `
+									<div class="cityContainer" id="city-${apiData.cityName}">
+										<p class="name">${apiData.cityName}</p>
+										<p class="country">(${apiData.city.sys.country})</p>				
+										<p class="currentTime" id="time-${apiData.cityName}">${currentTime.toLocaleTimeString()}</p>
+										<p class="description">${apiData.city.weather[0].main}</p>
+										<img class="weatherIcon" src="images/${apiData.city.weather[0].main}.png"/>
+										<div class="temperature">
+											<p class="tempMin">${apiData.city.main.temp_min}°C</p>
+											<span>-</span>
+											<p class="tempMax">${apiData.city.main.temp_max}°C</p>
+										</div>
+									</div>
+									`;
+									setInterval(() => {
+										currentTime.setSeconds(currentTime.getSeconds() + 1);
+										document.querySelector(`#time-${apiData.cityName}`).textContent = `${currentTime.toLocaleTimeString()}`;
+									}, 1000);
+									await new Promise(resolve => setTimeout(resolve, 10));
+									document.querySelector(`#title-personalize`).classList.add('show-personalize');
+									document.querySelector(`#city-${apiData.cityName}`).classList.add('show-city');
+									cityNameInput.value = '';
+								}
+							} 
+							fetchAndDisplayCityTime();
+						} else {
+							overlayHomePage.style.display = 'flex';
+							msgError.classList.remove('hidden');
+							cityNameInput.value = '';
+							setTimeout(function() {
+								msgError.classList.add('show');
+							}, 10);
+							setTimeout(function() {
+								overlayHomePage.style.display = 'none';
+								msgError.classList.add('hidden');
+								msgError.classList.remove('show');
+							}, 3000);
+						}
+					}
+					fetchAndDisplayCity();
+				} else {
+					overlayHomePage.style.display = 'flex';
+					msgError.classList.remove('hidden');
+					cityNameInput.value = '';
+					setTimeout(function() {
+						msgError.classList.add('show');
+					}, 10);
+					setTimeout(function() {
+						overlayHomePage.style.display = 'none';
+						msgError.classList.add('hidden');
+						msgError.classList.remove('show');
+					}, 3000);
+				}
+			}
+		}
+	}
+});
+
 // Show weather forecast 
 if (accessToken) {
-	fetch('http://localhost:3000/weather/my_cities_added', {
-		headers: { 'Authorization': `Bearer ${accessToken}` },
-	})
-	.then(res => res.json())
-	.then(apiData => {
-		if (apiData.myCities) {
-			for (i = 0; i < apiData.myCities.length; i++) {
-				document.querySelector('#cityList').innerHTML += `
-				<div class="cityContainer">
-				<p class="name">${apiData.myCitiesName[i]}</p>
-				<p class="country">(${apiData.myCities[i].sys.country})</p>
-				<p class="description">${apiData.myCities[i].weather[0].main}</p>
-				<img class="weatherIcon" src="images/${apiData.myCities[i].weather[0].main}.png"/>
-				<div class="temperature">
-				<p class="tempMin">${apiData.myCities[i].main.temp_min}°C</p>
-				<span>-</span>
-				<p class="tempMax">${apiData.myCities[i].main.temp_max}°C</p>
-				</div>
-				<button class="deleteCity" id="${apiData.myCitiesName[i]}">Delete</button>
-				</div>
-				`;
-			}
-			if (apiData.cityNotFound) {
-				msgError.classList.remove('hidden');
-				overlayHomePage.style.display = 'flex';
-				cityNameInput.value = '';
-				setTimeout(function() {
-					msgError.classList.add('show');
-				}, 10);
-				setTimeout(function() {
-					msgError.classList.add('hidden');
-					overlayHomePage.style.display = 'none';
-				}, 5000);
-			}
-			updateDeleteCityEventListener();
-			updateMessageVisibility();
-		}
-	});
-} else {
-	fetch('http://localhost:3000/weather/home_page')
-	.then(res => res.json())
-	.then(apiData => {
-		for (i = 0; i < apiData.homepagedata.length; i++) {
-			document.querySelector('#cityList').innerHTML += `
-			<div class="cityContainer">
-				<p class="name">${apiData.cityName[i]}</p>
-				<p class="country">(${apiData.homepagedata[i].sys.country})</p>				
-				<p class="description">${apiData.homepagedata[i].weather[0].main}</p>
-				<img class="weatherIcon" src="images/${apiData.homepagedata[i].weather[0].main}.png"/>
-				<div class="temperature">
-					<p class="tempMin">${apiData.homepagedata[i].main.temp_min}°C</p>
-					<span>-</span>
-					<p class="tempMax">${apiData.homepagedata[i].main.temp_max}°C</p>
-				</div>
-			</div>
-			`;
-		};
-	});
-};
-
-// Show welcome message on logged in user's home page
-function updateMessageVisibility() {
-	if (document.querySelectorAll('.cityContainer').length === 0) {
-		msgUserHomePage.classList.remove('hidden')
-	} else {
-		msgUserHomePage.classList.add('hidden');
-	}
-};
-
-// Delete city
-function updateDeleteCityEventListener() {
-	for (let i = 0; i < document.querySelectorAll('.deleteCity').length; i++) {
-		document.querySelectorAll('.deleteCity')[i].addEventListener('click', function() {
-			fetch(`http://localhost:3000/weather/${this.id}`, { 
-				method: 'DELETE', 
-				headers: { 'Authorization': `Bearer ${accessToken}` },
-			})
-			.then(res => res.json())
-			.then(data => {
-				if (data.result) {
-					this.parentNode.remove();
-					updateMessageVisibility();
-				}
+	document.getElementById('title-home-page-bar').textContent = `My cities`;
+	async function fetchAndDisplayCities() {
+		try {
+			const res = await fetch('http://localhost:3000/weather/my_cities_added', {
+					headers: { 'Authorization': `Bearer ${accessToken}` },
 			});
+			const apiData = await res.json();
+			if (apiData.myCities) {
+				for (let i = 0; i < apiData.myCities.length; i++) {
+					if (apiData.myCities[i]) {
+						const cityHtml = ` 
+						<div class="cityContainer" id="city-${i}"> 
+							<p class="name">${apiData.myCitiesName[i]}</p> 
+							<p class="country">(${apiData.myCities[i].sys.country})</p> 
+							<p class="currentTime" id="time-${i}">Loading...</p> <!-- Placeholder for time --> 
+							<p class="description">${apiData.myCities[i].weather[0].main}</p> 
+							<img class="weatherIcon" src="images/${apiData.myCities[i].weather[0].main}.png"/> 
+							<div class="temperature"> 
+								<p class="tempMin">${apiData.myCities[i].main.temp_min}°C</p> 
+								<span>-</span> 
+								<p class="tempMax">${apiData.myCities[i].main.temp_max}°C</p> 
+							</div> 
+							<button class="deleteCity" id="${apiData.myCitiesName[i]}">Delete</button> 
+						</div>
+						 `;
+						document.querySelector('#cityList').innerHTML += cityHtml;
+						setTimeout(() => {
+							const newCityContainer = document.querySelector(`#city-${i}`);
+							if (newCityContainer) {
+								newCityContainer.classList.add( 'show-city');
+							}
+						}, 10);
+						await fetchAndUpdateTime(apiData.myCities[i].coord.lat,apiData.myCities[i].coord.lon, i);
+						await pause(1000);
+					} else {
+						console.error(`City data for index ${i} is undifined`);
+					}
+				} 
+				if (apiData.cityNotFound) { 
+					msgError.classList.remove('hidden'); 
+					overlayHomePage.style.display = 'flex'; 
+					cityNameInput.value = ''; 
+					setTimeout(function() { 
+						msgError.classList.add('show'); 
+					}, 10); 
+					setTimeout(function() { 
+						msgError.classList.add('hidden');
+						overlayHomePage.style.display = 'none'; 
+					}, 5000);
+				} 
+				updateDeleteCityEventListener(); 
+				updateMessageVisibility(); 
+			} else {
+				console.error('No cities found in API');
+			}
+		} catch (error) {
+			console.error('Error fetching and displaying cities: ', error);
+		}
+	};
+
+	async function fetchAndUpdateTime(lat, lon, i) {
+		try {
+			const res = await fetch(`http://localhost:3000/weather/local_time/${lat}/${lon}`);
+			const apiTimeData = await res.json();
+		
+			if(apiTimeData.result) {
+				let currentTime = new Date(apiTimeData.localTime.formatted);
+				const updateClock = () => {
+					currentTime.setSeconds(currentTime.getSeconds() + 1);
+					document.getElementById(`time-${i}`).textContent = currentTime.toLocaleTimeString();
+				};
+				updateClock()
+				setInterval(updateClock, 1000);
+			} else {
+				console.error('Failed to fetch local time', apiTimeData.error);
+			}
+		} catch (error) {
+			console.error('Error fetching local tile: ', error);
+		}
+	};
+
+	// Wait for a few seconds before continuing
+	function pause(duration) {
+		return new Promise(resolve => setTimeout(resolve, duration));
+	};
+
+	// Show welcome message on logged in user's home page
+	function updateMessageVisibility() {
+		if (document.querySelectorAll('.cityContainer').length === 0) {
+			msgUserHomePage.classList.remove('hidden');
+		} else {
+			msgUserHomePage.classList.add('hidden');
+		}
+	};
+
+	// Delete city
+	function updateDeleteCityEventListener() {
+		const deleteButtons = document.querySelectorAll('.deleteCity'); 
+		deleteButtons.forEach((button, i) => { 
+			button.addEventListener('click', function() { 
+				fetch(`http://localhost:3000/weather/${this.id}`, { 
+					method: 'DELETE', 
+					headers: { 
+						'Authorization': `Bearer ${accessToken}` 
+					}, 
+				})
+				.then(res => res.json())
+				.then(data => { 
+					if (data.result) { 
+						console.error('Failed to delete city: ', data);
+						updateMessageVisibility(); 
+						window.location.reload(); 
+					} else { 
+						updateMessageVisibility(); 
+						window.location.reload(); 
+					} 
+				})
+				.catch(error => {
+					console.error('Error deleting city: ', error);
+				});
+			}); 
 		});
-	}
+	};
+	fetchAndDisplayCities();
+} else {
+	fetch('http://localhost:3000/weather/home_page') 
+	.then(res => res.json()) 
+	.then(apiData => { 
+		const cityList = document.querySelector('#cityList'); 
+		apiData.homepagedata.forEach((city, i) => {  
+		const cityHtml = ` 
+		<div class="cityContainer" id="city-${i}"> 
+			<p class="name">${apiData.cityName[i]}</p> 
+			<p class="country">(${apiData.homepagedata[i].sys.country})</p>
+			<p class="description">${apiData.homepagedata[i].weather[0].main}</p> 
+			<img class="weatherIcon" src="images/${apiData.homepagedata[i].weather[0].main}.png"/> 
+			<div class="temperature"> 
+				<p class="tempMin">${apiData.homepagedata[i].main.temp_min}°C</p> 
+				<span>-</span> 
+				<p class="tempMax">${apiData.homepagedata[i].main.temp_max}°C</p> 
+			</div> 
+			</div> 
+			`;  
+			cityList.innerHTML += cityHtml; 
+			setTimeout(() => { 
+				const newCityContainer = document.querySelector(`#city-${i}`); 
+				if (newCityContainer) { 
+					newCityContainer.classList.add('show-city'); 
+				} 
+			}, 10 );
+		});
+	});
 };
 
 // Handle button user icon popover
@@ -385,6 +588,11 @@ overlayAccount.addEventListener('click', (event) => {
 	forgotPasswordButton.addEventListener('click', () => {
 		signin.classList.add('hidden');
 		forgotPassword.classList.remove('hidden');
+		msgFailed0Signin.classList.add('hidden');
+		msgFailed1Signin.classList.add('hidden');
+		msgFailed2Signin.classList.add('hidden');
+		msgFailed3Signin.classList.add('hidden');
+		msgFailed4Signin.classList.add('hidden');
 		signinForm.infos.value = '';
 		signinForm.password.value = '';
 	})
@@ -505,7 +713,7 @@ signupForm.addEventListener('submit', (event) => {
 				signupForm.email.value = '';
 				signupForm.password.value = '';
 				window.location.reload();
-			}, 8000);
+			}, 10000);
 		} else if (userData.error === 'Username or email address already exists') {
 			msgFailed2Signup.classList.add('hidden');
 			msgFailed1Signup.classList.remove('show');
@@ -688,10 +896,10 @@ changePasswordButton.addEventListener('click', () => {
 					changePasswordForm.currentPassword.value = '';
 					changePasswordForm.newPassword.value = '';
 					changePasswordForm.confirmPassword.value = '';
-					localStorage.removeItem('userName');
-					localStorage.removeItem('email');
-					localStorage.removeItem('accessToken');
-					localStorage.removeItem('refreshToken');
+					cleanUsernNameLocalStorage;
+					cleanEmailLocalStorage;
+					cleanAccessTokennLocalStorage;
+					cleanRefreshTokennLocalStorage;
 					window.location.reload();
 				}, 6000);
 			} else if (changePasswordData.error === 'Wrong password' || changePasswordData.error === 'User not found') {
@@ -809,10 +1017,10 @@ forgotPasswordForm.addEventListener('submit', (event) => {
 
 // User log out
 logoutButton.addEventListener('click', () => {
-	localStorage.removeItem('userName');
-	localStorage.removeItem('email');
-	localStorage.removeItem('accessToken');
-	localStorage.removeItem('refreshToken');
+	cleanUsernNameLocalStorage;
+	cleanEmailLocalStorage;
+	cleanAccessTokennLocalStorage;
+	cleanRefreshTokennLocalStorage;
 	logoutButton.style.display = 'none';
 	deleteAccountButton.style.display = 'none';
 	fetch('http://localhost:3000/users/logout', {
@@ -844,10 +1052,10 @@ confirmDeleteUser.addEventListener('click', () => {
 			setTimeout(function() {
 				msgDeletedAccount.classList.add('show');
 				overlayHomePage.style.display = 'none';
-				localStorage.removeItem('userName');
-				localStorage.removeItem('email');
-				localStorage.removeItem('accessToken');
-				localStorage.removeItem('refreshToken');
+				cleanUsernNameLocalStorage;
+				cleanEmailLocalStorage;
+				cleanAccessTokennLocalStorage;
+				cleanRefreshTokennLocalStorage;
 				window.location.reload();
 			}, 6000)
 		}

@@ -19,9 +19,20 @@
     </div>
   </div>
 
-  <div id='cityList'>
-    <div id='message-user-home-page' class='hidden'>
-      Personalize the weather forecast for your favorite cities by adding a new city now !</div>
+  <div id='title-personalize'>
+    <div id='title-personalize-bar'>
+      <p>My cities</p>
+      <p id='text-title-personalize-bar'><i>(log in to save your favorite cities)</i></p>
+    </div>
+    <div id='cityList-personalize'></div>
+  </div>
+
+  <div id='title-home-page'>
+    <p id='title-home-page-bar'>Default cities</p>
+    <div id='cityList'>
+      <div id='message-user-home-page' class='hidden'>
+        Personalize the weather forecast for your favorite cities by adding a new city now !</div>
+    </div>
   </div>
 
   <div id='overlay-home-page'>
@@ -52,23 +63,23 @@
           <div class='container-form'> 
             <div class='input-group'>
               <label class='place-holder'>Username* :</label>
-              <input class='button-form' type='text' name='userName' required>
+              <input class='button-form' type='text' name='userName' autocomplete='username' required>
             </div>
             <div class='input-group'>
               <label class='place-holder'>Email address* :</label>
-              <input class='button-form' type='email' name='email' required>
+              <input class='button-form' type='email' name='email' autocomplete='email' required>
             </div>
             <div class='input-group'>
               <label class='place-holder'>Current password* :</label>
-              <input class='button-form' type='password' name='currentPassword' required>
+              <input class='button-form' type='password' name='currentPassword' autocomplete='current-password' required>
             </div>
             <div class='input-group'>
               <label class='place-holder'>New password* :</label>
-              <input class='button-form' type='password' name='newPassword' required>
+              <input class='button-form' type='password' name='newPassword' autocomplete='new-password' required>
             </div>
             <div class='input-group'>
               <label class='place-holder'>Confirm password* :</label>
-              <input class='button-form' type='password' name='confirmPassword' required>
+              <input class='button-form' type='password' name='confirmPassword' autocomplete='new-password' required>
             </div>
           </div>
             <div class='container-button-form'>
@@ -98,7 +109,10 @@
   <div id='overlay-logged'>
     <div id='popover-logged'>
       <div id='user'>
-        <h3><i>ACCOUNT</i></h3>
+        <div id='user-icon-logged'>
+          <img id='icon-logged' src='images/userFullBlackColor.png'/>
+          <h3><i>ACCOUNT</i></h3>
+        </div>
         <p id='username'></p>
         <p id='email'></p>
       </div>
@@ -132,19 +146,19 @@
             <div class='container-form'> 
               <div class='input-group'>
                 <label class='place-holder'>Username* :</label>
-                <input class='button-form' type='text' name='userName' required>
+                <input class='button-form' type='text' name='userName' autocomplete='username' required>
               </div>
               <div class='input-group'>
                 <label class='place-holder'>Email address* :</label>
-                <input class='button-form' type='email' name='email' required>
+                <input class='button-form' type='email' name='email' autocomplete='email' required>
               </div>
               <div class='input-group'>
                 <label class='place-holder'>Password* :</label>
-                <input class='button-form' type='password' name='password' required>
+                <input class='button-form' type='password' name='password' autocomplete='new-password' required>
               </div>
               <div class='input-group'>
                 <label class='place-holder'>Confirm password* :</label>
-                <input class='button-form' type='password' name='confirmPassword' required>
+                <input class='button-form' type='password' name='confirmPassword' autocomplete='new-password' required>
               </div>
             </div>
               <div class='container-button-form'>
@@ -160,11 +174,11 @@
             <div class='container-form'>
               <div class='input-group'>
                 <label class='place-holder'>Username or email address* :</label>
-                <input class='button-form' type='text' name='infos'>
+                <input class='button-form' type='text' name='infos' autocomplete='infos'>
               </div>
               <div class='input-group'>
                 <label class='place-holder'>Password* :</label>
-                <input class='button-form' type='password' name='password' required>
+                <input class='button-form' type='password' name='password' autocomplete='password' required>
               </div>
               <button id='forgot-password-button'>You forgot your password ?</button>
             </div>
@@ -181,19 +195,19 @@
           <div class='container-form'> 
             <div class='input-group'>
               <label class='place-holder'>Username* :</label>
-              <input class='button-form' type='text' name='userName' required>
+              <input class='button-form' type='text' name='userName' autocomplete='username' required>
             </div>
             <div class='input-group'>
               <label class='place-holder'>Email address* :</label>
-              <input class='button-form' type='email' name='email' required>
+              <input class='button-form' type='email' name='email' autocomplete='email' required>
             </div>
             <div class='input-group'>
               <label class='place-holder'>New password* :</label>
-              <input class='button-form' type='password' name='password' required>
+              <input class='button-form' type='password' name='password' autocomplete='new-password' required>
             </div>
             <div class='input-group'>
               <label class='place-holder'>Confirm password* :</label>
-              <input class='button-form' type='password' name='againPassword' required>
+              <input class='button-form' type='password' name='againPassword' autocomplete='new-password' required>
             </div>
             <div class='container-button-form'>
               <button id='return-forgot-password' type='button'>Back</button>
