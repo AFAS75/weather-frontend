@@ -1,5 +1,5 @@
 // Refresh token
-const path = 'https://weather-backend-2qdbcfpfj-afas75s-projects.vercel.app/';
+const path = 'https://weather-backend-9n2jyqszr-afas75s-projects.vercel.app';
 
 export const fetchRefreshToken = async (refreshToken) => {
 	const res = await fetch(`${path}/users/refresh_token`, {
