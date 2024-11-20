@@ -19,19 +19,20 @@
     </div>
   </div>
 
-  <div id='title-personalize'>
-    <div id='title-personalize-bar'>
-      <p>My cities</p>
-      <p id='text-title-personalize-bar'><i>(log in to save your favorite cities)</i></p>
+  <div id='list-containter'>
+    <div id='title-personalize'>
+      <div id='title-personalize-bar'>
+        <p>My cities</p>
+        <p id='text-title-personalize-bar'><i>(log in to save your favorite cities)</i></p>
+      </div>
+      <div id='cityList-personalize'></div>
     </div>
-    <div id='cityList-personalize'></div>
-  </div>
-
-  <div id='title-home-page'>
-    <p id='title-home-page-bar'>Default cities</p>
-    <div id='cityList'>
-      <div id='message-user-home-page' class='hidden'>
-        Personalize the weather forecast for your favorite cities by adding a new city now !</div>
+    <div id='title-home-page'>
+      <p id='title-home-page-bar'>Default cities</p>
+      <div id='cityList'>
+        <div id='message-user-home-page' class='hidden'>
+          Personalize the weather forecast for your favorite cities by adding a new city now !</div>
+      </div>
     </div>
   </div>
 
@@ -62,24 +63,44 @@
         <form id='change-password-form'>
           <div class='container-form'> 
             <div class='input-group'>
-              <label class='place-holder'>Username* :</label>
-              <input class='button-form' type='text' name='userName' autocomplete='username' required>
+              <label class='place-holder-container'>
+                <div id='place-holder'>
+                  Username* :
+                </div>
+                <input class='button-form' type='text' name='userName' autocomplete='username' required>
+              </label>
             </div>
             <div class='input-group'>
-              <label class='place-holder'>Email address* :</label>
-              <input class='button-form' type='email' name='email' autocomplete='email' required>
+              <label class='place-holder-container'>
+                <div id='place-holder'>
+                  Email address* :
+                </div>
+                <input class='button-form' type='email' name='email' autocomplete='email' required>
+              </label>
             </div>
             <div class='input-group'>
-              <label class='place-holder'>Current password* :</label>
-              <input class='button-form' type='password' name='currentPassword' autocomplete='current-password' required>
+              <label class='place-holder-container'>
+                <div id='place-holder'>
+                  Current password* :
+                </div>
+                <input class='button-form' type='password' name='currentPassword' autocomplete='current-password' required>
+              </label>
             </div>
             <div class='input-group'>
-              <label class='place-holder'>New password* :</label>
-              <input class='button-form' type='password' name='newPassword' autocomplete='new-password' required>
+              <label class='place-holder-container'>
+                <div id='place-holder'>
+                  New password* :
+                </div>
+                <input class='button-form' type='password' name='newPassword' autocomplete='new-password' required>
+              </label>
             </div>
             <div class='input-group'>
-              <label class='place-holder'>Confirm password* :</label>
-              <input class='button-form' type='password' name='confirmPassword' autocomplete='new-password' required>
+              <label class='place-holder-container'>
+                <div id='place-holder'>
+                  Confirm password* :
+                </div>
+                <input class='button-form' type='password' name='confirmPassword' autocomplete='new-password' required>
+              </label>
             </div>
           </div>
             <div class='container-button-form'>
@@ -94,12 +115,12 @@
       <p>Your password has been successfully updated.</p>
       <p>You can now log in with your new password to access your account.</p>
     </div>
-    <div id='failed1-change-password' class='hidden'>
+    <div id='error1-change-password' class='hidden'>
       <h2>User not found or incorrect password ...</h2>
       <p>Please verify your information and try again.</p>
       <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
-    <div id='failed2-change-password' class='hidden'>
+    <div id='error2-change-password' class='hidden'>
       <h2>Password mismatch ...</h2>
       <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
       <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
@@ -128,8 +149,8 @@
     </div>
   </div>
 
-  <div id='overlay-account'>
-    <div id='popover-account'>
+  <div id='overlay-signup-signin'>
+    <div id='popover-signup-signin'>
       <div id='initial-container'>
         <p>Create an account or sign in to save and to keep <br> your the weather in your favorite cities</p>
         <div id="vertical-line"></div>
@@ -145,20 +166,36 @@
           <form id='signup-form'>
             <div class='container-form'> 
               <div class='input-group'>
-                <label class='place-holder'>Username* :</label>
-                <input class='button-form' type='text' name='userName' autocomplete='username' required>
+                <label class='place-holder-container'>
+                  <div id='place-holder'>
+                    Username* :
+                  </div>
+                  <input class='button-form' type='text' name='userName' autocomplete='username' required>
+                </label>
               </div>
               <div class='input-group'>
-                <label class='place-holder'>Email address* :</label>
-                <input class='button-form' type='email' name='email' autocomplete='email' required>
+                <label class='place-holder-container'>
+                  <div id='place-holder'>
+                    Email address* :
+                  </div>
+                  <input class='button-form' type='email' name='email' autocomplete='email' required>
+                </label>
               </div>
               <div class='input-group'>
-                <label class='place-holder'>Password* :</label>
-                <input class='button-form' type='password' name='password' autocomplete='new-password' required>
+                <label class='place-holder-container'>
+                  <div id='place-holder'>
+                    Password* :
+                  </div>
+                  <input class='button-form' type='password' name='password' autocomplete='new-password' required>
+                </label>
               </div>
               <div class='input-group'>
-                <label class='place-holder'>Confirm password* :</label>
-                <input class='button-form' type='password' name='confirmPassword' autocomplete='new-password' required>
+                <label class='place-holder-container'>
+                  <div id='place-holder'>
+                    Confirm password* :
+                  </div>
+                  <input class='button-form' type='password' name='confirmPassword' autocomplete='new-password' required>
+                </label>
               </div>
             </div>
               <div class='container-button-form'>
@@ -173,14 +210,22 @@
           <form id='signin-form'>
             <div class='container-form'>
               <div class='input-group'>
-                <label class='place-holder'>Username or email address* :</label>
-                <input class='button-form' type='text' name='infos' autocomplete='infos'>
+                <label class='place-holder-container'>
+                  <div id='place-holder'>
+                    Username or email address* :
+                  </div>
+                  <input class='button-form' type='text' name='infos' autocomplete='infos'>
+                </label>
               </div>
               <div class='input-group'>
-                <label class='place-holder'>Password* :</label>
-                <input class='button-form' type='password' name='password' autocomplete='password' required>
+                <label class='place-holder-container'>
+                  <div id='place-holder'>
+                    Password* :
+                  </div>
+                  <input class='button-form' type='password' name='password' autocomplete='current-password' required>
+                </label>
               </div>
-              <button id='forgot-password-button'>You forgot your password ?</button>
+              <button id='forgot-password-button' type='button'>You forgot your password ?</button>
             </div>
             <div class='container-button-form'>
               <button id='return-signin' type='button'>Back</button>
@@ -194,20 +239,36 @@
         <form id='forgot-password-form'>
           <div class='container-form'> 
             <div class='input-group'>
-              <label class='place-holder'>Username* :</label>
-              <input class='button-form' type='text' name='userName' autocomplete='username' required>
+              <label class='place-holder-container'>
+                <div id='place-holder'>
+                  Username* :
+                </div>
+                <input class='button-form' type='text' name='userName' autocomplete='username' required>
+              </label>
             </div>
             <div class='input-group'>
-              <label class='place-holder'>Email address* :</label>
-              <input class='button-form' type='email' name='email' autocomplete='email' required>
+              <label class='place-holder-container'>
+                <div id='place-holder'>
+                  Email address* :
+                </div>
+                <input class='button-form' type='email' name='email' autocomplete='email' required>
+              </label>
             </div>
             <div class='input-group'>
-              <label class='place-holder'>New password* :</label>
-              <input class='button-form' type='password' name='password' autocomplete='new-password' required>
+              <label class='place-holder-container'>
+                <div id='place-holder'>
+                  New password* :
+                </div>
+                <input class='button-form' type='password' name='password' autocomplete='new-password' required>
+              </label>
             </div>
             <div class='input-group'>
-              <label class='place-holder'>Confirm password* :</label>
-              <input class='button-form' type='password' name='againPassword' autocomplete='new-password' required>
+              <label class='place-holder-container'>
+                <div id='place-holder'>
+                  Confirm password* :
+                </div>
+                <input class='button-form' type='password' name='againPassword' autocomplete='new-password' required>
+              </label>
             </div>
             <div class='container-button-form'>
               <button id='return-forgot-password' type='button'>Back</button>
@@ -222,13 +283,13 @@
       <p>Before you can log in, please verify your email address by clicking the link that has just been sent to you. This link will expire in 15 minutes.</p>
       <p>In case you don't see the email, please check your spam folder</p>
     </div>
-    <div id='failed1-signup' class='hidden'>
+    <div id='error1-signup' class='hidden'>
       <h2>Sorry, registration failed ...</h2>
       <p>The username or email address already exists, or the email address has not yet been verified.</p>
       <p>Please try again.</p>
       <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
-    <div id='failed2-signup' class='hidden'>
+    <div id='error2-signup' class='hidden'>
       <h2>Password mismatch ...</h2>
       <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
       <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
@@ -236,26 +297,26 @@
     <div id='success-signin' class='hidden'>
       <h2></h2>
     </div>
-    <div id='failed0-signin' class='hidden'>
+    <div id='error0-signin' class='hidden'>
       <h2>Sorry, log in failed ...</h2>
       <p>At least one of the fields is empty. All fields are required to log in.</p>
       <p>Please fill in all the fields and try again.</p>
     </div>
-    <div id='failed1-signin' class='hidden'>
+    <div id='error1-signin' class='hidden'>
       <h2>Your email address has not been verified yet!</h2>
       <p>Please check your inbox and click on the verification link to activate your account.</p>
       <p>If you don't see the email, please check your spam folder.</p>
       <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
-    <div id='failed2-signin' class='hidden'>
+    <div id='error2-signin' class='hidden'>
       <h2>User not found or incorrect password ...</h2>
       <p>Please verify your information and try again.</p>
       <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
-    <div id='failed3-signin' class='hidden'>
+    <div id='error3-signin' class='hidden'>
       <h2>Already logged in 😃</h2>
     </div>
-    <div id='failed4-signin' class='hidden'>
+    <div id='error4-signin' class='hidden'>
       <h2>Your recent password change request has not been validated yet!</h2>
       <p>The new password has not yet been confirmed.</p> 
       <p>Please check your inbox and click on the link to confirm your recent password change request.</p>
@@ -267,25 +328,25 @@
       <p>To confirm this change, please click the link in the email that has just been sent to you.  This link will expire in 15 minutes.</p>
       <p>After confirming, please log in with de the new password to access your account.</p>
     </div>
-    <div id='failed1-update-password' class='hidden'>
+    <div id='error1-update-password' class='hidden'>
       <h2> Password change request failed ...</h2>
       <p>Your password change request could not be processed because the recent request for a new password has not yet been confirmed.</p> 
       <p>Please check your inbox and click on the confirmation link to confirm your recent password change request.</p>
       <p>If you don't see the email, please check your spam folder.</p>
       <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
-    <div id='failed2-update-password' class='hidden'>
+    <div id='error2-update-password' class='hidden'>
       <h2>User not found ...</h2>
       <p>Please verify your information and try again.</p>
       <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
-    <div id='failed3-update-password' class='hidden'>
+    <div id='error3-update-password' class='hidden'>
       <h2>Password mismatch ...</h2>
       <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
       <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
     </div>
   </div>
-  <script src='script.js'></script>
+  <script type='module' src='script.js'></script>
 </body>
 
 </html>

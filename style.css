@@ -274,6 +274,7 @@ input::placeholder {
     z-index: 10;
     background-color: #DFDFDF;
     background: linear-gradient(to right,  #DFDFDF, transparent);
+    position: absolute;
 }
 
 #title-home-page-bar, #title-personalize-bar {
@@ -283,6 +284,7 @@ input::placeholder {
     padding-left: 10px;
     font-size: 18px;
     height: 40px;
+    margin: 0;
 }
 
 #text-title-personalize-bar {
@@ -417,7 +419,7 @@ input::placeholder {
     text-align: center;
 }
 
-#overlay-account {
+#overlay-signup-signin {
     display: none;
     flex-direction: column;
     position: fixed;
@@ -431,7 +433,7 @@ input::placeholder {
     align-items: center;
 }
 
-#popover-account {
+#popover-signup-signin {
     display: flex;
     background-color: white;
     padding: 20px;
@@ -615,6 +617,17 @@ input::placeholder {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.place-holder-container {
+    width: 135%;
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+}
+
+#place-holder {
+    align-self: flex-start;
+}
+
 .input-group {
     display: flex;
     flex-direction: column;
@@ -630,6 +643,7 @@ input::placeholder {
 
 .button-form {
     margin: 2%;
+    margin-bottom: 15px;
 }
 
 #return-signup, #return-signin, #return-forgot-password, #return-change-password {
@@ -675,15 +689,8 @@ input::placeholder {
 #submit-signup:hover, #submit-signin:hover, #submit-forgot-password:hover, #submit-change-password:hover {
     opacity: 0.8;
 }
- 
-.place-holder {
-    width: 135%;
-    display: flex;
-    font-size: 15px;
-    padding-left: 30px;
-}
 
-#success-signup, #failed1-signup, #failed2-signup, #success-signin, #failed0-signin, #failed1-signin, #failed2-signin, #failed3-signin, #failed4-signin, #success-update-password, #failed1-update-password, #failed2-update-password, #failed3-update-password, #error, #session-timeout, #deleted-account, #success-change-password, #failed1-change-password, #failed2-change-password {
+#success-signup, #error1-signup, #error2-signup, #success-signin, #error0-signin, #error1-signin, #error2-signin, #error3-signin, #error4-signin, #success-update-password, #error1-update-password, #error2-update-password, #error3-update-password, #error, #session-timeout, #deleted-account, #success-change-password, #error1-change-password, #error2-change-password {
     background-color: white;
     margin: 2%;
     padding: 20px;
@@ -698,7 +705,7 @@ input::placeholder {
     z-index: 10;
 }
 
-#success-signup.show, #failed1-signup.show, #failed2-signup.show, #success-signin.show, #failed0-signin.show, #failed1-signin.show, #failed2-signin.show, #failed3-signin.show, #failed4-signin.show, #success-update-password.show, #failed1-update-password.show, #failed2-update-password.show, #failed3-update-password.show, #error.show, #session-timeout.show, #deleted-account.show, #success-change-password.show, #failed1-change-password.show, #failed2-change-password.show {
+#success-signup.show, #error1-signup.show, #error2-signup.show, #success-signin.show, #error0-signin.show, #error1-signin.show, #error2-signin.show, #error3-signin.show, #error4-signin.show, #success-update-password.show, #error1-update-password.show, #error2-update-password.show, #error3-update-password.show, #error.show, #session-timeout.show, #deleted-account.show, #success-change-password.show, #error1-change-password.show, #error2-change-password.show {
     opacity: 1;
     transform: translateY(0);
 }
