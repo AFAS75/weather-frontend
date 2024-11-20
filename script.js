@@ -286,9 +286,9 @@ constants.signupForm.addEventListener('submit', async (event) => {
 			constants.showSuccessMessageSignup();
 			constants.hideSuccessMessageSignup();
 		} else if (apiUserData.error === 'Username or email address already exists') {
-			constants.showErrorMessageSignup(constants.msgFailed1Signup, constants.msgFailed2Signup);
+			constants.showErrorMessageSignup(constants.msgError1Signup, constants.msgError2Signup);
 		} else if (apiUserData.error === 'Password mismatch') {
-			constants.showErrorMessageSignup(constants.msgFailed2Signup, constants.msgFailed1Signup);
+			constants.showErrorMessageSignup(constants.msgError2Signup, constants.msgError1Signup);
 		}
 	} catch (error) {
 		console.error('Error user sign up: ', error);
@@ -316,15 +316,15 @@ constants.signinForm.addEventListener('submit', async (event) => {
 			constants.showSuccessMessageSignin();
 			constants.hideSuccessMessageSignin();
 		} else if (form.infos.value === "" || apiUserData.error === 'Missing or empty fields') {
-			constants.showAndHideErrorMessageSignin1(constants.msgFailed0Signin, constants.msgFailed2Signin);
+			constants.showAndHideErrorMessageSignin1(constants.msgError0Signin, constants.msgError2Signin);
 		} else if (apiUserData.error === 'Email address not yet verified') {
-			constants.showAndHideErrorMessageSignin2(constants.msgFailed1Signin);
+			constants.showAndHideErrorMessageSignin2(constants.msgError1Signin);
 		} else if (apiUserData.error === 'User not found' || apiUserData.error === 'Wrong password') {
-			constants.showAndHideErrorMessageSignin1(constants.msgFailed2Signin, constants.msgFailed0Signin);
+			constants.showAndHideErrorMessageSignin1(constants.msgError2Signin, constants.msgError0Signin);
 		} else if (apiUserData.error === 'User already logged in' ) {
-			constants.showAndHideErrorMessageSignin2(constants.msgFailed3Signin);
+			constants.showAndHideErrorMessageSignin2(constants.msgError3Signin);
 		} else if (apiUserData.error === 'Password change request not yet confirmed') {
-			constants.showAndHideErrorMessageSignin3(constants.msgFailed4Signin, constants.msgFailed0Signin, constants.msgFailed2Signin);
+			constants.showAndHideErrorMessageSignin3(constants.msgError4Signin, constants.msgError0Signin, constants.msgError2Signin);
 		} 
 	} catch (error) {
 		console.error('Error user sign in: ', error);
