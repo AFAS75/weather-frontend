@@ -1,6 +1,6 @@
 import constants from './constGlobal.js';
 
-const path = 'https://weather-backend-rust.vercel.app';
+const path = 'https://weather-backend-9ap8g3tr1-afas75s-projects.vercel.app';
 
 export const fetchAddNewCity = async (cityName) => {
     const res = await fetch(`${path}/weather/add_new_city`, {
