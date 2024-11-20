@@ -281,8 +281,11 @@ constants.signupForm.addEventListener('submit', async (event) => {
 			confirmPassword: form.confirmPassword.value,
 		})
 	try {
+		console.log('JSON: ', formData);
 		const apiUserData = await userRequests.fetchSignUpUser(formData)
+		console.log('LA OUI: ', apiUserData);
 		if (apiUserData.result) {
+			console.log('toi tu rentre pas ici');
 			constants.showSuccessMessageSignup();
 			constants.hideSuccessMessageSignup();
 		} else if (apiUserData.error === 'Username or email address already exists') {
@@ -306,7 +309,7 @@ constants.signinForm.addEventListener('submit', async (event) => {
 			password: form.password.value,
 		};
 	try {
-		const apiUserData = await userRequests.fetchSigninUser(constants.accessToken, formData) 
+		const apiUserData = await userRequests.fetchSigninUser(constants.accessToken, formData);
 		if (apiUserData.result) {
 			localStorage.setItem('User-name', apiUserData.user.userName);
 			localStorage.setItem('Email', apiUserData.user.email);
