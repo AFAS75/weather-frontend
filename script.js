@@ -281,11 +281,8 @@ constants.signupForm.addEventListener('submit', async (event) => {
 			confirmPassword: form.confirmPassword.value,
 		})
 	try {
-		console.log('JSON: ', formData);
 		const apiUserData = await userRequests.fetchSignUpUser(formData)
-		console.log('LA OUI: ', apiUserData);
 		if (apiUserData.result) {
-			console.log('toi tu rentre pas ici');
 			constants.showSuccessMessageSignup();
 			constants.hideSuccessMessageSignup();
 		} else if (apiUserData.error === 'Username or email address already exists') {
