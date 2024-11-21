@@ -1,10 +1,10 @@
 import constants from './constGlobal.js';
 
-const path = 'https://weather-backend-rust.vercel.app';
-// const path = 'http://localhost:3000';
+// const BASE_URL = 'https://weather-backend-rust.vercel.app';
+const BASE_URL = process.env.BASE_URL;
 
 export const fetchAddNewCity = async (cityName) => {
-    const res = await fetch(`${path}/weather/add_new_city`, {
+    const res = await fetch(`${BASE_URL}/weather/add_new_city`, {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export const fetchAddNewCity = async (cityName) => {
 };
 
 export const fetchAddCityHomePage = async (cityName) => {
-    const res = await fetch(`${path}/weather/add_city_home_page`, {
+    const res = await fetch(`${BASE_URL}/weather/add_city_home_page`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cityName }),
@@ -25,24 +25,24 @@ export const fetchAddCityHomePage = async (cityName) => {
 };
 
 export const fetchLocalTime = async (lat, lon) => {
-    const res = await fetch(`${path}/weather/local_time/${lat}/${lon}`);
+    const res = await fetch(`${BASE_URL}/weather/local_time/${lat}/${lon}`);
     return res.json();
 };
 
 export const fetchMyCitiesAdded = async () => {
-    const res = await fetch(`${path}/weather/my_cities_added`, {
+    const res = await fetch(`${BASE_URL}/weather/my_cities_added`, {
         headers: { 'Authorization': `Bearer ${constants.accessToken}` },
     });
     return res.json();
 };
 
 export const fetchHomePageDefaultCities = async () => {
-    const res = await fetch(`${path}/weather/home_page`);
+    const res = await fetch(`${BASE_URL}/weather/home_page`);
     return res.json();
 };
 
 export const fetchDeleteCity = async (cityName) => {
-    const res = await fetch(`${path}/weather/${cityName}`, { 
+    const res = await fetch(`${BASE_URL}/weather/${cityName}`, { 
         method: 'DELETE', 
         headers: { 
             'Authorization': `Bearer ${constants.accessToken}` 

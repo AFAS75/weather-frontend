@@ -1,9 +1,8 @@
-// Refresh token
-const path = 'https://weather-backend-rust.vercel.app';
-// const path = 'http://localhost:3000';
+// const BASE_URL = 'http://localhost:3000';
+const BASE_URL = process.env.BASE_URL;
 
 export const fetchRefreshToken = async (refreshToken) => {
-	const res = await fetch(`${path}/users/refresh_token`, {
+	const res = await fetch(`${BASE_URL}/users/refresh_token`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json'},
 			body: JSON.stringify({ refreshToken }),
@@ -12,7 +11,7 @@ export const fetchRefreshToken = async (refreshToken) => {
 };
 
 export const fetchSignUpUser =  async (formData) => {
-	const res = await fetch(`${path}/users/signup`, {
+	const res = await fetch(`${BASE_URL}/users/signup`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json'},
 		body: JSON.stringify(formData),
@@ -21,7 +20,7 @@ export const fetchSignUpUser =  async (formData) => {
 };
 
 export const fetchSigninUser = async (accessToken, formData) => {
-	const res = await fetch(`${path}/users/signin`, {
+	const res = await fetch(`${BASE_URL}/users/signin`, {
 		method: 'POST',
 		headers: { 
 			'Content-Type': 'application/json',
@@ -32,7 +31,7 @@ export const fetchSigninUser = async (accessToken, formData) => {
 }
 
 export const fetchChangePassword = async (accessToken, formData) => {
-	const res = await fetch(`${path}/users/change_password`, {
+	const res = await fetch(`${BASE_URL}/users/change_password`, {
 		method: 'PUT',
 		headers:  { 
 			'Content-Type': 'application/json', 
@@ -43,7 +42,7 @@ export const fetchChangePassword = async (accessToken, formData) => {
 };
 
 export const fetchForgotPassword = async (formData) => {
-	const res = await fetch(`${path}/users/forgot_password`, {
+	const res = await fetch(`${BASE_URL}/users/forgot_password`, {
 		method: 'PUT',
 		headers:  { 'Content-Type': 'application/json'},
 		body: JSON.stringify(formData)
@@ -52,7 +51,7 @@ export const fetchForgotPassword = async (formData) => {
 };
 
 export const fetchDeleteUserAccount = async (accessToken) => {
-	fetch(`${path}/users/delete_user_account`, {
+	fetch(`${BASE_URL}/users/delete_user_account`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
