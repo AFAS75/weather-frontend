@@ -1,7 +1,8 @@
 import constants from './constGlobal.js';
 
-// const BASE_URL = 'https://weather-backend-rust.vercel.app';
-const BASE_URL = process.env.BASE_URL;
+// const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://weather-backend-rust.vercel.app';
+// const BASE_URL = process.env.BASE_URL;
 
 export const fetchAddNewCity = async (cityName) => {
     const res = await fetch(`${BASE_URL}/weather/add_new_city`, {
