@@ -8,6 +8,7 @@ const constants = {
     //DOM
     cityContainer: document.querySelectorAll('.cityContainer'),
     openPopoverButton: document.getElementById('userIcon'),
+    openPopoverLoggedButton: document.getElementById('circle-userIcon-logged'),
     cityNameInput: document.getElementById('cityNameInput'),
     cityList: document.querySelector('#cityList'),
     cityListPersonalize: document.querySelector('#cityList-personalize'),

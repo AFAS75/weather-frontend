@@ -81,7 +81,7 @@ input::placeholder {
     font-size: 16px;   
 }
 
-#circl-userIcon {
+#circle-userIcon {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,18 +102,18 @@ input::placeholder {
     cursor: pointer;
 }
 
-#user-icon-logged {
+#circle-userIcon-logged {
     display: flex;
     align-items: center;
     height: 30px;
 }
 
-#icon-logged {
+#userIcon-logged {
     width: 17px;
     margin-right: 8px;
 }
 
-#userIcon:hover, #circl-userIcon:hover {
+#circle-userIcon:hover, #userIcon-logged,#circle-userIcon-logged, #userIcon-logged {
     opacity: 0.4;
 }
 

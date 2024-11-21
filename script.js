@@ -235,7 +235,7 @@ async function displayDefaultCities() {
 // Initial call to show weather forecast 
 showWeatherForecast();
 
-// How show weather forecast in both cases
+// How show title bar in both cases
 async function showWeatherForecast() {
 	if (constants.accessToken)  {
 		document.getElementById('title-home-page-bar').textContent = `My cities`;
@@ -260,7 +260,7 @@ constants.overlayHomePage.addEventListener('click', popoverHandlers.handleOverla
 // Handle the location of the popover when clicking on the icon on the home page or during a connection 
 constants.openPopoverButton.addEventListener('click', popoverHandlers.handleOpenPopoverButtonClick); 
 
-// Handle the “Account” popover of the logged in user c
+// Handle the “Account” popover of the logged in user 
 constants.overlayHomePageLogged.addEventListener('click', popoverHandlers.handleOverlayHomePageLoggedClick); 
 constants.returnChangePassword.addEventListener('click', popoverHandlers.handleReturnChangePasswordClick); 
 

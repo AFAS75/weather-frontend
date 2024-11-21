@@ -4,14 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Weather forecast site where users can save their favorite cities. Displays city name, country symbol (2 letters), dynamic local time (for logged users), weather description (a title), an image representing the weather, minimum and maximum temperature. The dominant color is blue with various shades of blue and some touches of white.">
-  <meta name="keywords" content="weather forecast, save cities, local weather, local time, weather description, weather image, temperature">
+  <meta name="description" content="Your Weather site where users can save their favorite cities. Displays city name, country symbol (2 letters), dynamic local time (for logged users), weather description (a title), an image representing the weather, minimum and maximum temperature. The dominant color is blue with various shades of blue and some touches of white.">
+  <meta name="keywords" content="Your weateher, weather forecast, save cities, local weather, local time, weather description, weather image, temperature">
   <meta name="author" content="Afas75">
   <meta property="og:title" content="Your Weather - Follow The Weather Forecast For Your Favorite Cities">
   <meta property="og:description" content="Get weather forecasts for your favorite cities with city name, country symbol, dynamic local time, weather description, an image representing the weather, and minimum and maximum temperatures.">
   <meta property="og:site_name" content="Your Weather - Follow The Weather Forecast For Your Favorite Cities">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://weather-backend-rust.vercel.app/">
+  <meta property="og:image:alt" content="Logo featuring 'YOUR WEATHER' in blue and white uppercase letters on the left, above a blue globe on a white background with the word 'weather' subtly repeated throughout.">
   <meta property="og:image" content="images/cover.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="675">
@@ -22,15 +23,15 @@
 
 <body>
   <div id='header'>
-    <img id="logo" src='images/my_logo.png'/>
+    <img id="logo" src='images/my_logo.png' alt="Logo featuring 'YOUR WEATHER' in blue and white uppercase letters on the left, above a blue globe on a white background with the word 'weather' subtly repeated throughout"/>
 
     <div class='search'>
       <input id='cityNameInput' type='text' placeholder='Add new city' />
-      <button id='addCity'><img id='glass' src='images/glass.png' /></button>
+      <button id='addCity'><img id='glass' src='images/glass.png' alt='Search icon featuring a classic magnifying glass with a transparent lens and a sleek, curved handle all in white and gray on hover, symbolizing the search function.'/></button>
     </div>
 
-    <div id="circl-userIcon">
-      <img id='userIcon' src='images/userBlackColor.png'>
+    <div id="circle-userIcon">
+      <img id='userIcon' src='images/userBlackColor.png' alt='User icon featuring a simple black silhouette of a person, representing user profiles and accounts.'>
     </div>
   </div>
 
