@@ -40,12 +40,15 @@ h3 {
 }
 
 @media (max-width: 480px) { 
-    .search { 
-        width: 46vw;
-    }  
     #header {
         padding: 25px 15px 25px 15px;
     }
+    #logo {
+        width: 85px;
+    }
+    .search { 
+        width: 46vw;
+    }  
 }
 
 #cityNameInput {
