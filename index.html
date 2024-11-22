@@ -1,368 +1,373 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your Weather site where users can save their favorite cities. Displays city name, country symbol (2 letters), dynamic local time (for logged users), weather description (a title), an image representing the weather, minimum and maximum temperature. The dominant color is blue with various shades of blue and some touches of white.">
+    <meta name="keywords" content="Your weateher, weather forecast, save cities, local weather, local time, weather description, weather image, temperature">
+    <meta name="author" content="Andrés Angulo">
+    <meta property="og:title" content="Your Weather - Follow The Weather Forecast For Your Favorite Cities">
+    <meta property="og:description" content="Get weather forecasts for your favorite cities with city name, country symbol, dynamic local time, weather description, an image representing the weather, and minimum and maximum temperatures.">
+    <meta property="og:site_name" content="Your Weather - Follow The Weather Forecast For Your Favorite Cities">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://weather-frontend-sage.vercel.app/">
+    <meta property="og:image" content="https://raw.githubusercontent.com/AFAS75/weather-frontend/refs/heads/main/images/cover.png">
+    <meta property="og:image:alt" content="Logo featuring 'YOUR WEATHER' in blue and white uppercase letters on the left, above a blue globe on a white background with the word 'weather' subtly repeated throughout.">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <link rel="icon" href="./images/my_logo.ico" type="image/x-icon">
+    <link rel='stylesheet' href='style.css' />
+    <title>Your Weather - Follow The Weather Forecast For Your Favorite Cities</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Your Weather site where users can save their favorite cities. Displays city name, country symbol (2 letters), dynamic local time (for logged users), weather description (a title), an image representing the weather, minimum and maximum temperature. The dominant color is blue with various shades of blue and some touches of white.">
-  <meta name="keywords" content="Your weateher, weather forecast, save cities, local weather, local time, weather description, weather image, temperature">
-  <meta name="author" content="Afas75">
-  <meta property="og:title" content="Your Weather - Follow The Weather Forecast For Your Favorite Cities">
-  <meta property="og:description" content="Get weather forecasts for your favorite cities with city name, country symbol, dynamic local time, weather description, an image representing the weather, and minimum and maximum temperatures.">
-  <meta property="og:site_name" content="Your Weather - Follow The Weather Forecast For Your Favorite Cities">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://weather-backend-rust.vercel.app/">
-  <meta property="og:image" content="./images/cover.png">
-  <meta property="og:image:alt" content="Logo featuring 'YOUR WEATHER' in blue and white uppercase letters on the left, above a blue globe on a white background with the word 'weather' subtly repeated throughout.">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="675">
-  <link rel="icon" href="./images/my_logo.ico" type="image/x-icon">
-  <link rel='stylesheet' href='style.css' />
-  <title>Your Weather - Follow The Weather Forecast For Your Favorite Cities</title>
-</head>
-
-<body>
-  <div id='header'>
-    <img id="logo" src='images/my_logo.png' alt="Logo featuring 'YOUR WEATHER' in blue and white uppercase letters on the left, above a blue globe on a white background with the word 'weather' subtly repeated throughout"/>
-
-    <div class='search'>
-      <input id='cityNameInput' type='text' placeholder='Add new city' />
-      <button id='addCity'><img id='glass' src='images/glass.png' alt='Search icon featuring a classic magnifying glass with a transparent lens and a sleek, curved handle all in white and gray on hover, symbolizing the search function.'/></button>
-    </div>
-
-    <div id="circle-userIcon">
-      <img id='userIcon' src='images/userBlackColor.png' alt='User icon featuring a simple white silhouette with black borders of a person, representing user profiles and accounts.'>
-    </div>
-  </div>
-
-  <div id='list-containter'>
-    <div id='title-personalize'>
-      <div id='title-personalize-bar'>
-        <p>My cities</p>
-        <p id='text-title-personalize-bar'><i>(log in to save your favorite cities)</i></p>
-      </div>
-      <div id='cityList-personalize'></div>
-    </div>
-    <div id='title-home-page'>
-      <p id='title-home-page-bar'>Default cities</p>
-      <div id='cityList'>
-        <div id='message-user-home-page' class='hidden'>
-          Personalize the weather forecast for your favorite cities by adding a new city now !</div>
-      </div>
-    </div>
-  </div>
-
-  <div id='overlay-home-page'>
-    <div id='popover-home-page'>
-      <div id='error' class='hidden'>
-        <h2>City already exists or not found ...</h2>
-        <p>Please verify and try again.</p>
-      </div>
-      <div id='session-timeout' class='hidden'> 
-        <h2>Session Expired</h2> 
-        <p>Your session has been inactive for too long.</p> 
-        <p>Please log in again to continue.</p> 
-      </div>
-      <div id='deleted-account' class='hidden'> 
-        <h2>User Account Deleted</h2> 
-        <p>We're sorry to see you go. All your personal data has been permanently erased.</p> 
-        <p>We hope to see you again in the future.</p>
-      </div>
-    </div>
-  </div>
-
-  <div id='overlay-home-page-logged'>
-    <div id='popover-home-page'>
-      <div id='change-password' class='hidden'>
-        <h3>Change password</h3>
-        <hr class='hr'>
-        <form id='change-password-form'>
-          <div class='container-form'> 
-            <div class='input-group'>
-              <label class='place-holder-container'>
-                <div id='place-holder'>
-                  Username* :
-                </div>
-                <input class='button-form' type='text' name='userName' autocomplete='username' required>
-              </label>
-            </div>
-            <div class='input-group'>
-              <label class='place-holder-container'>
-                <div id='place-holder'>
-                  Email address* :
-                </div>
-                <input class='button-form' type='email' name='email' autocomplete='email' required>
-              </label>
-            </div>
-            <div class='input-group'>
-              <label class='place-holder-container'>
-                <div id='place-holder'>
-                  Current password* :
-                </div>
-                <input class='button-form' type='password' name='currentPassword' autocomplete='current-password' required>
-              </label>
-            </div>
-            <div class='input-group'>
-              <label class='place-holder-container'>
-                <div id='place-holder'>
-                  New password* :
-                </div>
-                <input class='button-form' type='password' name='newPassword' autocomplete='new-password' required>
-              </label>
-            </div>
-            <div class='input-group'>
-              <label class='place-holder-container'>
-                <div id='place-holder'>
-                  Confirm password* :
-                </div>
-                <input class='button-form' type='password' name='confirmPassword' autocomplete='new-password' required>
-              </label>
-            </div>
-          </div>
-            <div class='container-button-form'>
-              <button id='return-change-password' type='button'>Back</button>
-              <button id='submit-change-password' type='submit'>Submit</button>
-            </div>
-        </form>
-      </div>
-    </div>
-    <div id='success-change-password' class='hidden'>
-      <h2>Password Change Successful !</h2>
-      <p>Your password has been successfully updated.</p>
-      <p>You can now log in with your new password to access your account.</p>
-    </div>
-    <div id='error1-change-password' class='hidden'>
-      <h2>User not found or incorrect password ...</h2>
-      <p>Please verify your information and try again.</p>
-      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
-    </div>
-    <div id='error2-change-password' class='hidden'>
-      <h2>Password mismatch ...</h2>
-      <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
-      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
-    </div>
-  </div>
-
-  <div id='overlay-logged'>
-    <div id='popover-logged'>
-      <div id='user'>
-        <div id='user-title-container'>
-          <img id='userIcon-logged' src='images/userFullBlackColor.png' alt='User icon featuring a simple black silhouette of a person, representing user profiles and accounts.'/>
-          <h3><i>ACCOUNT</i></h3>
+  <body>
+    <header role="banner">
+      <div id='header'>
+        <img id="logo" src='images/my_logo.png' alt="Logo featuring 'YOUR WEATHER' in blue and white uppercase letters on the left, above a blue globe on a white background with the word 'weather' subtly repeated throughout"/>
+  
+        <div class='search'>
+          <input id='cityNameInput' type='text' placeholder='Add new city' />
+          <button id='addCity'><img id='glass' src='images/glass.png' alt='Search icon featuring a classic magnifying glass with a transparent lens and a sleek, curved handle all in white and gray on hover, symbolizing the search function.'/></button>
         </div>
-        <p id='username'></p>
-        <p id='email'></p>
-      </div>
-      <hr class='hr'>
-      <button id='button-change-password'>Change Password</button>
-      <button id='button-logout'>Log out</button>
-      <button id='button-delete-account'>Delete your account</button>
-      <p id='question-delete-account'>Are you sure ?</p>
-      <div id='delete-user-container-button' class='hidden'>
-        <button id='back-delete-user'>Back</button>
-        <button id='yes-delete-user'>Yes</button>
-      </div>
-    </div>
-  </div>
-
-  <div id='overlay-signup-signin'>
-    <div id='popover-signup-signin'>
-      <div id='initial-container'>
-        <p>Create an account or sign in to save and to keep <br> your the weather in your favorite cities</p>
-        <div id="vertical-line"></div>
-        <div id='initial-buttons'>
-          <button id='button-signup'>Sign Up</button>
-          <p id='p'>or</p>
-          <button id='button-signin'>Sign In</button>
+  
+        <div id="circle-userIcon">
+          <img id='userIcon' src='images/userBlackColor.png' alt='User icon featuring a simple white silhouette with black borders of a person, representing user profiles and accounts.'>
         </div>
       </div>
-      <div id='signup' class='hidden'>
-        <h3>Create an account</h3>
-        <hr class='hr'>
-          <form id='signup-form'>
-            <div class='container-form'> 
-              <div class='input-group'>
-                <label class='place-holder-container'>
-                  <div id='place-holder'>
-                    Username* :
-                  </div>
-                  <input class='button-form' type='text' name='userName' autocomplete='username' required>
-                </label>
-              </div>
-              <div class='input-group'>
-                <label class='place-holder-container'>
-                  <div id='place-holder'>
-                    Email address* :
-                  </div>
-                  <input class='button-form' type='email' name='email' autocomplete='email' required>
-                </label>
-              </div>
-              <div class='input-group'>
-                <label class='place-holder-container'>
-                  <div id='place-holder'>
-                    Password* :
-                  </div>
-                  <input class='button-form' type='password' name='password' autocomplete='new-password' required>
-                </label>
-              </div>
-              <div class='input-group'>
-                <label class='place-holder-container'>
-                  <div id='place-holder'>
-                    Confirm password* :
-                  </div>
-                  <input class='button-form' type='password' name='confirmPassword' autocomplete='new-password' required>
-                </label>
-              </div>
-            </div>
-              <div class='container-button-form'>
-                <button id='return-signup' type='button'>Back</button>
-                <button id='submit-signup' type='submit'>Submit</button>
-              </div>
-          </form>
+    </header>
+
+    <main role="main">
+      <div id='list-containter'>
+        <div id='title-personalize'>
+          <div id='title-personalize-bar'>
+            <p>My cities</p>
+            <p id='text-title-personalize-bar'><i>(log in to save your favorite cities)</i></p>
+          </div>
+          <div id='cityList-personalize'></div>
+        </div>
+        <div id='title-home-page'>
+          <p id='title-home-page-bar'>Default cities</p>
+          <div id='cityList'>
+            <div id='message-user-home-page' class='hidden'>
+              Personalize the weather forecast for your favorite cities by adding a new city now !</div>
+          </div>
+        </div>
       </div>
-      <div id='signin' class='hidden'>
-        <h3>Log in</h3>
-        <hr class='hr'>
-          <form id='signin-form'>
-            <div class='container-form'>
-              <div class='input-group'>
-                <label class='place-holder-container'>
-                  <div id='place-holder'>
-                    Username or email address* :
-                  </div>
-                  <input class='button-form' type='text' name='infos' autocomplete='infos'>
-                </label>
-              </div>
-              <div class='input-group'>
-                <label class='place-holder-container'>
-                  <div id='place-holder'>
-                    Password* :
-                  </div>
-                  <input class='button-form' type='password' name='password' autocomplete='current-password' required>
-                </label>
-              </div>
-              <button id='forgot-password-button' type='button'>You forgot your password ?</button>
-            </div>
-            <div class='container-button-form'>
-              <button id='return-signin' type='button'>Back</button>
-              <button id='submit-signin' type='submit'>Submit</button>
-            </div>
-          </form>
+  
+      <div id='overlay-home-page'>
+        <div id='popover-home-page'>
+          <div id='error' class='hidden'>
+            <h2>City already exists or not found ...</h2>
+            <p>Please verify and try again.</p>
+          </div>
+          <div id='session-timeout' class='hidden'> 
+            <h2>Session Expired</h2> 
+            <p>Your session has been inactive for too long.</p> 
+            <p>Please log in again to continue.</p> 
+          </div>
+          <div id='deleted-account' class='hidden'> 
+            <h2>User Account Deleted</h2> 
+            <p>We're sorry to see you go. All your personal data has been permanently erased.</p> 
+            <p>We hope to see you again in the future.</p>
+          </div>
+        </div>
       </div>
-      <div id='forgot-password' class='hidden'>
-        <h3>Forgot password</h3>
-        <hr class='hr'>
-        <form id='forgot-password-form'>
-          <div class='container-form'> 
-            <div class='input-group'>
-              <label class='place-holder-container'>
-                <div id='place-holder'>
-                  Username* :
+  
+      <div id='overlay-home-page-logged'>
+        <div id='popover-home-page'>
+          <div id='change-password' class='hidden'>
+            <h3>Change password</h3>
+            <hr class='hr'>
+            <form id='change-password-form'>
+              <div class='container-form'> 
+                <div class='input-group'>
+                  <label class='place-holder-container'>
+                    <div id='place-holder'>
+                      Username* :
+                    </div>
+                    <input class='button-form' type='text' name='userName' autocomplete='username' required>
+                  </label>
                 </div>
-                <input class='button-form' type='text' name='userName' autocomplete='username' required>
-              </label>
-            </div>
-            <div class='input-group'>
-              <label class='place-holder-container'>
-                <div id='place-holder'>
-                  Email address* :
+                <div class='input-group'>
+                  <label class='place-holder-container'>
+                    <div id='place-holder'>
+                      Email address* :
+                    </div>
+                    <input class='button-form' type='email' name='email' autocomplete='email' required>
+                  </label>
                 </div>
-                <input class='button-form' type='email' name='email' autocomplete='email' required>
-              </label>
-            </div>
-            <div class='input-group'>
-              <label class='place-holder-container'>
-                <div id='place-holder'>
-                  New password* :
+                <div class='input-group'>
+                  <label class='place-holder-container'>
+                    <div id='place-holder'>
+                      Current password* :
+                    </div>
+                    <input class='button-form' type='password' name='currentPassword' autocomplete='current-password' required>
+                  </label>
                 </div>
-                <input class='button-form' type='password' name='password' autocomplete='new-password' required>
-              </label>
-            </div>
-            <div class='input-group'>
-              <label class='place-holder-container'>
-                <div id='place-holder'>
-                  Confirm password* :
+                <div class='input-group'>
+                  <label class='place-holder-container'>
+                    <div id='place-holder'>
+                      New password* :
+                    </div>
+                    <input class='button-form' type='password' name='newPassword' autocomplete='new-password' required>
+                  </label>
                 </div>
-                <input class='button-form' type='password' name='againPassword' autocomplete='new-password' required>
-              </label>
+                <div class='input-group'>
+                  <label class='place-holder-container'>
+                    <div id='place-holder'>
+                      Confirm password* :
+                    </div>
+                    <input class='button-form' type='password' name='confirmPassword' autocomplete='new-password' required>
+                  </label>
+                </div>
+              </div>
+                <div class='container-button-form'>
+                  <button id='return-change-password' type='button'>Back</button>
+                  <button id='submit-change-password' type='submit'>Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+        <div id='success-change-password' class='hidden'>
+          <h2>Password Change Successful !</h2>
+          <p>Your password has been successfully updated.</p>
+          <p>You can now log in with your new password to access your account.</p>
+        </div>
+        <div id='error1-change-password' class='hidden'>
+          <h2>User not found or incorrect password ...</h2>
+          <p>Please verify your information and try again.</p>
+          <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+        </div>
+        <div id='error2-change-password' class='hidden'>
+          <h2>Password mismatch ...</h2>
+          <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
+          <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+        </div>
+      </div>
+  
+      <div id='overlay-logged'>
+        <div id='popover-logged'>
+          <div id='user'>
+            <div id='user-title-container'>
+              <img id='userIcon-logged' src='images/userFullBlackColor.png' alt='User icon featuring a simple black silhouette of a person, representing user profiles and accounts.'/>
+              <h3><i>ACCOUNT</i></h3>
             </div>
-            <div class='container-button-form'>
-              <button id='return-forgot-password' type='button'>Back</button>
-              <button id='submit-forgot-password' type='submit'>Submit</button>
+            <p id='username'></p>
+            <p id='email'></p>
+          </div>
+          <hr class='hr'>
+          <button id='button-change-password'>Change Password</button>
+          <button id='button-logout'>Log out</button>
+          <button id='button-delete-account'>Delete your account</button>
+          <p id='question-delete-account'>Are you sure ?</p>
+          <div id='delete-user-container-button' class='hidden'>
+            <button id='back-delete-user'>Back</button>
+            <button id='yes-delete-user'>Yes</button>
+          </div>
+        </div>
+      </div>
+  
+      <div id='overlay-signup-signin'>
+        <div id='popover-signup-signin'>
+          <div id='initial-container'>
+            <p>Create an account or sign in to save and to keep <br> your the weather in your favorite cities</p>
+            <div id="vertical-line"></div>
+            <div id='initial-buttons'>
+              <button id='button-signup'>Sign Up</button>
+              <p id='p'>or</p>
+              <button id='button-signin'>Sign In</button>
             </div>
           </div>
-        </form>
+          <div id='signup' class='hidden'>
+            <h3>Create an account</h3>
+            <hr class='hr'>
+              <form id='signup-form'>
+                <div class='container-form'> 
+                  <div class='input-group'>
+                    <label class='place-holder-container'>
+                      <div id='place-holder'>
+                        Username* :
+                      </div>
+                      <input class='button-form' type='text' name='userName' autocomplete='username' required>
+                    </label>
+                  </div>
+                  <div class='input-group'>
+                    <label class='place-holder-container'>
+                      <div id='place-holder'>
+                        Email address* :
+                      </div>
+                      <input class='button-form' type='email' name='email' autocomplete='email' required>
+                    </label>
+                  </div>
+                  <div class='input-group'>
+                    <label class='place-holder-container'>
+                      <div id='place-holder'>
+                        Password* :
+                      </div>
+                      <input class='button-form' type='password' name='password' autocomplete='new-password' required>
+                    </label>
+                  </div>
+                  <div class='input-group'>
+                    <label class='place-holder-container'>
+                      <div id='place-holder'>
+                        Confirm password* :
+                      </div>
+                      <input class='button-form' type='password' name='confirmPassword' autocomplete='new-password' required>
+                    </label>
+                  </div>
+                </div>
+                  <div class='container-button-form'>
+                    <button id='return-signup' type='button'>Back</button>
+                    <button id='submit-signup' type='submit'>Submit</button>
+                  </div>
+              </form>
+          </div>
+          <div id='signin' class='hidden'>
+            <h3>Log in</h3>
+            <hr class='hr'>
+              <form id='signin-form'>
+                <div class='container-form'>
+                  <div class='input-group'>
+                    <label class='place-holder-container'>
+                      <div id='place-holder'>
+                        Username or email address* :
+                      </div>
+                      <input class='button-form' type='text' name='infos' autocomplete='infos'>
+                    </label>
+                  </div>
+                  <div class='input-group'>
+                    <label class='place-holder-container'>
+                      <div id='place-holder'>
+                        Password* :
+                      </div>
+                      <input class='button-form' type='password' name='password' autocomplete='current-password' required>
+                    </label>
+                  </div>
+                  <button id='forgot-password-button' type='button'>You forgot your password ?</button>
+                </div>
+                <div class='container-button-form'>
+                  <button id='return-signin' type='button'>Back</button>
+                  <button id='submit-signin' type='submit'>Submit</button>
+                </div>
+              </form>
+          </div>
+          <div id='forgot-password' class='hidden'>
+            <h3>Forgot password</h3>
+            <hr class='hr'>
+            <form id='forgot-password-form'>
+              <div class='container-form'> 
+                <div class='input-group'>
+                  <label class='place-holder-container'>
+                    <div id='place-holder'>
+                      Username* :
+                    </div>
+                    <input class='button-form' type='text' name='userName' autocomplete='username' required>
+                  </label>
+                </div>
+                <div class='input-group'>
+                  <label class='place-holder-container'>
+                    <div id='place-holder'>
+                      Email address* :
+                    </div>
+                    <input class='button-form' type='email' name='email' autocomplete='email' required>
+                  </label>
+                </div>
+                <div class='input-group'>
+                  <label class='place-holder-container'>
+                    <div id='place-holder'>
+                      New password* :
+                    </div>
+                    <input class='button-form' type='password' name='password' autocomplete='new-password' required>
+                  </label>
+                </div>
+                <div class='input-group'>
+                  <label class='place-holder-container'>
+                    <div id='place-holder'>
+                      Confirm password* :
+                    </div>
+                    <input class='button-form' type='password' name='againPassword' autocomplete='new-password' required>
+                  </label>
+                </div>
+                <div class='container-button-form'>
+                  <button id='return-forgot-password' type='button'>Back</button>
+                  <button id='submit-forgot-password' type='submit'>Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div id='success-signup' class='hidden'>
+          <h2>Registration successful, thank you !</h2>
+          <p>Before you can log in, please verify your email address by clicking the link that has just been sent to you. This link will expire in 15 minutes.</p>
+          <p>In case you don't see the email, please check your spam folder</p>
+        </div>
+        <div id='error1-signup' class='hidden'>
+          <h2>Sorry, registration failed ...</h2>
+          <p>The username or email address already exists, or the email address has not yet been verified.</p>
+          <p>Please try again.</p>
+          <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+        </div>
+        <div id='error2-signup' class='hidden'>
+          <h2>Password mismatch ...</h2>
+          <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
+          <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+        </div>
+        <div id='success-signin' class='hidden'>
+          <h2></h2>
+        </div>
+        <div id='error0-signin' class='hidden'>
+          <h2>Sorry, log in failed ...</h2>
+          <p>At least one of the fields is empty. All fields are required to log in.</p>
+          <p>Please fill in all the fields and try again.</p>
+        </div>
+        <div id='error1-signin' class='hidden'>
+          <h2>Your email address has not been verified yet!</h2>
+          <p>Please check your inbox and click on the verification link to activate your account.</p>
+          <p>If you don't see the email, please check your spam folder.</p>
+          <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+        </div>
+        <div id='error2-signin' class='hidden'>
+          <h2>User not found or incorrect password ...</h2>
+          <p>Please verify your information and try again.</p>
+          <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+        </div>
+        <div id='error3-signin' class='hidden'>
+          <h2>Already logged in 😃</h2>
+        </div>
+        <div id='error4-signin' class='hidden'>
+          <h2>Your recent password change request has not been validated yet!</h2>
+          <p>The new password has not yet been confirmed.</p> 
+          <p>Please check your inbox and click on the link to confirm your recent password change request.</p>
+          <p>If you don't see the email, please check your spam folder.</p>
+          <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+        </div>
+        <div id='success-update-password' class='hidden'>
+          <h2>Confirm your request password change !</h2>
+          <p>To confirm this change, please click the link in the email that has just been sent to you.  This link will expire in 15 minutes.</p>
+          <p>After confirming, please log in with de the new password to access your account.</p>
+        </div>
+        <div id='error1-update-password' class='hidden'>
+          <h2> Password change request failed ...</h2>
+          <p>Your password change request could not be processed because the recent request for a new password has not yet been confirmed.</p> 
+          <p>Please check your inbox and click on the confirmation link to confirm your recent password change request.</p>
+          <p>If you don't see the email, please check your spam folder.</p>
+          <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+        </div>
+        <div id='error2-update-password' class='hidden'>
+          <h2>User not found ...</h2>
+          <p>Please verify your information and try again.</p>
+          <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+        </div>
+        <div id='error3-update-password' class='hidden'>
+          <h2>Password mismatch ...</h2>
+          <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
+          <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
+        </div>
       </div>
-    </div>
-    <div id='success-signup' class='hidden'>
-      <h2>Registration successful, thank you !</h2>
-      <p>Before you can log in, please verify your email address by clicking the link that has just been sent to you. This link will expire in 15 minutes.</p>
-      <p>In case you don't see the email, please check your spam folder</p>
-    </div>
-    <div id='error1-signup' class='hidden'>
-      <h2>Sorry, registration failed ...</h2>
-      <p>The username or email address already exists, or the email address has not yet been verified.</p>
-      <p>Please try again.</p>
-      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
-    </div>
-    <div id='error2-signup' class='hidden'>
-      <h2>Password mismatch ...</h2>
-      <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
-      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
-    </div>
-    <div id='success-signin' class='hidden'>
-      <h2></h2>
-    </div>
-    <div id='error0-signin' class='hidden'>
-      <h2>Sorry, log in failed ...</h2>
-      <p>At least one of the fields is empty. All fields are required to log in.</p>
-      <p>Please fill in all the fields and try again.</p>
-    </div>
-    <div id='error1-signin' class='hidden'>
-      <h2>Your email address has not been verified yet!</h2>
-      <p>Please check your inbox and click on the verification link to activate your account.</p>
-      <p>If you don't see the email, please check your spam folder.</p>
-      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
-    </div>
-    <div id='error2-signin' class='hidden'>
-      <h2>User not found or incorrect password ...</h2>
-      <p>Please verify your information and try again.</p>
-      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
-    </div>
-    <div id='error3-signin' class='hidden'>
-      <h2>Already logged in 😃</h2>
-    </div>
-    <div id='error4-signin' class='hidden'>
-      <h2>Your recent password change request has not been validated yet!</h2>
-      <p>The new password has not yet been confirmed.</p> 
-      <p>Please check your inbox and click on the link to confirm your recent password change request.</p>
-      <p>If you don't see the email, please check your spam folder.</p>
-      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
-    </div>
-    <div id='success-update-password' class='hidden'>
-      <h2>Confirm your request password change !</h2>
-      <p>To confirm this change, please click the link in the email that has just been sent to you.  This link will expire in 15 minutes.</p>
-      <p>After confirming, please log in with de the new password to access your account.</p>
-    </div>
-    <div id='error1-update-password' class='hidden'>
-      <h2> Password change request failed ...</h2>
-      <p>Your password change request could not be processed because the recent request for a new password has not yet been confirmed.</p> 
-      <p>Please check your inbox and click on the confirmation link to confirm your recent password change request.</p>
-      <p>If you don't see the email, please check your spam folder.</p>
-      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
-    </div>
-    <div id='error2-update-password' class='hidden'>
-      <h2>User not found ...</h2>
-      <p>Please verify your information and try again.</p>
-      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
-    </div>
-    <div id='error3-update-password' class='hidden'>
-      <h2>Password mismatch ...</h2>
-      <p>The new password and the confirm password do not match. Please verify your information and try again.</p>
-      <p>If you have any questions, please contact us at <a href='mailto:info@weather.com'>info@weather.com</a>.<br> We're here to help.</p>
-    </div>
-  </div>
-  <script type='module' src='script.js'></script>
-</body>
-
+    </main>
+    <footer role="contentinfo"> 
+      <p>&copy; 2024 Your Weather. All rights reserved. | by Andrés Angulo</p> 
+    </footer>
+    <script type='module' src='script.js'></script>
+  </body>
 </html>

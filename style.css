@@ -394,7 +394,7 @@ input::placeholder {
     justify-content: center;
     align-items: center;
     height: 20px;
-    background-color: #7e7f81;
+    background-color: #58595A;
     margin: 15px;
     padding: 15px;
     border-radius: 40px;
@@ -735,46 +735,23 @@ input::placeholder {
     border-radius: 20px;
 }
 
-/* @media (max-width: 480px) { 
-    #header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 6vh;
-        padding: 25px 20px 25px 20px;
-        color: white;
-        background-color: #0b314e;
-    }
+footer { 
+    background-color: #0b314e; 
+    color: white; 
+    text-align: center; 
+    padding: 20px 0; 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); 
+} 
+    
+footer p { 
+    margin: 0; 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 14px; 
+} 
 
-    #logo { 
-        width: 20.8vw; 
-    } 
-
-    .search {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #cityNameInput {
-        height: 40px;
-        border-radius: 30px;
-        background-color: rgba(255, 255, 255, 0.3);
-        color: white;
-        border: none;
-        padding-left: 25px;
-        font-size: 16px;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
-
-    #circle-userIcon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: white;
-        width: 60px;
-        height: 60px;
-        border-radius: 100%;
-        box-shadow: 0 4px 10px rgb(0, 0, 0, 0.26);
-    }
-} */
+footer p:hover { 
+    color: #2ecc71; 
+    transition: color 0.3s;
+}

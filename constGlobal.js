@@ -67,11 +67,11 @@ const constants = {
                 <p class="name">${cityName}</p> 
                 <p class="country">(${homepagedata.sys.country})</p>
                 <p class="description">${homepagedata.weather[0].main}</p> 
-                <img class="weatherIcon" src="images/${homepagedata.weather[0].main}.png"/> 
+                <img class="weatherIcon" src="images/${homepagedata.weather[0].main}.png" alt="Weather forecast: $={${homepagedata.weather[0].main}}"/> 
                 <div class="temperature"> 
-                    <p class="tempMin">${homepagedata.main.temp_min}°C</p> 
+                    <p class="tempMin">${Math.round(homepagedata.main.temp_min)}°C</p> 
                     <span>-</span> 
-                    <p class="tempMax">${homepagedata.main.temp_max}°C</p> 
+                    <p class="tempMax">${Math.round(homepagedata.main.temp_max)}°C</p> 
                 </div> 
             </div> 
         `;
@@ -83,11 +83,11 @@ const constants = {
 	    		<p class="country">(${city.sys.country})</p>				
 	    		<p class="currentTime" id="time-${cityName}">${currentTime.toLocaleTimeString()}</p>
 	    		<p class="description">${city.weather[0].main}</p>
-	    		<img class="weatherIcon" src="images/${city.weather[0].main}.png"/>
+	    		<img class="weatherIcon" src="images/${city.weather[0].main}.png" alt="Weather forecast: ${homepagedata.weather[0].main}"/>
 	    		<div class="temperature">
-	    			<p class="tempMin">${city.main.temp_min}°C</p>
+	    			<p class="tempMin">${Math.round(city.main.temp_min)}°C</p>
 	    			<span>-</span>
-	    			<p class="tempMax">${city.main.temp_max}°C</p>
+	    			<p class="tempMax">${Math.round(city.main.temp_max)}°C</p>
 	    		</div>
 	    	</div>
 	    `;
@@ -99,11 +99,11 @@ const constants = {
 				<p class="country">(${city.sys.country})</p> 
 				<p class="currentTime" id="time-${i}">Loading...</p> <!-- Placeholder for time --> 
 				<p class="description">${city.weather[0].main}</p> 
-				<img class="weatherIcon" src="images/${city.weather[0].main}.png"/> 
+				<img class="weatherIcon" src="images/${city.weather[0].main}.png" alt="Weather forecast: ${homepagedata.weather[0].main}"/> 
 				<div class="temperature"> 
-					<p class="tempMin">${city.main.temp_min}°C</p> 
+					<p class="tempMin">${Math.round(city.main.temp_min)}°C</p> 
 					<span>-</span> 
-					<p class="tempMax">${city.main.temp_max}°C</p> 
+					<p class="tempMax">${Math.round(city.main.temp_max)}°C</p> 
 				</div> 
 				<button class="deleteCity" id="${cityName}">Delete</button> 
 			</div>
