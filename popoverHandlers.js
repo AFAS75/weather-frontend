@@ -92,7 +92,7 @@ export const handleOpenPopoverButtonClick = (event) => {
         constants.overlaySignupSingnin.style.display = 'flex';
         setTimeout(() => {
             constants.initialContainer.classList.add('show-account');
-            constants.popoverSignupSingnin.style.width = '340px';
+            constants.popoverSignupSingnin.style.width = '380px';
         }, 10);
     }
 };
