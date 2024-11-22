@@ -439,7 +439,7 @@ input::placeholder {
 #popover-signup-signin {
     display: flex;
     justify-content: center;
-    width: 63%;
+    width: 33%;
     background-color: white;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -756,7 +756,7 @@ footer p {
         width: 46vw;
     }  
     #popover-signup-signin {
-        width: 33%;
+        width: 63%;
     }
     footer p { 
         font-size: 12px; 
