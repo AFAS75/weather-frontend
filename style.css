@@ -300,6 +300,7 @@ input::placeholder {
     align-items: center;
     flex-wrap: wrap;
     width: 100vw;
+    padding-bottom: 60px;
 }
 
 #cityList-personalize {
@@ -368,7 +369,7 @@ input::placeholder {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 250px;
+    width: 200px;
     font-size: 18px;
     color: #1A4DE4;
     font-weight: bold;

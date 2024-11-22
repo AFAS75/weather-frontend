@@ -83,7 +83,7 @@ const constants = {
 	    		<p class="country">(${city.sys.country})</p>				
 	    		<p class="currentTime" id="time-${cityName}">${currentTime.toLocaleTimeString()}</p>
 	    		<p class="description">${city.weather[0].main}</p>
-	    		<img class="weatherIcon" src="images/${city.weather[0].main}.png" alt="Weather forecast: ${homepagedata.weather[0].main}"/>
+	    		<img class="weatherIcon" src="images/${city.weather[0].main}.png" alt="Weather forecast: ${city.weather[0].main}"/>
 	    		<div class="temperature">
 	    			<p class="tempMin">${Math.round(city.main.temp_min)}°C</p>
 	    			<span>-</span>
@@ -99,7 +99,7 @@ const constants = {
 				<p class="country">(${city.sys.country})</p> 
 				<p class="currentTime" id="time-${i}">Loading...</p> <!-- Placeholder for time --> 
 				<p class="description">${city.weather[0].main}</p> 
-				<img class="weatherIcon" src="images/${city.weather[0].main}.png" alt="Weather forecast: ${homepagedata.weather[0].main}"/> 
+				<img class="weatherIcon" src="images/${city.weather[0].main}.png" alt="Weather forecast: ${city.weather[0].main}"/> 
 				<div class="temperature"> 
 					<p class="tempMin">${Math.round(city.main.temp_min)}°C</p> 
 					<span>-</span> 
