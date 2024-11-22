@@ -37,7 +37,11 @@ export const handleReturnSignupButtonClick = () => {
     constants.initialContainer.style.display = 'flex';
     constants.initialContainer.classList.remove('hidden');
     constants.initialContainer.classList.add('show-account');
-    constants.popoverSignupSingnin.style.width = '380px';
+    if (window.innerWidth > 385) {
+        constants.popoverSignupSingnin.style.width = '380px';
+    } else {
+        constants.popoverSignupSingnin.style.width = '340px';
+    }
     hideAllMessages();
     resetForms();
 };
@@ -48,7 +52,11 @@ export const handleReturnSigninButtonClick = () => {
     constants.initialContainer.style.display = 'flex';
     constants.initialContainer.classList.remove('hidden');
     constants.initialContainer.classList.add('show-account');
-    constants.popoverSignupSingnin.style.width = '380px';
+    if (window.innerWidth > 385) {
+        constants.popoverSignupSingnin.style.width = '380px';
+    } else {
+        constants.popoverSignupSingnin.style.width = '380px';
+    }
     hideAllMessages();
     resetForms();
 };
