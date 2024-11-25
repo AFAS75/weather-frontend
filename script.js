@@ -41,6 +41,20 @@ const showError = () => {
 	}, 3000);
 };
 
+// Display or hide password when user click on icon 
+document.addEventListener('DOMContentLoaded', () => {
+	const displayPasswordIcon = document.querySelectorAll('.toggle-password-icon')
+	displayPasswordIcon.forEach(icon => {
+		icon.addEventListener('click', () => {
+			const labelContainer = icon.previousElementSibling;
+			const passwordInput = labelContainer.querySelector('.button-form-password');
+			const typeInput = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+			passwordInput.setAttribute('type', typeInput);
+			icon.className = typeInput === 'password' ? 'toggle-password-icon fas fa-eye' : 'toggle-password-icon fas fa-eye-slash';
+		});
+	});
+});
+
 // handle add city
 const addCity = async (cityName) => {
 	if (constants.accessToken) {

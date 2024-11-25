@@ -18,6 +18,8 @@ const constants = {
     overlayLogged: document.getElementById('overlay-logged'),
     popoverLogged: document.getElementById('popover-logged'),
     initialContainer: document.getElementById('initial-container'),
+    displayPasswordIcon: document.querySelector('.toggle-password-icon'),
+    passwordInput: document.querySelector('.button-form-password'),
     signup: document.getElementById('signup'),
     signin: document.getElementById('signin'),
     signupButton: document.getElementById('button-signup'),
