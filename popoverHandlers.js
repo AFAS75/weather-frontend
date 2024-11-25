@@ -55,7 +55,7 @@ export const handleReturnSigninButtonClick = () => {
     if (window.innerWidth > 385) {
         constants.popoverSignupSingnin.style.width = '380px';
     } else {
-        constants.popoverSignupSingnin.style.width = '380px';
+        constants.popoverSignupSingnin.style.width = '340px';
     }
     hideAllMessages();
     resetForms();
